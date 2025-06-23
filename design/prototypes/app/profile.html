@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #121212;
+            color: #EAEAEA;
+        }
+        .profile-card {
+            background-color: #1E1E1E;
+        }
+        .menu-item {
+            background-color: #1E1E1E;
+            transition: background-color 0.2s;
+        }
+        .menu-item:active {
+            background-color: #2d2d2d;
+        }
+    </style>
+</head>
+<body class="flex flex-col h-screen">
+
+    <!-- Header -->
+    <header class="p-4 pt-12 bg-gray-900/80 backdrop-blur-md sticky top-0 z-10">
+        <h1 class="text-lg font-semibold text-center">我的</h1>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-grow p-4 overflow-y-auto">
+        <!-- Profile Card -->
+        <div class="profile-card rounded-xl p-4 flex items-center">
+            <!-- Image from Unsplash -->
+            <img class="h-16 w-16 rounded-full object-cover" src="https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="User avatar">
+            <div class="ml-4">
+                <p class="text-xl font-bold">张三</p>
+                <p class="text-sm text-gray-400 mt-1">家庭共享账本</p>
+            </div>
+            <button class="ml-auto text-gray-500">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+        </div>
+
+        <!-- Menu List 1 -->
+        <div class="mt-6 rounded-xl overflow-hidden">
+            <a href="settings/account-and-security.html" class="menu-item p-4 flex items-center border-b border-gray-800">
+                <i class="fas fa-shield-alt text-green-400 w-6 text-center"></i>
+                <span class="ml-4">账户与安全</span>
+                <i class="fas fa-chevron-right text-gray-500 ml-auto"></i>
+            </a>
+            <a href="settings/notifications.html" class="menu-item p-4 flex items-center border-b border-gray-800">
+                <i class="fas fa-bell text-blue-400 w-6 text-center"></i>
+                <span class="ml-4">消息通知</span>
+                <i class="fas fa-chevron-right text-gray-500 ml-auto"></i>
+            </a>
+            <a href="settings/privacy.html" class="menu-item p-4 flex items-center">
+                <i class="fas fa-lock text-yellow-400 w-6 text-center"></i>
+                <span class="ml-4">隐私设置</span>
+                <i class="fas fa-chevron-right text-gray-500 ml-auto"></i>
+            </a>
+        </div>
+
+        <!-- Menu List 2 -->
+        <div class="mt-4 rounded-xl overflow-hidden">
+            <a href="settings/help-and-feedback.html" class="menu-item p-4 flex items-center border-b border-gray-800">
+                <i class="fas fa-question-circle text-purple-400 w-6 text-center"></i>
+                <span class="ml-4">帮助与反馈</span>
+                <i class="fas fa-chevron-right text-gray-500 ml-auto"></i>
+            </a>
+            <a href="settings/about-us.html" class="menu-item p-4 flex items-center">
+                <i class="fas fa-info-circle text-teal-400 w-6 text-center"></i>
+                <span class="ml-4">关于我们</span>
+                <i class="fas fa-chevron-right text-gray-500 ml-auto"></i>
+            </a>
+        </div>
+
+        <!-- Logout Button -->
+        <div class="mt-6">
+            <button class="w-full menu-item p-4 rounded-xl font-semibold text-red-500">
+                退出登录
+            </button>
+        </div>
+
+    </main>
+
+    <!-- Bottom Navigation -->
+    <footer class="grid grid-cols-4 gap-1 p-2 bg-gray-900/80 backdrop-blur-md sticky bottom-0">
+        <a href="app/home.html" class="flex flex-col items-center justify-center p-2 rounded-lg text-gray-400">
+            <i class="fas fa-list-ul text-xl"></i>
+            <span class="text-xs mt-1">明细</span>
+        </a>
+        <a href="app/reports.html" class="flex flex-col items-center justify-center p-2 rounded-lg text-gray-400">
+            <i class="fas fa-chart-pie text-xl"></i>
+            <span class="text-xs mt-1">报表</span>
+        </a>
+        <a href="app/ledgers.html" class="flex flex-col items-center justify-center p-2 rounded-lg text-gray-400">
+            <i class="fas fa-book text-xl"></i>
+            <span class="text-xs mt-1">账本</span>
+        </a>
+        <a href="app/profile.html" class="flex flex-col items-center justify-center p-2 rounded-lg text-green-500 bg-gray-700">
+            <i class="fas fa-user-circle text-xl"></i>
+            <span class="text-xs mt-1">我的</span>
+        </a>
+    </footer>
+
+</body>
+</html>

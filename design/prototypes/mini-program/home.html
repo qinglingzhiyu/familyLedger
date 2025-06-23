@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>首页 - 家庭账本</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <style>
+        /* WeUI-like styles */
+        body {
+            background-color: #F6F6F6;
+            font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+        }
+        .wx-header {
+            background-color: #F6F6F6;
+            color: #000000;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+        .wx-capsule {
+            width: 88px;
+            height: 32px;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-evenly;
+            background-color: rgba(255, 255, 255, 0.6);
+        }
+        .wx-capsule-dot { font-size: 12px; }
+        .wx-capsule-line { width: 1px; height: 16px; background-color: rgba(0, 0, 0, 0.1); }
+        .wx-tabbar {
+            background-color: #FFFFFF;
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+        }
+        .wx-tab-item.active {
+            color: #07C160;
+        }
+        .card {
+            background-color: #FFFFFF;
+            border-radius: 8px;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+        }
+        .fab-btn {
+            background-color: #07C160;
+            color: white;
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(7, 193, 96, 0.4);
+        }
+    </style>
+</head>
+<body class="flex flex-col h-screen bg-gray-100">
+
+    <!-- Mock WeChat Navigation Bar -->
+    <header class="wx-header sticky top-0 z-10 flex items-center justify-center h-16 px-4">
+        <div class="absolute left-4">
+            <!-- Placeholder for back button if needed -->
+        </div>
+        <h1 class="font-semibold text-lg">家庭账本</h1>
+        <div class="wx-capsule absolute right-4">
+            <i class="fas fa-ellipsis-h wx-capsule-dot"></i>
+            <div class="wx-capsule-line"></div>
+            <i class="far fa-circle wx-capsule-dot"></i>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-grow overflow-y-auto p-4">
+        <!-- Month Summary -->
+        <div class="bg-white rounded-lg p-4 shadow-sm">
+            <div class="text-sm text-gray-500">本月</div>
+            <div class="flex justify-between items-center mt-2">
+                <div>
+                    <div class="text-xs text-gray-400">支出</div>
+                    <div class="text-xl font-semibold">¥ 2,875.50</div>
+                </div>
+                <div>
+                    <div class="text-xs text-gray-400">收入</div>
+                    <div class="text-xl font-semibold">¥ 8,000.00</div>
+                </div>
+                <div class="text-right">
+                    <div class="text-xs text-gray-400">结余</div>
+                    <div class="text-lg font-semibold">¥ 5,124.50</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Transaction List -->
+        <div class="mt-4 space-y-4">
+            <!-- Day Group -->
+            <div class="">
+                <div class="flex justify-between items-center text-sm text-gray-500 mb-2">
+                    <span>今天 07月18日</span>
+                    <span>支出: ¥128.00</span>
+                </div>
+                <div class="bg-white rounded-lg shadow-sm overflow-hidden">
+                    <div class="p-3 flex items-center border-b border-gray-100">
+                        <div class="w-10 h-10 rounded-full bg-yellow-100 flex items-center justify-center mr-3"><i class="fas fa-utensils text-yellow-600"></i></div>
+                        <div class="flex-grow">
+                            <div class="font-medium">午餐 - 公司食堂</div>
+                            <div class="text-xs text-gray-400">餐饮</div>
+                        </div>
+                        <div class="font-semibold text-red-500">- ¥25.00</div>
+                    </div>
+                    <div class="p-3 flex items-center">
+                        <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center mr-3"><i class="fas fa-bus text-blue-600"></i></div>
+                        <div class="flex-grow">
+                            <div class="font-medium">地铁通勤</div>
+                            <div class="text-xs text-gray-400">交通</div>
+                        </div>
+                        <div class="font-semibold text-red-500">- ¥8.00</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Day Group -->
+            <div class="">
+                <div class="flex justify-between items-center text-sm text-gray-500 mb-2">
+                    <span>昨天 07月17日</span>
+                    <span>支出: ¥95.50</span>
+                </div>
+                <div class="bg-white rounded-lg shadow-sm overflow-hidden">
+                    <div class="p-3 flex items-center">
+                        <div class="w-10 h-10 rounded-full bg-purple-100 flex items-center justify-center mr-3"><i class="fas fa-film text-purple-600"></i></div>
+                        <div class="flex-grow">
+                            <div class="font-medium">电影票 - 《神秘海域》</div>
+                            <div class="text-xs text-gray-400">娱乐</div>
+                        </div>
+                        <div class="font-semibold text-red-500">- ¥95.50</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Tab Bar -->
+    <footer class="tab-bar flex justify-around items-center p-2 sticky bottom-0 bg-white">
+        <a href="#" class="text-center text-green-500">
+            <i class="fas fa-list-alt text-xl"></i>
+            <div class="text-xs mt-1">明细</div>
+        </a>
+        <a href="#" class="text-center text-gray-500">
+            <i class="fas fa-chart-pie text-xl"></i>
+            <div class="text-xs mt-1">报表</div>
+        </a>
+        <a href="#" class="text-center text-gray-500">
+            <i class="fas fa-book text-xl"></i>
+            <div class="text-xs mt-1">账本</div>
+        </a>
+        <a href="#" class="text-center text-gray-500">
+            <i class="far fa-user-circle text-xl"></i>
+            <div class="text-xs mt-1">我的</div>
+        </a>
+    </footer>
+
+</body>
+</html>

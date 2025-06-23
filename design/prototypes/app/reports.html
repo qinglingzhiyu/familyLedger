@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>统计报表</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #121212;
+            color: #EAEAEA;
+        }
+        .tab-btn.active {
+            color: #2ECC71;
+            border-bottom: 2px solid #2ECC71;
+        }
+        .card {
+            background-color: #1E1E1E;
+        }
+    </style>
+</head>
+<body class="flex flex-col h-screen">
+
+    <!-- Header -->
+    <header class="p-4 bg-gray-900/80 backdrop-blur-md sticky top-0 z-10">
+        <h1 class="text-lg font-semibold text-center">统计报表</h1>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-grow p-4 overflow-y-auto">
+        <!-- Time Range Selector -->
+        <div class="flex justify-center mb-4">
+            <div class="inline-flex items-center bg-gray-800 p-1 rounded-full">
+                <button class="px-4 py-1 text-sm rounded-full">周</button>
+                <button class="px-4 py-1 text-sm rounded-full bg-green-500 text-white">月</button>
+                <button class="px-4 py-1 text-sm rounded-full">年</button>
+                <button class="px-4 py-1 text-sm rounded-full"><i class="fas fa-calendar-alt"></i></button>
+            </div>
+        </div>
+
+        <!-- Tabs -->
+        <div id="content-tabs" class="flex justify-around border-b border-gray-700 mb-4">
+            <button data-tab="expense" class="tab-btn flex-1 py-2 font-semibold active">支出</button>
+            <button data-tab="income" class="tab-btn flex-1 py-2 font-semibold text-gray-500">收入</button>
+            <button data-tab="assets" class="tab-btn flex-1 py-2 font-semibold text-gray-500">资产</button>
+        </div>
+
+        <!-- Tab Content -->
+        <div id="tab-content">
+            <!-- Expense Content -->
+            <div id="expense-content">
+                <div class="card rounded-xl p-4">
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <p id="total-title" class="text-sm text-gray-400">本月总支出</p>
+                            <p id="total-amount" class="text-2xl font-bold">¥ 4,580.50</p>
+                        </div>
+                        <div class="text-right">
+                            <p class="text-sm text-gray-400">日均</p>
+                            <p id="average-amount" class="text-lg font-semibold">¥ 183.22</p>
+                        </div>
+                    </div>
+                    <div class="mt-4 h-48">
+                        <canvas id="reportChart"></canvas>
+                    </div>
+                </div>
+                <div id="ranking-list" class="mt-4">
+                    <h2 class="text-lg font-semibold mb-2">支出排行榜</h2>
+                    <div class="space-y-3">
+                        <!-- Ranking items will be dynamically inserted here -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Income Content (Hidden by default) -->
+            <div id="income-content" class="hidden">
+                 <div class="card rounded-xl p-4">
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <p class="text-sm text-gray-400">本月总收入</p>
+                            <p class="text-2xl font-bold">¥ 15,000.00</p>
+                        </div>
+                    </div>
+                    <div class="mt-4 h-48">
+                        <!-- Placeholder for income chart -->
+                         <p class="text-center text-gray-500 pt-16">收入图表待实现</p>
+                    </div>
+                </div>
+                <div class="mt-4">
+                    <h2 class="text-lg font-semibold mb-2">收入排行榜</h2>
+                    <div class="space-y-3 text-center text-gray-500 pt-8">
+                        <p>收入排行待实现</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Assets Content (Hidden by default) -->
+            <div id="assets-content" class="hidden">
+                <div class="card rounded-xl p-4 text-center">
+                    <p class="text-sm text-gray-400">总资产</p>
+                    <p class="text-3xl font-bold mt-2">¥ 58,345.00</p>
+                    <div class="mt-4 h-48">
+                         <p class="text-center text-gray-500 pt-16">资产趋势图待实现</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Bottom Navigation -->
+    <footer class="grid grid-cols-4 gap-1 p-2 bg-gray-900/80 backdrop-blur-md sticky bottom-0">
+        <a href="app/home.html" class="flex flex-col items-center justify-center p-2 rounded-lg text-gray-400">
+            <i class="fas fa-list-ul text-xl"></i>
+            <span class="text-xs mt-1">明细</span>
+        </a>
+        <a href="app/reports.html" class="flex flex-col items-center justify-center p-2 rounded-lg text-green-500 bg-gray-700">
+            <i class="fas fa-chart-pie text-xl"></i>
+            <span class="text-xs mt-1">报表</span>
+        </a>
+        <a href="app/ledgers.html" class="flex flex-col items-center justify-center p-2 rounded-lg text-gray-400">
+            <i class="fas fa-book text-xl"></i>
+            <span class="text-xs mt-1">账本</span>
+        </a>
+        <a href="#" class="flex flex-col items-center justify-center p-2 rounded-lg text-gray-400">
+            <i class="fas fa-user-circle text-xl"></i>
+            <span class="text-xs mt-1">我的</span>
+        </a>
+    </footer>
+
+    <script>
+        const timeRangeSelector = document.querySelector('.inline-flex');
+        const contentTabs = document.getElementById('content-tabs');
+        const tabContents = {
+            expense: document.getElementById('expense-content'),
+            income: document.getElementById('income-content'),
+            assets: document.getElementById('assets-content'),
+        };
+
+        let currentTab = 'expense';
+        let currentTimeRange = '月';
+
+        const mockData = {
+            '周': {
+                expense: {
+                    total: 980.00,
+                    avg: 140.00,
+                    chart: [250, 300, 150, 280],
+                    ranking: [
+                        { category: '餐饮', amount: 250, percent: 25.5, color: 'yellow', icon: 'utensils' },
+                        { category: '购物', amount: 300, percent: 30.6, color: 'blue', icon: 'shopping-cart' },
+                        { category: '交通', amount: 150, percent: 15.3, color: 'purple', icon: 'bus' },
+                    ]
+                }
+            },
+            '月': {
+                expense: {
+                    total: 4580.50,
+                    avg: 183.22,
+                    chart: [1250, 800, 550.50, 1979],
+                    ranking: [
+                        { category: '餐饮', amount: 1250, percent: 45, color: 'yellow', icon: 'utensils' },
+                        { category: '购物', amount: 800, percent: 25, color: 'blue', icon: 'shopping-cart' },
+                        { category: '交通', amount: 550.50, percent: 18, color: 'purple', icon: 'bus' },
+                    ]
+                }
+            },
+            '年': {
+                expense: {
+                    total: 55000.00,
+                    avg: 4583.33,
+                    chart: [25000, 15000, 8000, 7000],
+                    ranking: [
+                        { category: '房租', amount: 25000, percent: 45.5, color: 'red', icon: 'home' },
+                        { category: '餐饮', amount: 15000, percent: 27.3, color: 'yellow', icon: 'utensils' },
+                        { category: '购物', amount: 8000, percent: 14.5, color: 'blue', icon: 'shopping-cart' },
+                    ]
+                }
+            }
+        };
+
+        const ctx = document.getElementById('reportChart').getContext('2d');
+        const reportChart = new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: ['餐饮', '购物', '交通', '其它'],
+                datasets: [{
+                    data: mockData['月'].expense.chart,
+                    backgroundColor: ['#FBBF24', '#3B82F6', '#A855F7', '#6B7280'],
+                    borderWidth: 0,
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                cutout: '70%',
+                plugins: { legend: { display: false } }
+            }
+        });
+
+        function updateActiveButton(container, activeText) {
+            container.querySelectorAll('button').forEach(btn => {
+                if (btn.textContent.trim() === activeText) {
+                    btn.classList.add('bg-green-500', 'text-white');
+                    btn.classList.remove('text-gray-400');
+                } else {
+                    btn.classList.remove('bg-green-500', 'text-white');
+                    btn.classList.add('text-gray-400');
+                }
+            });
+        }
+
+        function updateRanking(rankingData) {
+            const container = document.querySelector('#ranking-list .space-y-3');
+            container.innerHTML = rankingData.map(item => `
+                <div class="card rounded-lg p-3 flex items-center">
+                    <div class="w-10 h-10 bg-${item.color}-500/20 text-${item.color}-400 rounded-full flex items-center justify-center text-xl"><i class="fas fa-${item.icon}"></i></div>
+                    <div class="ml-3 flex-grow">
+                        <div class="flex justify-between items-center">
+                            <span>${item.category}</span>
+                            <span class="font-medium">¥ ${item.amount.toFixed(2)}</span>
+                        </div>
+                        <div class="w-full bg-gray-700 rounded-full h-1.5 mt-1">
+                            <div class="bg-${item.color}-500 h-1.5 rounded-full" style="width: ${item.percent}%"></div>
+                        </div>
+                    </div>
+                    <span class="ml-3 text-sm text-gray-400">${item.percent}%</span>
+                </div>
+            `).join('');
+        }
+
+        function updateUI() {
+            Object.values(tabContents).forEach(content => content.classList.add('hidden'));
+            if (tabContents[currentTab]) {
+                tabContents[currentTab].classList.remove('hidden');
+            }
+
+            if (currentTab === 'expense') {
+                const data = mockData[currentTimeRange].expense;
+                document.getElementById('total-title').textContent = `本${currentTimeRange}总支出`;
+                document.getElementById('total-amount').textContent = `¥ ${data.total.toFixed(2)}`;
+                document.getElementById('average-amount').textContent = `¥ ${data.avg.toFixed(2)}`;
+                reportChart.data.datasets[0].data = data.chart;
+                reportChart.update();
+                updateRanking(data.ranking);
+            }
+        }
+
+        timeRangeSelector.addEventListener('click', (e) => {
+            if (e.target.tagName === 'BUTTON' && !e.target.querySelector('i')) {
+                currentTimeRange = e.target.textContent.trim();
+                updateActiveButton(timeRangeSelector, currentTimeRange);
+                updateUI();
+            }
+        });
+
+        contentTabs.addEventListener('click', (e) => {
+            if (e.target.tagName === 'BUTTON') {
+                currentTab = e.target.dataset.tab;
+                contentTabs.querySelectorAll('button').forEach(btn => btn.classList.remove('active', 'text-gray-500'));
+                e.target.classList.add('active');
+                Array.from(contentTabs.querySelectorAll('button')).filter(b => b !== e.target).forEach(b => b.classList.add('text-gray-500'));
+                updateUI();
+            }
+        });
+
+        // Initial load
+        updateActiveButton(timeRangeSelector, '月');
+        updateUI();
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>消息通知</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #121212;
+            color: #EAEAEA;
+        }
+        .menu-item {
+            background-color: #1E1E1E;
+        }
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 51px;
+            height: 31px;
+        }
+        .toggle-switch input { display: none; }
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #333;
+            transition: .4s;
+            border-radius: 34px;
+        }
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 27px;
+            width: 27px;
+            left: 2px;
+            bottom: 2px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+        input:checked + .slider {
+            background-color: #2ECC71;
+        }
+        input:checked + .slider:before {
+            transform: translateX(20px);
+        }
+    </style>
+</head>
+<body class="flex flex-col h-screen">
+
+    <!-- Header -->
+    <header class="p-4 flex items-center bg-gray-900/80 backdrop-blur-md sticky top-0 z-10">
+        <button onclick="history.back()" class="w-8 h-8"><i class="fas fa-chevron-left text-xl"></i></button>
+        <h1 class="text-lg font-semibold text-center flex-grow">消息通知</h1>
+        <div class="w-8"></div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-grow p-4 overflow-y-auto">
+        <!-- General Settings -->
+        <div class="rounded-xl overflow-hidden mb-4">
+            <div class="menu-item p-4 border-b border-gray-800">
+                <div class="text-sm text-gray-400 mb-3">通用设置</div>
+            </div>
+            <div class="menu-item p-4 flex items-center justify-between border-b border-gray-800">
+                <div class="flex items-center">
+                    <i class="fas fa-bell w-6 text-center text-blue-400"></i>
+                    <span class="ml-3 text-gray-300">推送通知</span>
+                </div>
+                <label class="relative inline-flex items-center cursor-pointer">
+                    <input type="checkbox" value="" class="sr-only peer" checked>
+                    <div class="w-11 h-6 bg-gray-600 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-green-500"></div>
+                </label>
+            </div>
+            <div class="menu-item p-4 flex items-center justify-between border-b border-gray-800">
+                <div class="flex items-center">
+                    <i class="fas fa-volume-up w-6 text-center text-green-400"></i>
+                    <span class="ml-3 text-gray-300">声音</span>
+                </div>
+                <label class="relative inline-flex items-center cursor-pointer">
+                    <input type="checkbox" value="" class="sr-only peer" checked>
+                    <div class="w-11 h-6 bg-gray-600 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-green-500"></div>
+                </label>
+            </div>
+            <div class="menu-item p-4 flex items-center justify-between border-b border-gray-800">
+                <div class="flex items-center">
+                    <i class="fas fa-mobile-alt w-6 text-center text-purple-400"></i>
+                    <span class="ml-3 text-gray-300">震动</span>
+                </div>
+                <label class="relative inline-flex items-center cursor-pointer">
+                    <input type="checkbox" value="" class="sr-only peer">
+                    <div class="w-11 h-6 bg-gray-600 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-green-500"></div>
+                </label>
+            </div>
+            <div class="menu-item p-4 flex items-center justify-between">
+                <div class="flex items-center">
+                    <i class="fas fa-moon w-6 text-center text-indigo-400"></i>
+                    <span class="ml-3 text-gray-300">勿扰时间</span>
+                </div>
+                <div class="flex items-center">
+                    <span class="text-gray-400 mr-2">22:00-08:00</span>
+                    <i class="fas fa-chevron-right text-gray-500"></i>
+                </div>
+            </div>
+        </div>
+
+        <!-- Transaction Notifications -->
+        <div class="rounded-xl overflow-hidden mb-4">
+            <div class="menu-item p-4 border-b border-gray-800">
+                <div class="text-sm text-gray-400 mb-3">交易通知</div>
+            </div>
+            <div class="menu-item p-4 flex items-center justify-between border-b border-gray-800">
+                <div class="flex items-center">
+                    <i class="fas fa-plus-circle w-6 text-center text-green-400"></i>
+                    <span class="ml-3 text-gray-300">收入提醒</span>
+                </div>
+                <label class="relative inline-flex items-center cursor-pointer">
+                    <input type="checkbox" value="" class="sr-only peer" checked>
+                    <div class="w-11 h-6 bg-gray-600 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-green-500"></div>
+                </label>
+            </div>
+            <div class="menu-item p-4 flex items-center justify-between border-b border-gray-800">
+                <div class="flex items-center">
+                    <i class="fas fa-minus-circle w-6 text-center text-red-400"></i>
+                    <span class="ml-3 text-gray-300">支出提醒</span>
+                </div>
+                <label class="relative inline-flex items-center cursor-pointer">
+                    <input type="checkbox" value="" class="sr-only peer" checked>
+                    <div class="w-11 h-6 bg-gray-600 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-green-500"></div>
+                </label>
+            </div>
+            <div class="menu-item p-4 flex items-center justify-between border-b border-gray-800">
+                <div class="flex items-center">
+                    <i class="fas fa-exchange-alt w-6 text-center text-blue-400"></i>
+                    <span class="ml-3 text-gray-300">转账通知</span>
+                </div>
+                <label class="relative inline-flex items-center cursor-pointer">
+                    <input type="checkbox" value="" class="sr-only peer" checked>
+                    <div class="w-11 h-6 bg-gray-600 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-green-500"></div>
+                </label>
+            </div>
+            <div class="menu-item p-4 flex items-center justify-between">
+                <div class="flex items-center">
+                    <i class="fas fa-file-invoice w-6 text-center text-yellow-400"></i>
+                    <span class="ml-3 text-gray-300">账单生成</span>
+                </div>
+                <label class="relative inline-flex items-center cursor-pointer">
+                    <input type="checkbox" value="" class="sr-only peer" checked>
+                    <div class="w-11 h-6 bg-gray-600 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-green-500"></div>
+                </label>
+            </div>
+        </div>
+
+        <!-- Budget Reminders -->
+        <div class="rounded-xl overflow-hidden mb-4">
+            <div class="menu-item p-4 border-b border-gray-800">
+                <div class="text-sm text-gray-400 mb-3">预算提醒</div>
+            </div>
+            <div class="menu-item p-4 flex items-center justify-between border-b border-gray-800">
+                <div class="flex items-center">
+                    <i class="fas fa-exclamation-triangle w-6 text-center text-red-400"></i>
+                    <span class="ml-3 text-gray-300">预算超支</span>
+                </div>
+                <label class="relative inline-flex items-center cursor-pointer">
+                    <input type="checkbox" value="" class="sr-only peer" checked>
+                    <div class="w-11 h-6 bg-gray-600 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-green-500"></div>
+                </label>
+            </div>
+            <div class="menu-item p-4 flex items-center justify-between border-b border-gray-800">
+                <div class="flex items-center">
+                    <i class="fas fa-check-circle w-6 text-center text-green-400"></i>
+                    <span class="ml-3 text-gray-300">预算达标</span>
+                </div>
+                <label class="relative inline-flex items-center cursor-pointer">
+                    <input type="checkbox" value="" class="sr-only peer">
+                    <div class="w-11 h-6 bg-gray-600 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-green-500"></div>
+                </label>
+            </div>
+            <div class="menu-item p-4 flex items-center justify-between">
+                <div class="flex items-center">
+                    <i class="fas fa-calendar-alt w-6 text-center text-purple-400"></i>
+                    <span class="ml-3 text-gray-300">月度总结</span>
+                </div>
+                <label class="relative inline-flex items-center cursor-pointer">
+                    <input type="checkbox" value="" class="sr-only peer" checked>
+                    <div class="w-11 h-6 bg-gray-600 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-green-500"></div>
+                </label>
+            </div>
+        </div>
+
+        <!-- Family Sharing -->
+        <div class="rounded-xl overflow-hidden mb-4">
+            <div class="menu-item p-4 border-b border-gray-800">
+                <div class="text-sm text-gray-400 mb-3">家庭共享通知</div>
+            </div>
+            <div class="menu-item p-4 flex items-center justify-between border-b border-gray-800">
+                <div class="flex items-center">
+                    <i class="fas fa-user-plus w-6 text-center text-blue-400"></i>
+                    <span class="ml-3 text-gray-300">成员加入</span>
+                </div>
+                <label class="relative inline-flex items-center cursor-pointer">
+                    <input type="checkbox" value="" class="sr-only peer" checked>
+                    <div class="w-11 h-6 bg-gray-600 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-green-500"></div>
+                </label>
+            </div>
+            <div class="menu-item p-4 flex items-center justify-between border-b border-gray-800">
+                <div class="flex items-center">
+                    <i class="fas fa-user-cog w-6 text-center text-orange-400"></i>
+                    <span class="ml-3 text-gray-300">权限变更</span>
+                </div>
+                <label class="relative inline-flex items-center cursor-pointer">
+                    <input type="checkbox" value="" class="sr-only peer" checked>
+                    <div class="w-11 h-6 bg-gray-600 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-green-500"></div>
+                </label>
+            </div>
+            <div class="menu-item p-4 flex items-center justify-between">
+                <div class="flex items-center">
+                    <i class="fas fa-share-alt w-6 text-center text-teal-400"></i>
+                    <span class="ml-3 text-gray-300">共享提醒</span>
+                </div>
+                <label class="relative inline-flex items-center cursor-pointer">
+                    <input type="checkbox" value="" class="sr-only peer">
+                    <div class="w-11 h-6 bg-gray-600 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-green-500"></div>
+                </label>
+            </div>
+        </div>
+
+        <!-- Do Not Disturb -->
+        <div class="rounded-xl overflow-hidden mb-4">
+            <div class="menu-item p-4 border-b border-gray-800">
+                <div class="text-sm text-gray-400 mb-3">免打扰设置</div>
+            </div>
+            <div class="menu-item p-4 flex items-center justify-between border-b border-gray-800">
+                <div class="flex items-center">
+                    <i class="fas fa-briefcase w-6 text-center text-blue-400"></i>
+                    <span class="ml-3 text-gray-300">工作时间</span>
+                </div>
+                <div class="flex items-center">
+                    <span class="text-gray-400 mr-2">09:00-18:00</span>
+                    <i class="fas fa-chevron-right text-gray-500"></i>
+                </div>
+            </div>
+            <div class="menu-item p-4 flex items-center justify-between">
+                <div class="flex items-center">
+                    <i class="fas fa-bed w-6 text-center text-purple-400"></i>
+                    <span class="ml-3 text-gray-300">休息时间</span>
+                </div>
+                <div class="flex items-center">
+                    <span class="text-gray-400 mr-2">22:00-08:00</span>
+                    <i class="fas fa-chevron-right text-gray-500"></i>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+</body>
+</html>

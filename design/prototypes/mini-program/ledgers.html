@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的账本 - 小程序</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+            background-color: #F7F7F7;
+        }
+        .wx-header {
+            background-color: #F6F6F6;
+            color: #000000;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+        .wx-capsule {
+            width: 88px;
+            height: 32px;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-evenly;
+            background-color: rgba(255, 255, 255, 0.6);
+        }
+        .wx-capsule-dot { font-size: 12px; }
+        .wx-capsule-line { width: 1px; height: 16px; background-color: rgba(0, 0, 0, 0.1); }
+        .tab-bar {
+            background-color: #FFFFFF;
+            border-top: 1px solid #E5E5E5;
+        }
+    </style>
+</head>
+<body class="flex flex-col h-screen">
+
+    <!-- Mock WeChat Navigation Bar -->
+    <header class="wx-header sticky top-0 z-10 flex items-center justify-center h-16 px-4">
+        <div class="absolute left-4">
+            <!-- Placeholder for back button if needed -->
+        </div>
+        <h1 class="font-semibold text-lg">我的账本</h1>
+        <div class="wx-capsule absolute right-4">
+            <i class="fas fa-ellipsis-h wx-capsule-dot"></i>
+            <div class="wx-capsule-line"></div>
+            <i class="far fa-circle wx-capsule-dot"></i>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-grow overflow-y-auto p-4 space-y-3">
+        <!-- Ledger Card -->
+        <div class="bg-white rounded-lg p-4 shadow-sm flex items-center">
+            <div class="w-12 h-12 rounded-full bg-green-100 flex items-center justify-center mr-4">
+                <i class="fas fa-users text-2xl text-green-600"></i>
+            </div>
+            <div class="flex-grow">
+                <div class="font-semibold text-lg">家庭共享账本</div>
+                <div class="text-sm text-gray-500">3个成员</div>
+            </div>
+            <div class="text-right">
+                <div class="text-green-600 font-bold">当前</div>
+            </div>
+        </div>
+
+        <!-- Ledger Card -->
+        <div class="bg-white rounded-lg p-4 shadow-sm flex items-center">
+            <div class="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center mr-4">
+                <i class="fas fa-briefcase text-2xl text-blue-600"></i>
+            </div>
+            <div class="flex-grow">
+                <div class="font-semibold text-lg">工作账本</div>
+                <div class="text-sm text-gray-500">仅自己</div>
+            </div>
+        </div>
+
+        <!-- Ledger Card -->
+        <div class="bg-white rounded-lg p-4 shadow-sm flex items-center">
+            <div class="w-12 h-12 rounded-full bg-yellow-100 flex items-center justify-center mr-4">
+                <i class="fas fa-plane text-2xl text-yellow-600"></i>
+            </div>
+            <div class="flex-grow">
+                <div class="font-semibold text-lg">旅行账本</div>
+                <div class="text-sm text-gray-500">2个成员</div>
+            </div>
+        </div>
+
+        <!-- Add Ledger Button -->
+        <div class="bg-white rounded-lg p-4 shadow-sm flex items-center justify-center text-blue-500 cursor-pointer">
+            <i class="fas fa-plus-circle mr-2"></i>
+            <span>创建新账本</span>
+        </div>
+    </main>
+
+    <!-- Tab Bar -->
+    <footer class="tab-bar flex justify-around items-center p-2 sticky bottom-0">
+        <a href="home.html" class="text-center text-gray-500">
+            <i class="fas fa-list-alt text-xl"></i>
+            <div class="text-xs mt-1">明细</div>
+        </a>
+        <a href="reports.html" class="text-center text-gray-500">
+            <i class="fas fa-chart-pie text-xl"></i>
+            <div class="text-xs mt-1">报表</div>
+        </a>
+        <a href="ledgers.html" class="text-center text-green-500">
+            <i class="fas fa-book text-xl"></i>
+            <div class="text-xs mt-1">账本</div>
+        </a>
+        <a href="profile.html" class="text-center text-gray-500">
+            <i class="far fa-user-circle text-xl"></i>
+            <div class="text-xs mt-1">我的</div>
+        </a>
+    </footer>
+
+</body>
+</html>

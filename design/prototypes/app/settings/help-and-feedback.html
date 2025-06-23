@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>帮助与反馈</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #121212;
+            color: #EAEAEA;
+        }
+        .menu-item {
+            background-color: #1E1E1E;
+            transition: background-color 0.2s;
+        }
+        .menu-item:active {
+            background-color: #2d2d2d;
+        }
+    </style>
+</head>
+<body class="flex flex-col h-screen">
+
+    <!-- Header -->
+    <header class="p-4 flex items-center bg-gray-900/80 backdrop-blur-md sticky top-0 z-10">
+        <button onclick="history.back()" class="w-8 h-8"><i class="fas fa-chevron-left text-xl"></i></button>
+        <h1 class="text-lg font-semibold text-center flex-grow">帮助与反馈</h1>
+        <div class="w-8"></div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-grow p-4 overflow-y-auto">
+        <!-- Quick Help -->
+        <div class="rounded-xl overflow-hidden mb-4">
+            <div class="menu-item p-4 border-b border-gray-800">
+                <div class="text-sm text-gray-400 mb-3">快速帮助</div>
+            </div>
+            <div class="menu-item p-4 flex items-center justify-between border-b border-gray-800">
+                <div class="flex items-center">
+                    <i class="fas fa-comments w-6 text-center text-blue-400"></i>
+                    <div class="ml-3">
+                        <div class="text-gray-300">在线客服</div>
+                        <div class="text-xs text-gray-500">24小时在线服务</div>
+                    </div>
+                </div>
+                <i class="fas fa-chevron-right text-gray-500"></i>
+            </div>
+            <div class="menu-item p-4 flex items-center justify-between border-b border-gray-800">
+                <div class="flex items-center">
+                    <i class="fas fa-phone w-6 text-center text-green-400"></i>
+                    <div class="ml-3">
+                        <div class="text-gray-300">电话客服</div>
+                        <div class="text-xs text-gray-500">400-888-9999</div>
+                    </div>
+                </div>
+                <i class="fas fa-chevron-right text-gray-500"></i>
+            </div>
+            <div class="menu-item p-4 flex items-center justify-between border-b border-gray-800">
+                <div class="flex items-center">
+                    <i class="fas fa-envelope w-6 text-center text-purple-400"></i>
+                    <div class="ml-3">
+                        <div class="text-gray-300">意见反馈</div>
+                        <div class="text-xs text-gray-500">提交问题和建议</div>
+                    </div>
+                </div>
+                <i class="fas fa-chevron-right text-gray-500"></i>
+            </div>
+            <div class="menu-item p-4 flex items-center justify-between">
+                <div class="flex items-center">
+                    <i class="fas fa-star w-6 text-center text-yellow-400"></i>
+                    <div class="ml-3">
+                        <div class="text-gray-300">评分</div>
+                        <div class="text-xs text-gray-500">为应用评分</div>
+                    </div>
+                </div>
+                <i class="fas fa-chevron-right text-gray-500"></i>
+            </div>
+        </div>
+
+        <!-- FAQ -->
+        <div class="rounded-xl overflow-hidden mb-4">
+            <div class="menu-item p-4 border-b border-gray-800">
+                <div class="text-sm text-gray-400 mb-3">常见问题</div>
+            </div>
+            <div class="menu-item p-4 flex items-center justify-between border-b border-gray-800">
+                <div class="flex items-center">
+                    <i class="fas fa-question-circle w-6 text-center text-blue-400"></i>
+                    <div class="ml-3">
+                        <div class="text-gray-300">如何记账？</div>
+                        <div class="text-xs text-gray-500">记账操作指南</div>
+                    </div>
+                </div>
+                <i class="fas fa-chevron-right text-gray-500"></i>
+            </div>
+            <div class="menu-item p-4 flex items-center justify-between border-b border-gray-800">
+                <div class="flex items-center">
+                    <i class="fas fa-chart-pie w-6 text-center text-green-400"></i>
+                    <div class="ml-3">
+                        <div class="text-gray-300">如何查看报表？</div>
+                        <div class="text-xs text-gray-500">报表功能说明</div>
+                    </div>
+                </div>
+                <i class="fas fa-chevron-right text-gray-500"></i>
+            </div>
+            <div class="menu-item p-4 flex items-center justify-between border-b border-gray-800">
+                <div class="flex items-center">
+                    <i class="fas fa-users w-6 text-center text-purple-400"></i>
+                    <div class="ml-3">
+                        <div class="text-gray-300">家庭共享如何使用？</div>
+                        <div class="text-xs text-gray-500">家庭账本设置</div>
+                    </div>
+                </div>
+                <i class="fas fa-chevron-right text-gray-500"></i>
+            </div>
+            <div class="menu-item p-4 flex items-center justify-between">
+                <div class="flex items-center">
+                    <i class="fas fa-shield-alt w-6 text-center text-red-400"></i>
+                    <div class="ml-3">
+                        <div class="text-gray-300">数据安全保障</div>
+                        <div class="text-xs text-gray-500">隐私保护说明</div>
+                    </div>
+                </div>
+                <i class="fas fa-chevron-right text-gray-500"></i>
+            </div>
+        </div>
+
+        <!-- User Guide -->
+        <div class="rounded-xl overflow-hidden mb-4">
+            <div class="menu-item p-4 border-b border-gray-800">
+                <div class="text-sm text-gray-400 mb-3">使用指南</div>
+            </div>
+            <div class="menu-item p-4 flex items-center justify-between border-b border-gray-800">
+                <div class="flex items-center">
+                    <i class="fas fa-play-circle w-6 text-center text-blue-400"></i>
+                    <div class="ml-3">
+                        <div class="text-gray-300">新手教程</div>
+                        <div class="text-xs text-gray-500">快速上手指南</div>
+                    </div>
+                </div>
+                <i class="fas fa-chevron-right text-gray-500"></i>
+            </div>
+            <div class="menu-item p-4 flex items-center justify-between border-b border-gray-800">
+                <div class="flex items-center">
+                    <i class="fas fa-book w-6 text-center text-green-400"></i>
+                    <div class="ml-3">
+                        <div class="text-gray-300">功能介绍</div>
+                        <div class="text-xs text-gray-500">详细功能说明</div>
+                    </div>
+                </div>
+                <i class="fas fa-chevron-right text-gray-500"></i>
+            </div>
+            <div class="menu-item p-4 flex items-center justify-between border-b border-gray-800">
+                <div class="flex items-center">
+                    <i class="fas fa-lightbulb w-6 text-center text-yellow-400"></i>
+                    <div class="ml-3">
+                        <div class="text-gray-300">使用技巧</div>
+                        <div class="text-xs text-gray-500">高效记账方法</div>
+                    </div>
+                </div>
+                <i class="fas fa-chevron-right text-gray-500"></i>
+            </div>
+            <div class="menu-item p-4 flex items-center justify-between">
+                <div class="flex items-center">
+                    <i class="fas fa-video w-6 text-center text-red-400"></i>
+                    <div class="ml-3">
+                        <div class="text-gray-300">视频教程</div>
+                        <div class="text-xs text-gray-500">操作演示视频</div>
+                    </div>
+                </div>
+                <i class="fas fa-chevron-right text-gray-500"></i>
+            </div>
+        </div>
+
+        <!-- Contact Us -->
+        <div class="rounded-xl overflow-hidden mb-4">
+            <div class="menu-item p-4 border-b border-gray-800">
+                <div class="text-sm text-gray-400 mb-3">联系我们</div>
+            </div>
+            <div class="menu-item p-4 flex items-center justify-between border-b border-gray-800">
+                <div class="flex items-center">
+                    <i class="fas fa-envelope w-6 text-center text-blue-400"></i>
+                    <div class="ml-3">
+                        <div class="text-gray-300">邮箱</div>
+                        <div class="text-xs text-gray-500">support@moneykeeper.com</div>
+                    </div>
+                </div>
+                <i class="fas fa-copy text-gray-500"></i>
+            </div>
+            <div class="menu-item p-4 flex items-center justify-between border-b border-gray-800">
+                <div class="flex items-center">
+                    <i class="fab fa-weixin w-6 text-center text-green-400"></i>
+                    <div class="ml-3">
+                        <div class="text-gray-300">微信客服</div>
+                        <div class="text-xs text-gray-500">MoneyKeeper_Service</div>
+                    </div>
+                </div>
+                <i class="fas fa-qrcode text-gray-500"></i>
+            </div>
+            <div class="menu-item p-4 flex items-center justify-between border-b border-gray-800">
+                <div class="flex items-center">
+                    <i class="fab fa-qq w-6 text-center text-blue-500"></i>
+                    <div class="ml-3">
+                        <div class="text-gray-300">QQ群</div>
+                        <div class="text-xs text-gray-500">123456789</div>
+                    </div>
+                </div>
+                <i class="fas fa-external-link-alt text-gray-500"></i>
+            </div>
+            <div class="menu-item p-4 flex items-center justify-between">
+                <div class="flex items-center">
+                    <i class="fas fa-clock w-6 text-center text-purple-400"></i>
+                    <div class="ml-3">
+                        <div class="text-gray-300">服务时间</div>
+                        <div class="text-xs text-gray-500">周一至周日 9:00-21:00</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Version Info -->
+        <div class="rounded-xl overflow-hidden mb-4">
+            <div class="menu-item p-4 border-b border-gray-800">
+                <div class="text-sm text-gray-400 mb-3">版本信息</div>
+            </div>
+            <div class="menu-item p-4 flex items-center justify-between border-b border-gray-800">
+                <div class="flex items-center">
+                    <i class="fas fa-mobile-alt w-6 text-center text-blue-400"></i>
+                    <div class="ml-3">
+                        <div class="text-gray-300">当前版本</div>
+                        <div class="text-xs text-gray-500">v2.1.0</div>
+                    </div>
+                </div>
+            </div>
+            <div class="menu-item p-4 flex items-center justify-between border-b border-gray-800">
+                <div class="flex items-center">
+                    <i class="fas fa-download w-6 text-center text-green-400"></i>
+                    <div class="ml-3">
+                        <div class="text-gray-300">检查更新</div>
+                        <div class="text-xs text-gray-500">已是最新版本</div>
+                    </div>
+                </div>
+                <i class="fas fa-chevron-right text-gray-500"></i>
+            </div>
+            <div class="menu-item p-4 flex items-center justify-between">
+                <div class="flex items-center">
+                    <i class="fas fa-list w-6 text-center text-purple-400"></i>
+                    <div class="ml-3">
+                        <div class="text-gray-300">更新日志</div>
+                        <div class="text-xs text-gray-500">查看历史更新</div>
+                    </div>
+                </div>
+                <i class="fas fa-chevron-right text-gray-500"></i>
+            </div>
+        </div>
+
+    </main>
+
+</body>
+</html>

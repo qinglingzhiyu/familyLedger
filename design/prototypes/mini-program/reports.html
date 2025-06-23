@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>统计报表 - 小程序</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+            background-color: #F7F7F7;
+        }
+        .wx-header {
+            background-color: #F6F6F6;
+            color: #000000;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+        .wx-capsule {
+            width: 88px;
+            height: 32px;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-evenly;
+            background-color: rgba(255, 255, 255, 0.6);
+        }
+        .wx-capsule-dot { font-size: 12px; }
+        .wx-capsule-line { width: 1px; height: 16px; background-color: rgba(0, 0, 0, 0.1); }
+        .tab-bar {
+            background-color: #FFFFFF;
+            border-top: 1px solid #E5E5E5;
+        }
+        .segmented-control {
+            background-color: #EFEFF4;
+            border-radius: 8px;
+        }
+        .segmented-control button.active {
+            background-color: white;
+            color: #07C160;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body class="flex flex-col h-screen">
+
+    <!-- Mock WeChat Navigation Bar -->
+    <header class="wx-header sticky top-0 z-10 flex items-center justify-center h-16 px-4">
+        <div class="absolute left-4">
+            <!-- Placeholder for back button if needed -->
+        </div>
+        <h1 class="font-semibold text-lg">统计报表</h1>
+        <div class="wx-capsule absolute right-4">
+            <i class="fas fa-ellipsis-h wx-capsule-dot"></i>
+            <div class="wx-capsule-line"></div>
+            <i class="far fa-circle wx-capsule-dot"></i>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-grow overflow-y-auto p-4">
+        <!-- Time Range & Type Selector -->
+        <div class="flex justify-between items-center mb-4">
+            <div class="segmented-control p-1 flex">
+                <button class="px-3 py-1 text-sm rounded-md">周</button>
+                <button class="px-3 py-1 text-sm rounded-md active">月</button>
+                <button class="px-3 py-1 text-sm rounded-md">年</button>
+            </div>
+            <div class="segmented-control p-1 flex">
+                <button class="px-3 py-1 text-sm rounded-md active">支出</button>
+                <button class="px-3 py-1 text-sm rounded-md">收入</button>
+            </div>
+        </div>
+
+        <!-- Chart -->
+        <div class="bg-white p-4 rounded-lg shadow-sm">
+            <canvas id="expenseChart"></canvas>
+        </div>
+
+        <!-- Ranking -->
+        <div class="mt-4 bg-white rounded-lg shadow-sm">
+            <h3 class="p-3 font-semibold border-b border-gray-100">支出排行榜</h3>
+            <div class="p-3 space-y-3">
+                <div class="flex items-center">
+                    <div class="w-8 h-8 rounded-full bg-yellow-100 flex items-center justify-center mr-3"><i class="fas fa-utensils text-yellow-600"></i></div>
+                    <div class="flex-grow">餐饮</div>
+                    <div class="font-medium">¥ 1,250.50</div>
+                </div>
+                <div class="flex items-center">
+                    <div class="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center mr-3"><i class="fas fa-shopping-bag text-blue-600"></i></div>
+                    <div class="flex-grow">购物</div>
+                    <div class="font-medium">¥ 875.00</div>
+                </div>
+                <div class="flex items-center">
+                    <div class="w-8 h-8 rounded-full bg-purple-100 flex items-center justify-center mr-3"><i class="fas fa-film text-purple-600"></i></div>
+                    <div class="flex-grow">娱乐</div>
+                    <div class="font-medium">¥ 450.00</div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Tab Bar -->
+    <footer class="tab-bar flex justify-around items-center p-2 sticky bottom-0">
+        <a href="home.html" class="text-center text-gray-500">
+            <i class="fas fa-list-alt text-xl"></i>
+            <div class="text-xs mt-1">明细</div>
+        </a>
+        <a href="reports.html" class="text-center text-green-500">
+            <i class="fas fa-chart-pie text-xl"></i>
+            <div class="text-xs mt-1">报表</div>
+        </a>
+        <a href="ledgers.html" class="text-center text-gray-500">
+            <i class="fas fa-book text-xl"></i>
+            <div class="text-xs mt-1">账本</div>
+        </a>
+        <a href="profile.html" class="text-center text-gray-500">
+            <i class="far fa-user-circle text-xl"></i>
+            <div class="text-xs mt-1">我的</div>
+        </a>
+    </footer>
+
+    <script>
+        const ctx = document.getElementById('expenseChart').getContext('2d');
+        const expenseChart = new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: ['餐饮', '购物', '娱乐', '交通', '其他'],
+                datasets: [{
+                    label: '支出分类',
+                    data: [1250.50, 875, 450, 300, 200],
+                    backgroundColor: ['#FFD666', '#85C1E9', '#C39BD3', '#76D7C4', '#E5E7E9'],
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'right',
+                    }
+                }
+            }
+        });
+    </script>
+
+</body>
+</html>

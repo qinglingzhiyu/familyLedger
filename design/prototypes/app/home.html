@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>首页 - 账单流水</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #121212;
+            color: #EAEAEA;
+        }
+        .fab {
+            position: fixed;
+            bottom: 90px; /* Adjust to avoid overlapping with tab bar */
+            right: 20px;
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background-color: #2ECC71;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            transition: transform 0.2s ease;
+        }
+        .fab:active {
+            transform: scale(0.95);
+        }
+        .tab-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 84px; /* Standard iOS tab bar height with safe area */
+            background-color: #1E1E1E;
+            border-top: 1px solid #2D2D2D;
+            display: flex;
+            justify-content: space-around;
+            align-items: flex-start; /* Align items to the top */
+            padding-top: 10px;
+            padding-bottom: 34px; /* iPhone safe area padding */
+        }
+        .tab-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            font-size: 10px;
+            color: #9E9E9E;
+        }
+        .tab-item.active {
+            color: #2ECC71;
+        }
+    </style>
+</head>
+<body class="pb-28">
+
+    <!-- Header -->
+    <header class="p-4 sticky top-0 bg-gray-900/80 backdrop-blur-md z-20">
+        <div class="flex justify-between items-center">
+            <div class="relative">
+                <button id="menu-button" class="w-8 h-8"><i class="fas fa-bars text-xl"></i></button>
+                <!-- Dropdown Menu -->
+                <div id="menu-dropdown" class="hidden absolute left-0 mt-2 w-48 bg-gray-800 rounded-md shadow-lg z-30">
+                    <a href="#" class="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700">切换账本</a>
+                    <a href="#" class="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700">预算设置</a>
+                    <a href="#" class="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700">导出数据</a>
+                </div>
+            </div>
+            <h1 class="text-lg font-semibold">家庭账本</h1>
+            <button id="search-button" class="w-8 h-8"><i class="fas fa-search text-xl"></i></button>
+        </div>
+        <!-- Search Bar -->
+        <div id="search-bar" class="hidden mt-4">
+            <div class="relative">
+                <input type="text" placeholder="搜索备注、分类、金额..." class="w-full bg-gray-800 border border-gray-700 rounded-lg py-2 pl-10 pr-4 focus:outline-none focus:ring-2 focus:ring-green-500">
+                <i class="fas fa-search absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"></i>
+            </div>
+        </div>
+        <div class="mt-4 p-4 bg-gray-800 rounded-xl text-center">
+            <p class="text-sm text-gray-400">本月支出</p>
+            <p class="text-3xl font-bold mt-1">¥ 8,450.75</p>
+            <div class="flex justify-between text-sm mt-2">
+                <p class="text-gray-400">本月收入: <span class="text-green-400">¥ 15,000.00</span></p>
+                <p class="text-gray-400">结余: <span class="text-white">¥ 6,549.25</span></p>
+            </div>
+        </div>
+    </header>
+
+    <!-- Transaction List -->
+    <main class="p-4 space-y-4">
+        <!-- A Day's Transactions -->
+        <div>
+            <div class="flex justify-between items-center mb-2">
+                <p class="font-semibold">今天</p>
+                <p class="text-sm text-gray-400">支出: ¥ 320.50</p>
+            </div>
+            <div class="bg-gray-800 rounded-xl p-3 space-y-3">
+                <!-- Single Transaction -->
+                <div class="flex items-center">
+                    <div class="w-10 h-10 bg-yellow-500/20 text-yellow-400 rounded-full flex items-center justify-center"><i class="fas fa-utensils"></i></div>
+                    <div class="flex-grow ml-3">
+                        <p class="font-medium">午餐</p>
+                        <p class="text-xs text-gray-500">朋友聚餐</p>
+                    </div>
+                    <p class="font-bold text-red-400">- ¥ 180.00</p>
+                </div>
+                <!-- Single Transaction -->
+                <div class="flex items-center">
+                    <div class="w-10 h-10 bg-blue-500/20 text-blue-400 rounded-full flex items-center justify-center"><i class="fas fa-bus"></i></div>
+                    <div class="flex-grow ml-3">
+                        <p class="font-medium">交通</p>
+                        <p class="text-xs text-gray-500">地铁</p>
+                    </div>
+                    <p class="font-bold text-red-400">- ¥ 4.50</p>
+                </div>
+                 <!-- Single Transaction -->
+                <div class="flex items-center">
+                    <div class="w-10 h-10 bg-purple-500/20 text-purple-400 rounded-full flex items-center justify-center"><i class="fas fa-shopping-cart"></i></div>
+                    <div class="flex-grow ml-3">
+                        <p class="font-medium">购物</p>
+                        <p class="text-xs text-gray-500">买零食</p>
+                    </div>
+                    <p class="font-bold text-red-400">- ¥ 136.00</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Another Day's Transactions -->
+        <div>
+            <div class="flex justify-between items-center mb-2">
+                <p class="font-semibold">昨天</p>
+                <p class="text-sm text-gray-400">收入: ¥ 500.00</p>
+            </div>
+            <div class="bg-gray-800 rounded-xl p-3 space-y-3">
+                <!-- Single Transaction -->
+                <div class="flex items-center">
+                    <div class="w-10 h-10 bg-green-500/20 text-green-400 rounded-full flex items-center justify-center"><i class="fas fa-briefcase"></i></div>
+                    <div class="flex-grow ml-3">
+                        <p class="font-medium">兼职收入</p>
+                        <p class="text-xs text-gray-500">设计项目</p>
+                    </div>
+                    <p class="font-bold text-green-400">+ ¥ 500.00</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Floating Action Button -->
+    <a href="#" class="fab">
+        <i class="fas fa-plus text-2xl"></i>
+    </a>
+
+    <!-- Tab Bar -->
+    <div class="tab-bar">
+        <a href="#" class="tab-item active">
+            <i class="fas fa-list-ul text-xl"></i>
+            <span>明细</span>
+        </a>
+        <a href="#" class="tab-item">
+            <i class="fas fa-chart-pie text-xl"></i>
+            <span>报表</span>
+        </a>
+        <a href="#" class="tab-item">
+            <i class="fas fa-wallet text-xl"></i>
+            <span>资产</span>
+        </a>
+        <a href="#" class="tab-item">
+            <i class="fas fa-user text-xl"></i>
+            <span>我的</span>
+        </a>
+    </div>
+
+    <script>
+        const menuButton = document.getElementById('menu-button');
+        const menuDropdown = document.getElementById('menu-dropdown');
+        const searchButton = document.getElementById('search-button');
+        const searchBar = document.getElementById('search-bar');
+
+        menuButton.addEventListener('click', (event) => {
+            event.stopPropagation();
+            menuDropdown.classList.toggle('hidden');
+        });
+
+        searchButton.addEventListener('click', () => {
+            searchBar.classList.toggle('hidden');
+            if (!searchBar.classList.contains('hidden')) {
+                searchBar.querySelector('input').focus();
+            }
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', (event) => {
+            if (!menuButton.contains(event.target) && !menuDropdown.contains(event.target)) {
+                menuDropdown.classList.add('hidden');
+            }
+        });
+    </script>
+</body>
+</html>

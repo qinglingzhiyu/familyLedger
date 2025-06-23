@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>隐私设置 - 家庭账本</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+            background-color: #F7F7F7;
+        }
+        .wx-header {
+            background-color: #F6F6F6;
+            color: #000000;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+        .wx-capsule {
+            width: 88px;
+            height: 32px;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-evenly;
+            background-color: rgba(255, 255, 255, 0.6);
+        }
+        .wx-capsule-dot { font-size: 12px; }
+        .wx-capsule-line { width: 1px; height: 16px; background-color: rgba(0, 0, 0, 0.1); }
+        .menu-item {
+            background-color: white;
+            transition: background-color 0.2s;
+        }
+        .menu-item:hover {
+            background-color: #F5F5F5;
+        }
+    </style>
+</head>
+<body>
+    <!-- Mock WeChat Navigation Bar -->
+    <header class="wx-header sticky top-0 z-10 flex items-center justify-center h-16 px-4">
+        <div class="absolute left-4">
+            <a href="profile.html" class="text-blue-500">
+                <i class="fas fa-chevron-left"></i>
+            </a>
+        </div>
+        <h1 class="font-semibold text-lg">隐私设置</h1>
+        <div class="wx-capsule absolute right-4">
+            <i class="fas fa-ellipsis-h wx-capsule-dot"></i>
+            <div class="wx-capsule-line"></div>
+            <i class="far fa-circle wx-capsule-dot"></i>
+        </div>
+    </header>
+
+    <main class="pb-20">
+        <!-- Data Privacy -->
+        <div class="bg-white mt-3">
+            <div class="p-4 border-b border-gray-100">
+                <div class="text-sm text-gray-500 mb-1">数据隐私</div>
+            </div>
+            <div class="menu-item p-4 flex items-center justify-between border-b border-gray-100">
+                <div class="flex items-center">
+                    <i class="fas fa-eye-slash w-6 text-center text-blue-500"></i>
+                    <span class="ml-3">隐藏金额</span>
+                </div>
+                <label class="relative inline-flex items-center cursor-pointer">
+                    <input type="checkbox" value="" class="sr-only peer">
+                    <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                </label>
+            </div>
+            <div class="menu-item p-4 flex items-center justify-between border-b border-gray-100">
+                <div class="flex items-center">
+                    <i class="fas fa-lock w-6 text-center text-green-500"></i>
+                    <span class="ml-3">应用锁</span>
+                </div>
+                <label class="relative inline-flex items-center cursor-pointer">
+                    <input type="checkbox" value="" class="sr-only peer" checked>
+                    <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                </label>
+            </div>
+            <a href="#" class="menu-item p-4 flex items-center justify-between border-b border-gray-100">
+                <div class="flex items-center">
+                    <i class="fas fa-clock w-6 text-center text-purple-500"></i>
+                    <span class="ml-3">自动锁定时间</span>
+                </div>
+                <div class="flex items-center">
+                    <span class="text-gray-500 mr-2">5分钟</span>
+                    <i class="fas fa-chevron-right text-gray-400"></i>
+                </div>
+            </a>
+            <div class="menu-item p-4 flex items-center justify-between">
+                <div class="flex items-center">
+                    <i class="fas fa-user-secret w-6 text-center text-red-500"></i>
+                    <span class="ml-3">访客模式</span>
+                </div>
+                <label class="relative inline-flex items-center cursor-pointer">
+                    <input type="checkbox" value="" class="sr-only peer">
+                    <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                </label>
+            </div>
+        </div>
+
+        <!-- Sharing Settings -->
+        <div class="bg-white mt-3">
+            <div class="p-4 border-b border-gray-100">
+                <div class="text-sm text-gray-500 mb-1">分享设置</div>
+            </div>
+            <div class="menu-item p-4 flex items-center justify-between border-b border-gray-100">
+                <div class="flex items-center">
+                    <i class="fas fa-share-alt w-6 text-center text-blue-500"></i>
+                    <span class="ml-3">允许分享账本</span>
+                </div>
+                <label class="relative inline-flex items-center cursor-pointer">
+                    <input type="checkbox" value="" class="sr-only peer" checked>
+                    <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                </label>
+            </div>
+            <div class="menu-item p-4 flex items-center justify-between border-b border-gray-100">
+                <div class="flex items-center">
+                    <i class="fas fa-users w-6 text-center text-green-500"></i>
+                    <span class="ml-3">允许被邀请加入</span>
+                </div>
+                <label class="relative inline-flex items-center cursor-pointer">
+                    <input type="checkbox" value="" class="sr-only peer" checked>
+                    <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                </label>
+            </div>
+            <a href="#" class="menu-item p-4 flex items-center justify-between border-b border-gray-100">
+                <div class="flex items-center">
+                    <i class="fas fa-user-check w-6 text-center text-purple-500"></i>
+                    <span class="ml-3">邀请权限设置</span>
+                </div>
+                <div class="flex items-center">
+                    <span class="text-gray-500 mr-2">仅朋友</span>
+                    <i class="fas fa-chevron-right text-gray-400"></i>
+                </div>
+            </a>
+            <div class="menu-item p-4 flex items-center justify-between">
+                <div class="flex items-center">
+                    <i class="fas fa-eye w-6 text-center text-orange-500"></i>
+                    <span class="ml-3">显示在线状态</span>
+                </div>
+                <label class="relative inline-flex items-center cursor-pointer">
+                    <input type="checkbox" value="" class="sr-only peer" checked>
+                    <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                </label>
+            </div>
+        </div>
+
+        <!-- Data Collection -->
+        <div class="bg-white mt-3">
+            <div class="p-4 border-b border-gray-100">
+                <div class="text-sm text-gray-500 mb-1">数据收集</div>
+            </div>
+            <div class="menu-item p-4 flex items-center justify-between border-b border-gray-100">
+                <div class="flex items-center">
+                    <i class="fas fa-chart-line w-6 text-center text-blue-500"></i>
+                    <span class="ml-3">使用数据分析</span>
+                </div>
+                <label class="relative inline-flex items-center cursor-pointer">
+                    <input type="checkbox" value="" class="sr-only peer" checked>
+                    <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                </label>
+            </div>
+            <div class="menu-item p-4 flex items-center justify-between border-b border-gray-100">
+                <div class="flex items-center">
+                    <i class="fas fa-bug w-6 text-center text-green-500"></i>
+                    <span class="ml-3">崩溃报告</span>
+                </div>
+                <label class="relative inline-flex items-center cursor-pointer">
+                    <input type="checkbox" value="" class="sr-only peer" checked>
+                    <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                </label>
+            </div>
+            <div class="menu-item p-4 flex items-center justify-between border-b border-gray-100">
+                <div class="flex items-center">
+                    <i class="fas fa-ad w-6 text-center text-purple-500"></i>
+                    <span class="ml-3">个性化广告</span>
+                </div>
+                <label class="relative inline-flex items-center cursor-pointer">
+                    <input type="checkbox" value="" class="sr-only peer">
+                    <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                </label>
+            </div>
+            <a href="#" class="menu-item p-4 flex items-center justify-between">
+                <div class="flex items-center">
+                    <i class="fas fa-file-alt w-6 text-center text-red-500"></i>
+                    <span class="ml-3">查看隐私政策</span>
+                </div>
+                <i class="fas fa-chevron-right text-gray-400"></i>
+            </a>
+        </div>
+
+        <!-- Location Services -->
+        <div class="bg-white mt-3">
+            <div class="p-4 border-b border-gray-100">
+                <div class="text-sm text-gray-500 mb-1">位置服务</div>
+            </div>
+            <div class="menu-item p-4 flex items-center justify-between border-b border-gray-100">
+                <div class="flex items-center">
+                    <i class="fas fa-map-marker-alt w-6 text-center text-blue-500"></i>
+                    <span class="ml-3">记录交易位置</span>
+                </div>
+                <label class="relative inline-flex items-center cursor-pointer">
+                    <input type="checkbox" value="" class="sr-only peer" checked>
+                    <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                </label>
+            </div>
+            <div class="menu-item p-4 flex items-center justify-between border-b border-gray-100">
+                <div class="flex items-center">
+                    <i class="fas fa-store w-6 text-center text-green-500"></i>
+                    <span class="ml-3">商户识别</span>
+                </div>
+                <label class="relative inline-flex items-center cursor-pointer">
+                    <input type="checkbox" value="" class="sr-only peer" checked>
+                    <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                </label>
+            </div>
+            <a href="#" class="menu-item p-4 flex items-center justify-between">
+                <div class="flex items-center">
+                    <i class="fas fa-history w-6 text-center text-purple-500"></i>
+                    <span class="ml-3">位置历史记录</span>
+                </div>
+                <i class="fas fa-chevron-right text-gray-400"></i>
+            </a>
+        </div>
+
+        <!-- Account Deletion -->
+        <div class="bg-white mt-3">
+            <div class="p-4 border-b border-gray-100">
+                <div class="text-sm text-gray-500 mb-1">账户管理</div>
+            </div>
+            <a href="#" class="menu-item p-4 flex items-center justify-between border-b border-gray-100">
+                <div class="flex items-center">
+                    <i class="fas fa-download w-6 text-center text-blue-500"></i>
+                    <span class="ml-3">下载我的数据</span>
+                </div>
+                <i class="fas fa-chevron-right text-gray-400"></i>
+            </a>
+            <a href="#" class="menu-item p-4 flex items-center justify-between border-b border-gray-100">
+                <div class="flex items-center">
+                    <i class="fas fa-eraser w-6 text-center text-orange-500"></i>
+                    <span class="ml-3">清除缓存数据</span>
+                </div>
+                <i class="fas fa-chevron-right text-gray-400"></i>
+            </a>
+            <a href="#" class="menu-item p-4 flex items-center justify-between">
+                <div class="flex items-center">
+                    <i class="fas fa-user-times w-6 text-center text-red-500"></i>
+                    <span class="ml-3">删除账户</span>
+                </div>
+                <i class="fas fa-chevron-right text-gray-400"></i>
+            </a>
+        </div>
+    </main>
+</body>
+</html>

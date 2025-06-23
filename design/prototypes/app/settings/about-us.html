@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>关于我们</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #121212;
+            color: #EAEAEA;
+        }
+        .menu-item {
+            background-color: #1E1E1E;
+            transition: background-color 0.2s;
+        }
+        .menu-item:active {
+            background-color: #2d2d2d;
+        }
+    </style>
+</head>
+<body class="flex flex-col h-screen">
+
+    <!-- Header -->
+    <header class="p-4 flex items-center bg-gray-900/80 backdrop-blur-md sticky top-0 z-10">
+        <button onclick="history.back()" class="w-8 h-8"><i class="fas fa-chevron-left text-xl"></i></button>
+        <h1 class="text-lg font-semibold text-center flex-grow">关于我们</h1>
+        <div class="w-8"></div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-grow p-4 overflow-y-auto">
+        <!-- App Info -->
+        <div class="text-center mb-6">
+            <div class="w-20 h-20 bg-blue-600 rounded-xl mx-auto mb-4 flex items-center justify-center">
+                <i class="fas fa-wallet text-white text-2xl"></i>
+            </div>
+            <h2 class="text-xl font-bold text-gray-300 mb-2">记账本</h2>
+            <p class="text-gray-500 text-sm">版本 2.1.0</p>
+        </div>
+
+        <!-- App Introduction -->
+        <div class="rounded-xl overflow-hidden mb-4">
+            <div class="menu-item p-4 border-b border-gray-800">
+                <div class="text-sm text-gray-400 mb-3">应用介绍</div>
+                <div class="text-gray-300 text-sm leading-relaxed">
+                    记账本是一款简洁易用的个人财务管理应用，专为现代生活设计。我们致力于帮助用户轻松记录每一笔收支，清晰掌握财务状况，实现更好的财务规划。
+                </div>
+            </div>
+        </div>
+
+        <!-- Core Features -->
+        <div class="rounded-xl overflow-hidden mb-4">
+            <div class="menu-item p-4 border-b border-gray-800">
+                <div class="text-sm text-gray-400 mb-3">核心功能</div>
+            </div>
+            <div class="menu-item p-4 flex items-center border-b border-gray-800">
+                <i class="fas fa-plus-circle w-6 text-center text-blue-400"></i>
+                <div class="ml-3">
+                    <div class="text-gray-300">快速记账</div>
+                    <div class="text-xs text-gray-500">简单直观的记账界面</div>
+                </div>
+            </div>
+            <div class="menu-item p-4 flex items-center border-b border-gray-800">
+                <i class="fas fa-chart-pie w-6 text-center text-green-400"></i>
+                <div class="ml-3">
+                    <div class="text-gray-300">智能分析</div>
+                    <div class="text-xs text-gray-500">多维度财务报表</div>
+                </div>
+            </div>
+            <div class="menu-item p-4 flex items-center border-b border-gray-800">
+                <i class="fas fa-users w-6 text-center text-purple-400"></i>
+                <div class="ml-3">
+                    <div class="text-gray-300">家庭共享</div>
+                    <div class="text-xs text-gray-500">多人协作记账</div>
+                </div>
+            </div>
+            <div class="menu-item p-4 flex items-center">
+                <i class="fas fa-cloud w-6 text-center text-blue-500"></i>
+                <div class="ml-3">
+                    <div class="text-gray-300">云端同步</div>
+                    <div class="text-xs text-gray-500">数据安全备份</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Company Info -->
+        <div class="rounded-xl overflow-hidden mb-4">
+            <div class="menu-item p-4 border-b border-gray-800">
+                <div class="text-sm text-gray-400 mb-3">公司信息</div>
+            </div>
+            <div class="menu-item p-4 flex items-center justify-between border-b border-gray-800">
+                <div class="flex items-center">
+                    <i class="fas fa-building w-6 text-center text-blue-400"></i>
+                    <div class="ml-3">
+                        <div class="text-gray-300">开发团队</div>
+                        <div class="text-xs text-gray-500">MoneyKeeper Studio</div>
+                    </div>
+                </div>
+            </div>
+            <div class="menu-item p-4 flex items-center justify-between border-b border-gray-800">
+                <div class="flex items-center">
+                    <i class="fas fa-envelope w-6 text-center text-green-400"></i>
+                    <div class="ml-3">
+                        <div class="text-gray-300">联系邮箱</div>
+                        <div class="text-xs text-gray-500">support@moneykeeper.com</div>
+                    </div>
+                </div>
+                <i class="fas fa-copy text-gray-500"></i>
+            </div>
+            <div class="menu-item p-4 flex items-center justify-between border-b border-gray-800">
+                <div class="flex items-center">
+                    <i class="fas fa-globe w-6 text-center text-purple-400"></i>
+                    <div class="ml-3">
+                        <div class="text-gray-300">官方网站</div>
+                        <div class="text-xs text-gray-500">www.moneykeeper.com</div>
+                    </div>
+                </div>
+                <i class="fas fa-external-link-alt text-gray-500"></i>
+            </div>
+            <div class="menu-item p-4 flex items-center justify-between">
+                <div class="flex items-center">
+                    <i class="fas fa-map-marker-alt w-6 text-center text-red-400"></i>
+                    <div class="ml-3">
+                        <div class="text-gray-300">公司地址</div>
+                        <div class="text-xs text-gray-500">北京市朝阳区科技园</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Legal Terms -->
+        <div class="rounded-xl overflow-hidden mb-4">
+            <div class="menu-item p-4 border-b border-gray-800">
+                <div class="text-sm text-gray-400 mb-3">法律条款</div>
+            </div>
+            <div class="menu-item p-4 flex items-center justify-between border-b border-gray-800">
+                <div class="flex items-center">
+                    <i class="fas fa-file-contract w-6 text-center text-blue-400"></i>
+                    <div class="ml-3">
+                        <div class="text-gray-300">用户协议</div>
+                        <div class="text-xs text-gray-500">服务条款和使用规则</div>
+                    </div>
+                </div>
+                <i class="fas fa-chevron-right text-gray-500"></i>
+            </div>
+            <div class="menu-item p-4 flex items-center justify-between border-b border-gray-800">
+                <div class="flex items-center">
+                    <i class="fas fa-shield-alt w-6 text-center text-green-400"></i>
+                    <div class="ml-3">
+                        <div class="text-gray-300">隐私政策</div>
+                        <div class="text-xs text-gray-500">数据保护和隐私说明</div>
+                    </div>
+                </div>
+                <i class="fas fa-chevron-right text-gray-500"></i>
+            </div>
+            <div class="menu-item p-4 flex items-center justify-between">
+                <div class="flex items-center">
+                    <i class="fas fa-code w-6 text-center text-purple-400"></i>
+                    <div class="ml-3">
+                        <div class="text-gray-300">开源许可</div>
+                        <div class="text-xs text-gray-500">第三方库和许可信息</div>
+                    </div>
+                </div>
+                <i class="fas fa-chevron-right text-gray-500"></i>
+            </div>
+        </div>
+
+        <!-- Social Media -->
+        <div class="rounded-xl overflow-hidden mb-4">
+            <div class="menu-item p-4 border-b border-gray-800">
+                <div class="text-sm text-gray-400 mb-3">关注我们</div>
+            </div>
+            <div class="menu-item p-4 flex items-center justify-between border-b border-gray-800">
+                <div class="flex items-center">
+                    <i class="fab fa-weixin w-6 text-center text-green-400"></i>
+                    <div class="ml-3">
+                        <div class="text-gray-300">微信公众号</div>
+                        <div class="text-xs text-gray-500">MoneyKeeper记账本</div>
+                    </div>
+                </div>
+                <i class="fas fa-qrcode text-gray-500"></i>
+            </div>
+            <div class="menu-item p-4 flex items-center justify-between border-b border-gray-800">
+                <div class="flex items-center">
+                    <i class="fab fa-weibo w-6 text-center text-red-400"></i>
+                    <div class="ml-3">
+                        <div class="text-gray-300">新浪微博</div>
+                        <div class="text-xs text-gray-500">@记账本官方</div>
+                    </div>
+                </div>
+                <i class="fas fa-external-link-alt text-gray-500"></i>
+            </div>
+            <div class="menu-item p-4 flex items-center justify-between">
+                <div class="flex items-center">
+                    <i class="fab fa-qq w-6 text-center text-blue-500"></i>
+                    <div class="ml-3">
+                        <div class="text-gray-300">QQ交流群</div>
+                        <div class="text-xs text-gray-500">123456789</div>
+                    </div>
+                </div>
+                <i class="fas fa-external-link-alt text-gray-500"></i>
+            </div>
+        </div>
+
+        <!-- User Statistics -->
+        <div class="rounded-xl overflow-hidden mb-4">
+            <div class="menu-item p-4 border-b border-gray-800">
+                <div class="text-sm text-gray-400 mb-3">用户数据</div>
+            </div>
+            <div class="menu-item p-4 flex items-center justify-between border-b border-gray-800">
+                <div class="flex items-center">
+                    <i class="fas fa-users w-6 text-center text-blue-400"></i>
+                    <div class="ml-3">
+                        <div class="text-gray-300">注册用户</div>
+                        <div class="text-xs text-gray-500">超过100万用户的选择</div>
+                    </div>
+                </div>
+            </div>
+            <div class="menu-item p-4 flex items-center justify-between border-b border-gray-800">
+                <div class="flex items-center">
+                    <i class="fas fa-star w-6 text-center text-yellow-400"></i>
+                    <div class="ml-3">
+                        <div class="text-gray-300">用户评分</div>
+                        <div class="text-xs text-gray-500">4.8分 (App Store)</div>
+                    </div>
+                </div>
+            </div>
+            <div class="menu-item p-4 flex items-center justify-between">
+                <div class="flex items-center">
+                    <i class="fas fa-download w-6 text-center text-green-400"></i>
+                    <div class="ml-3">
+                        <div class="text-gray-300">下载量</div>
+                        <div class="text-xs text-gray-500">累计下载500万次</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center text-gray-500 text-xs">
+            <p>© 2024 MoneyKeeper Studio. All rights reserved.</p>
+            <p class="mt-1">感谢您选择记账本，让财务管理更简单</p>
+        </div>
+    </main>
+
+</body>
+</html>

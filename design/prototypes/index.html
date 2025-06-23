@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>家庭账本 - 高保真HTML原型</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <style>
+        body {
+            background-color: #121212;
+            color: #EAEAEA;
+        }
+        .prototype-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(375px, 1fr));
+            gap: 2rem;
+            padding: 2rem;
+        }
+        .prototype-card {
+            background-color: #1E1E1E;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid #2D2D2D;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .prototype-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+        .prototype-title {
+            padding: 1rem;
+            font-weight: 600;
+            border-bottom: 1px solid #2D2D2D;
+        }
+        .prototype-iframe {
+            width: 100%;
+            border: none;
+        }
+        .desktop-container {
+            grid-column: 1 / -1; /* Span full width */
+        }
+        .desktop-iframe {
+            height: 80vh; /* Taller iframe for desktop view */
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container mx-auto p-8">
+        <header class="text-center mb-12">
+            <h1 class="text-4xl font-bold text-white">家庭账本 - 高保真HTML原型</h1>
+            <p class="text-lg text-gray-400 mt-2">一站式预览所有核心界面</p>
+        </header>
+
+        <!-- 平台分类 -->
+        <section id="app-prototypes">
+            <h2 class="text-2xl font-semibold mb-6 border-l-4 border-green-500 pl-4">App 原型 (iOS 风格)</h2>
+            <div class="prototype-grid" id="app-grid">
+                <!-- App prototypes will be injected here -->
+            </div>
+        </section>
+
+        <section id="miniprogram-prototypes" class="mt-12">
+            <h2 class="text-2xl font-semibold mb-6 border-l-4 border-blue-500 pl-4">小程序原型 (微信风格)</h2>
+            <div class="prototype-grid" id="miniprogram-grid">
+                <!-- Mini Program prototypes will be injected here -->
+            </div>
+        </section>
+
+        <section id="web-admin-prototypes" class="mt-12">
+            <h2 class="text-2xl font-semibold mb-6 border-l-4 border-purple-500 pl-4">Web后台管理原型</h2>
+            <div class="prototype-grid" id="web-admin-grid">
+                <!-- Web Admin prototypes will be injected here -->
+            </div>
+        </section>
+    </div>
+
+    <script>
+        const prototypes = {
+            app: [
+                { title: '启动页', file: 'app/splash.html', height: '812px' },
+                { title: '登录页', file: 'app/login.html', height: '812px' },
+                { title: '首页 - 账单流水', file: 'app/home.html', height: '812px' },
+                { title: '记一笔', file: 'app/add-transaction.html', height: '812px' },
+                { title: '我的账本', file: 'app/ledgers.html', height: '812px' },
+                { title: '统计报表', file: 'app/reports.html', height: '812px' },
+                { title: '我的', file: 'app/profile.html', height: '812px' },
+                { title: '设置 - 账户与安全', file: 'app/settings/account-and-security.html', height: '812px' },
+                { title: '设置 - 消息通知', file: 'app/settings/notifications.html', height: '812px' },
+                { title: '设置 - 隐私设置', file: 'app/settings/privacy.html', height: '812px' },
+                { title: '设置 - 帮助与反馈', file: 'app/settings/help-and-feedback.html', height: '812px' },
+                { title: '设置 - 关于我们', file: 'app/settings/about-us.html', height: '812px' },
+                { title: '设置 - 更换手机号', file: 'app/settings/change-phone.html', height: '812px' },
+                { title: '设置 - 修改登录密码', file: 'app/settings/change-password.html', height: '812px' },
+                { title: '设置 - 设置支付密码', file: 'app/settings/set-payment-password.html', height: '812px' },
+                { title: '设置 - 注销账户', file: 'app/settings/delete-account.html', height: '812px' },
+            ],
+            miniProgram: [
+                { title: '小程序 - 登录页', file: 'mini-program/login.html', height: '812px' },
+                { title: '小程序 - 首页', file: 'mini-program/home.html', height: '812px' },
+                { title: '小程序 - 记一笔', file: 'mini-program/add-transaction.html', height: '812px' },
+                { title: '小程序 - 我的账本', file: 'mini-program/ledgers.html', height: '812px' },
+                { title: '小程序 - 统计报表', file: 'mini-program/reports.html', height: '812px' },
+                { title: '小程序 - 我的', file: 'mini-program/profile.html', height: '812px' },
+            ],
+            webAdmin: [
+                { title: '后台 - 登录页', file: 'web-admin/login.html', width: '1024px', height: '720px' },
+                { title: '后台 - 数据看板', file: 'web-admin/dashboard.html', width: '1280px', height: '800px' }
+            ]
+        };
+
+        function createPrototypeCard(prototype) {
+            const containerClass = prototype.desktop ? 'prototype-card desktop-container' : 'prototype-card';
+            const iframeClass = prototype.desktop ? 'prototype-iframe desktop-iframe' : 'prototype-iframe';
+            const iframeHeight = prototype.height || '812px';
+
+            return `
+                <div class="${containerClass}">
+                    <div class="prototype-title">${prototype.title}</div>
+                    <iframe class="${iframeClass}" style="height: ${iframeHeight};" src="${prototype.file}"></iframe>
+                </div>
+            `;
+        }
+
+        document.getElementById('app-grid').innerHTML = prototypes.app.map(createPrototypeCard).join('');
+        document.getElementById('miniprogram-grid').innerHTML = prototypes.miniProgram.map(createPrototypeCard).join('');
+        document.getElementById('web-admin-grid').innerHTML = prototypes.webAdmin.map(createPrototypeCard).join('');
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>记一笔 - 小程序</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+            background-color: #F7F7F7;
+        }
+        .wx-header {
+            background-color: #F6F6F6;
+            color: #000000;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+        .wx-capsule {
+            width: 88px;
+            height: 32px;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-evenly;
+            background-color: rgba(255, 255, 255, 0.6);
+        }
+        .wx-capsule-dot { font-size: 12px; }
+        .wx-capsule-line { width: 1px; height: 16px; background-color: rgba(0, 0, 0, 0.1); }
+        .tab-bar {
+            background-color: #FFFFFF;
+            border-top: 1px solid #E5E5E5;
+        }
+        .category-btn {
+            background-color: #F5F5F5;
+            border: 1px solid #E5E5E5;
+        }
+        .category-btn.active {
+            background-color: #07C160;
+            color: white;
+            border-color: #07C160;
+        }
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+        }
+        .category-item.selected {
+            background-color: #07C160;
+            color: white;
+        }
+    </style>
+</head>
+<body class="flex flex-col h-screen">
+
+    <!-- Mock WeChat Navigation Bar -->
+    <header class="wx-header sticky top-0 z-10 flex items-center justify-center h-16 px-4">
+        <div class="absolute left-4">
+            <!-- Placeholder for back button if needed -->
+        </div>
+        <h1 class="font-semibold text-lg">记一笔</h1>
+        <div class="wx-capsule absolute right-4">
+            <i class="fas fa-ellipsis-h wx-capsule-dot"></i>
+            <div class="wx-capsule-line"></div>
+            <i class="far fa-circle wx-capsule-dot"></i>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-grow overflow-y-auto p-4">
+        <!-- Amount Input -->
+        <div class="bg-white p-4 rounded-lg shadow-sm flex items-center">
+            <span class="text-2xl font-bold mr-2">¥</span>
+            <input type="number" placeholder="0.00" class="text-4xl font-bold w-full bg-transparent focus:outline-none">
+        </div>
+
+        <!-- Category Selection -->
+        <div class="mt-4 bg-white p-4 rounded-lg shadow-sm">
+            <div class="category-grid text-center">
+                <div class="category-item p-2 rounded-lg selected">
+                    <i class="fas fa-utensils text-2xl"></i>
+                    <div class="text-xs mt-1">餐饮</div>
+                </div>
+                <div class="category-item p-2 rounded-lg">
+                    <i class="fas fa-shopping-bag text-2xl"></i>
+                    <div class="text-xs mt-1">购物</div>
+                </div>
+                <div class="category-item p-2 rounded-lg">
+                    <i class="fas fa-bus text-2xl"></i>
+                    <div class="text-xs mt-1">交通</div>
+                </div>
+                <div class="category-item p-2 rounded-lg">
+                    <i class="fas fa-film text-2xl"></i>
+                    <div class="text-xs mt-1">娱乐</div>
+                </div>
+                 <div class="category-item p-2 rounded-lg">
+                    <i class="fas fa-home text-2xl"></i>
+                    <div class="text-xs mt-1">住房</div>
+                </div>
+                <div class="category-item p-2 rounded-lg">
+                    <i class="fas fa-tshirt text-2xl"></i>
+                    <div class="text-xs mt-1">服饰</div>
+                </div>
+                <div class="category-item p-2 rounded-lg">
+                    <i class="fas fa-heartbeat text-2xl"></i>
+                    <div class="text-xs mt-1">医疗</div>
+                </div>
+                <div class="category-item p-2 rounded-lg">
+                    <i class="fas fa-ellipsis-h text-2xl"></i>
+                    <div class="text-xs mt-1">其他</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Details -->
+        <div class="mt-4 bg-white rounded-lg shadow-sm overflow-hidden">
+            <div class="p-3 border-b border-gray-100 flex items-center">
+                <i class="far fa-calendar-alt w-6 text-center text-gray-500"></i>
+                <span class="ml-3">日期</span>
+                <span class="ml-auto text-gray-800">今天</span>
+                <i class="fas fa-chevron-right text-gray-400 ml-2"></i>
+            </div>
+            <div class="p-3 flex items-center">
+                <i class="far fa-comment-dots w-6 text-center text-gray-500"></i>
+                <input type="text" placeholder="备注..." class="w-full ml-3 bg-transparent focus:outline-none">
+            </div>
+        </div>
+    </main>
+
+</body>
+</html>

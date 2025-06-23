@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>启动页 - 小程序</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+            background-color: #FFFFFF;
+            color: #1F1F1F;
+        }
+        .wechat-nav {
+            background-color: #F7F7F7;
+            border-bottom: 1px solid #E5E5E5;
+        }
+        .wechat-nav-title {
+            font-weight: 600;
+        }
+        .capsule {
+            border: 1px solid #E5E5E5;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            height: 30px;
+            overflow: hidden;
+        }
+        .capsule-btn {
+            padding: 0 10px;
+            height: 100%;
+            display: flex;
+            align-items: center;
+        }
+        .capsule-divider {
+            width: 1px;
+            height: 18px;
+            background-color: #E5E5E5;
+        }
+    </style>
+</head>
+<body class="flex flex-col h-screen">
+
+    <!-- Mock WeChat Navigation Bar -->
+    <header class="wechat-nav p-3 flex items-center justify-between sticky top-0 z-10">
+        <div class="w-20"></div>
+        <h1 class="wechat-nav-title text-center flex-grow"></h1>
+        <div class="capsule">
+            <div class="capsule-btn"><i class="fas fa-ellipsis-h"></i></div>
+            <div class="capsule-divider"></div>
+            <div class="capsule-btn"><i class="far fa-circle"></i></div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-grow flex flex-col items-center justify-center text-center bg-white">
+        <!-- App Logo -->
+        <div class="w-24 h-24 bg-green-500 rounded-3xl flex items-center justify-center shadow-lg">
+            <i class="fas fa-wallet text-5xl text-white"></i>
+        </div>
+
+        <!-- App Name -->
+        <h1 class="text-3xl font-bold text-gray-800 mt-6">家庭账本</h1>
+        <p class="text-gray-500 mt-2">轻松管理家庭财务</p>
+    </main>
+
+    <!-- Copyright Info -->
+    <footer class="p-4 text-center text-xs text-gray-400">
+        <p>Copyright &copy; 2024 Your Company. All Rights Reserved.</p>
+    </footer>
+
+</body>
+</html>
