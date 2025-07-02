@@ -17,6 +17,10 @@
             gap: 2rem;
             padding: 2rem;
         }
+        #web-admin-grid {
+            grid-template-columns: 1fr;
+            gap: 3rem;
+        }
         .prototype-card {
             background-color: #1E1E1E;
             border-radius: 12px;
@@ -42,6 +46,23 @@
         }
         .desktop-iframe {
             height: 80vh; /* Taller iframe for desktop view */
+        }
+        .web-admin-card {
+            background-color: #1E1E1E;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid #2D2D2D;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            width: 100%;
+        }
+        .web-admin-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+        .web-admin-iframe {
+            width: 100%;
+            border: none;
+            height: 800px;
         }
     </style>
 </head>
@@ -106,11 +127,25 @@
             ],
             webAdmin: [
                 { title: '后台 - 登录页', file: 'web-admin/login.html', width: '1024px', height: '720px' },
-                { title: '后台 - 数据看板', file: 'web-admin/dashboard.html', width: '1280px', height: '800px' }
+                { title: '后台 - 数据看板', file: 'web-admin/dashboard.html', width: '1280px', height: '800px' },
+                { title: '后台 - 用户管理', file: 'web-admin/users.html', width: '1280px', height: '800px' },
+                { title: '后台 - 新增用户', file: 'web-admin/add-user.html', width: '1280px', height: '800px' },
+                { title: '后台 - 账本管理', file: 'web-admin/ledgers.html', width: '1280px', height: '800px' },
+                { title: '后台 - 流水查询', file: 'web-admin/transactions.html', width: '1280px', height: '800px' },
+                { title: '后台 - 系统设置', file: 'web-admin/settings.html', width: '1280px', height: '800px' }
             ]
         };
 
-        function createPrototypeCard(prototype) {
+        function createPrototypeCard(prototype, isWebAdmin = false) {
+            if (isWebAdmin) {
+                return `
+                    <div class="web-admin-card">
+                        <div class="prototype-title">${prototype.title}</div>
+                        <iframe class="web-admin-iframe" src="${prototype.file}"></iframe>
+                    </div>
+                `;
+            }
+            
             const containerClass = prototype.desktop ? 'prototype-card desktop-container' : 'prototype-card';
             const iframeClass = prototype.desktop ? 'prototype-iframe desktop-iframe' : 'prototype-iframe';
             const iframeHeight = prototype.height || '812px';
@@ -123,9 +158,9 @@
             `;
         }
 
-        document.getElementById('app-grid').innerHTML = prototypes.app.map(createPrototypeCard).join('');
-        document.getElementById('miniprogram-grid').innerHTML = prototypes.miniProgram.map(createPrototypeCard).join('');
-        document.getElementById('web-admin-grid').innerHTML = prototypes.webAdmin.map(createPrototypeCard).join('');
+        document.getElementById('app-grid').innerHTML = prototypes.app.map(p => createPrototypeCard(p)).join('');
+        document.getElementById('miniprogram-grid').innerHTML = prototypes.miniProgram.map(p => createPrototypeCard(p)).join('');
+        document.getElementById('web-admin-grid').innerHTML = prototypes.webAdmin.map(p => createPrototypeCard(p, true)).join('');
     </script>
 
 </body>

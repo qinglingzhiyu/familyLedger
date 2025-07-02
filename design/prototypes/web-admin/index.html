@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web 后台管理系统原型 - 家庭账本</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <style>
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        .prototype-item {
+            background: white;
+            border-radius: 1rem;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .prototype-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        }
+        .prototype-frame {
+            width: 100%;
+            height: 600px;
+            border: none;
+            display: block;
+        }
+        .prototype-title {
+            background: linear-gradient(135deg, #4F46E5 0%, #7C3AED 100%);
+            color: white;
+            padding: 1rem;
+            font-weight: 600;
+            text-align: center;
+            font-size: 1.1rem;
+        }
+        .section-header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 1rem;
+            padding: 2rem;
+            margin-bottom: 3rem;
+            text-align: center;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+        .prototype-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 3rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        @media (min-width: 1200px) {
+            .prototype-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body class="p-8">
+    <div class="container mx-auto">
+        <!-- Header -->
+        <div class="section-header">
+            <h1 class="text-4xl font-bold text-gray-800 mb-4">
+                <i class="fas fa-desktop mr-4 text-indigo-600"></i>
+                Web 后台管理系统原型
+            </h1>
+            <p class="text-lg text-gray-600 mb-6">
+                家庭账本管理系统 - 后台管理界面高保真原型展示
+            </p>
+            <div class="flex justify-center items-center space-x-6 text-sm text-gray-500">
+                <span><i class="fas fa-code mr-2"></i>HTML + Tailwind CSS</span>
+                <span><i class="fas fa-palette mr-2"></i>现代化设计</span>
+                <span><i class="fas fa-mobile-alt mr-2"></i>响应式布局</span>
+            </div>
+        </div>
+
+        <!-- Prototypes Grid -->
+        <div class="prototype-grid">
+            <!-- Login Page -->
+            <div class="prototype-item">
+                <div class="prototype-title">
+                    <i class="fas fa-sign-in-alt mr-2"></i>
+                    登录页面
+                </div>
+                <iframe src="login.html" class="prototype-frame"></iframe>
+            </div>
+
+            <!-- Dashboard -->
+            <div class="prototype-item">
+                <div class="prototype-title">
+                    <i class="fas fa-tachometer-alt mr-2"></i>
+                    数据看板
+                </div>
+                <iframe src="dashboard.html" class="prototype-frame"></iframe>
+            </div>
+
+            <!-- User Management -->
+            <div class="prototype-item">
+                <div class="prototype-title">
+                    <i class="fas fa-users mr-2"></i>
+                    用户管理
+                </div>
+                <iframe src="users.html" class="prototype-frame"></iframe>
+            </div>
+
+            <!-- Add User -->
+            <div class="prototype-item">
+                <div class="prototype-title">
+                    <i class="fas fa-user-plus mr-2"></i>
+                    新增用户
+                </div>
+                <iframe src="add-user.html" class="prototype-frame"></iframe>
+            </div>
+
+            <!-- Ledger Management -->
+            <div class="prototype-item">
+                <div class="prototype-title">
+                    <i class="fas fa-book mr-2"></i>
+                    账本管理
+                </div>
+                <iframe src="ledgers.html" class="prototype-frame"></iframe>
+            </div>
+
+            <!-- Transaction Query -->
+            <div class="prototype-item">
+                <div class="prototype-title">
+                    <i class="fas fa-exchange-alt mr-2"></i>
+                    流水查询
+                </div>
+                <iframe src="transactions.html" class="prototype-frame"></iframe>
+            </div>
+
+            <!-- System Settings -->
+            <div class="prototype-item">
+                <div class="prototype-title">
+                    <i class="fas fa-cogs mr-2"></i>
+                    系统设置
+                </div>
+                <iframe src="settings.html" class="prototype-frame"></iframe>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="text-center mt-12 text-white">
+            <p class="text-lg font-medium mb-2">
+                <i class="fas fa-check-circle mr-2 text-green-300"></i>
+                所有页面均采用统一的设计规范和交互模式
+            </p>
+            <p class="text-sm opacity-75">
+                基于现代Web技术栈构建，确保最佳的用户体验和视觉效果
+            </p>
+        </div>
+    </div>
+</body>
+</html>
