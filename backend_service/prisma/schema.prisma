@@ -1,0 +1,184 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// 用户表
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  phone     String?  @unique
+  password  String
+  nickname  String
+  avatar    String?
+  status    UserStatus @default(ACTIVE)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // 关联关系
+  ledgerMembers LedgerMember[]
+  transactions  Transaction[]
+  accounts      Account[]
+
+  @@map("users")
+}
+
+// 用户状态枚举
+enum UserStatus {
+  ACTIVE
+  INACTIVE
+  SUSPENDED
+}
+
+// 账本表
+model Ledger {
+  id          String   @id @default(cuid())
+  name        String
+  description String?
+  cover       String?
+  currency    String   @default("CNY")
+  status      LedgerStatus @default(ACTIVE)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // 关联关系
+  members      LedgerMember[]
+  transactions Transaction[]
+  categories   Category[]
+  accounts     Account[]
+
+  @@map("ledgers")
+}
+
+// 账本状态枚举
+enum LedgerStatus {
+  ACTIVE
+  ARCHIVED
+  DELETED
+}
+
+// 账本成员表（多对多关系表）
+model LedgerMember {
+  id       String @id @default(cuid())
+  userId   String
+  ledgerId String
+  role     MemberRole @default(MEMBER)
+  joinedAt DateTime @default(now())
+
+  // 关联关系
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  ledger Ledger @relation(fields: [ledgerId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, ledgerId])
+  @@map("ledger_members")
+}
+
+// 成员角色枚举
+enum MemberRole {
+  OWNER
+  ADMIN
+  MEMBER
+}
+
+// 账户表（现金、银行卡、支付宝等）
+model Account {
+  id        String   @id @default(cuid())
+  name      String
+  type      AccountType
+  balance   Decimal  @default(0) @db.Decimal(15, 2)
+  currency  String   @default("CNY")
+  icon      String?
+  color     String?
+  isDefault Boolean  @default(false)
+  userId    String
+  ledgerId  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // 关联关系
+  user         User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  ledger       Ledger        @relation(fields: [ledgerId], references: [id], onDelete: Cascade)
+  transactions Transaction[]
+
+  @@map("accounts")
+}
+
+// 账户类型枚举
+enum AccountType {
+  CASH
+  BANK_CARD
+  CREDIT_CARD
+  ALIPAY
+  WECHAT
+  OTHER
+}
+
+// 分类表
+model Category {
+  id        String   @id @default(cuid())
+  name      String
+  icon      String?
+  color     String?
+  type      TransactionType
+  parentId  String?
+  ledgerId  String
+  isSystem  Boolean  @default(false)
+  sortOrder Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // 关联关系
+  ledger       Ledger        @relation(fields: [ledgerId], references: [id], onDelete: Cascade)
+  parent       Category?     @relation("CategoryHierarchy", fields: [parentId], references: [id])
+  children     Category[]    @relation("CategoryHierarchy")
+  transactions Transaction[]
+
+  @@map("categories")
+}
+
+// 交易记录表
+model Transaction {
+  id          String   @id @default(cuid())
+  amount      Decimal  @db.Decimal(15, 2)
+  type        TransactionType
+  description String?
+  note        String?
+  images      String[] // 存储图片URL数组
+  date        DateTime
+  userId      String
+  ledgerId    String
+  accountId   String
+  categoryId  String
+  status      TransactionStatus @default(CONFIRMED)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // 关联关系
+  user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  ledger   Ledger   @relation(fields: [ledgerId], references: [id], onDelete: Cascade)
+  account  Account  @relation(fields: [accountId], references: [id], onDelete: Cascade)
+  category Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+
+  @@map("transactions")
+}
+
+// 交易类型枚举
+enum TransactionType {
+  INCOME
+  EXPENSE
+  TRANSFER
+}
+
+// 交易状态枚举
+enum TransactionStatus {
+  PENDING
+  CONFIRMED
+  CANCELLED
+}

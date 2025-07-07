@@ -102,82 +102,70 @@
         }
     </style>
 </head>
-<body class="min-h-screen flex items-center justify-center p-8">
+<body class="flex justify-center items-center p-8 min-h-screen">
 
     <div class="browser-window">
-        <!-- Browser Header -->
-        <div class="browser-header">
-            <div class="flex">
-                <span style="background-color: #FECACA;"></span>
-                <span style="background-color: #FDE68A;"></span>
-                <span style="background-color: #A7F3D0;"></span>
-            </div>
-            <div class="browser-address-bar">
-                <i class="fas fa-lock mr-2"></i> https://admin.jiatingzhangben.com/settings
-            </div>
-        </div>
-
         <!-- Main Content -->
-        <div class="bg-white h-full flex">
+        <div class="flex h-full bg-white">
             <!-- Sidebar -->
-            <aside class="sidebar w-64 flex-shrink-0 flex flex-col">
-                <div class="h-16 flex items-center justify-center text-2xl font-bold text-white border-b border-gray-700">
-                    <i class="fas fa-book-open mr-3"></i>
+            <aside class="flex flex-col flex-shrink-0 w-64 sidebar">
+                <div class="flex justify-center items-center h-16 text-2xl font-bold text-white border-b border-gray-700">
+                    <i class="mr-3 fas fa-book-open"></i>
                     <span>家庭账本</span>
                 </div>
                 <nav class="flex-grow p-4 space-y-2">
                     <a href="dashboard.html" class="sidebar-link">
-                        <i class="fas fa-tachometer-alt w-6 mr-3"></i>
+                        <i class="mr-3 w-6 fas fa-tachometer-alt"></i>
                         <span>数据看板</span>
                     </a>
                     <a href="users.html" class="sidebar-link">
-                        <i class="fas fa-users w-6 mr-3"></i>
+                        <i class="mr-3 w-6 fas fa-users"></i>
                         <span>用户管理</span>
                     </a>
                     <a href="ledgers.html" class="sidebar-link">
-                        <i class="fas fa-book w-6 mr-3"></i>
+                        <i class="mr-3 w-6 fas fa-book"></i>
                         <span>账本管理</span>
                     </a>
                     <a href="transactions.html" class="sidebar-link">
-                        <i class="fas fa-exchange-alt w-6 mr-3"></i>
+                        <i class="mr-3 w-6 fas fa-exchange-alt"></i>
                         <span>流水查询</span>
                     </a>
                     <a href="settings.html" class="sidebar-link active">
-                        <i class="fas fa-cogs w-6 mr-3"></i>
+                        <i class="mr-3 w-6 fas fa-cogs"></i>
                         <span>系统设置</span>
                     </a>
                 </nav>
                 <div class="p-4 border-t border-gray-700">
                     <a href="login.html" class="sidebar-link">
-                        <i class="fas fa-sign-out-alt w-6 mr-3"></i>
+                        <i class="mr-3 w-6 fas fa-sign-out-alt"></i>
                         <span>退出登录</span>
                     </a>
                 </div>
             </aside>
 
             <!-- Main Content -->
-            <div class="flex-grow flex flex-col">
+            <div class="flex flex-col flex-grow">
                 <!-- Header -->
-                <header class="h-16 bg-white border-b border-gray-200 flex items-center justify-between px-8">
+                <header class="flex justify-between items-center px-8 h-16 bg-white border-b border-gray-200">
                     <h1 class="text-xl font-semibold text-gray-800">系统设置</h1>
                     <div class="flex items-center">
                         <button class="mr-6 text-gray-500 hover:text-gray-700">
-                            <i class="fas fa-bell text-xl"></i>
+                            <i class="text-xl fas fa-bell"></i>
                         </button>
                         <div class="flex items-center">
-                            <img class="h-9 w-9 rounded-full object-cover" src="https://images.unsplash.com/photo-1528892952291-009c663ce843?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="Admin avatar">
+                            <img class="object-cover w-9 h-9 rounded-full" src="https://images.unsplash.com/photo-1528892952291-009c663ce843?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="Admin avatar">
                             <span class="ml-3 font-medium text-gray-700">Admin</span>
                         </div>
                     </div>
                 </header>
 
                 <!-- Content Area -->
-                <main class="flex-grow p-8 overflow-y-auto">
-                    <div class="max-w-4xl mx-auto space-y-8">
+                <main class="overflow-y-auto flex-grow p-8">
+                    <div class="mx-auto space-y-8 max-w-4xl">
                         <!-- System Information -->
-                        <div class="bg-white rounded-lg shadow p-6">
-                            <h2 class="text-lg font-semibold text-gray-800 mb-6">系统信息</h2>
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="p-6 bg-white rounded-lg shadow">
+                            <h2 class="mb-6 text-lg font-semibold text-gray-800">系统信息</h2>
+                            <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
                                 <div class="space-y-4">
                                     <div class="flex justify-between">
                                         <span class="text-gray-600">系统版本:</span>
@@ -218,10 +206,10 @@
                         </div>
 
                         <!-- General Settings -->
-                        <div class="bg-white rounded-lg shadow p-6">
-                            <h2 class="text-lg font-semibold text-gray-800 mb-6">基础设置</h2>
+                        <div class="p-6 bg-white rounded-lg shadow">
+                            <h2 class="mb-6 text-lg font-semibold text-gray-800">基础设置</h2>
                             <div class="space-y-6">
-                                <div class="flex items-center justify-between">
+                                <div class="flex justify-between items-center">
                                     <div>
                                         <h3 class="text-sm font-medium text-gray-800">用户注册</h3>
                                         <p class="text-sm text-gray-600">允许新用户注册账号</p>
@@ -231,7 +219,7 @@
                                         <span class="slider"></span>
                                     </label>
                                 </div>
-                                <div class="flex items-center justify-between">
+                                <div class="flex justify-between items-center">
                                     <div>
                                         <h3 class="text-sm font-medium text-gray-800">邮箱验证</h3>
                                         <p class="text-sm text-gray-600">注册时需要验证邮箱地址</p>
@@ -241,7 +229,7 @@
                                         <span class="slider"></span>
                                     </label>
                                 </div>
-                                <div class="flex items-center justify-between">
+                                <div class="flex justify-between items-center">
                                     <div>
                                         <h3 class="text-sm font-medium text-gray-800">手机验证</h3>
                                         <p class="text-sm text-gray-600">注册时需要验证手机号码</p>
@@ -251,7 +239,7 @@
                                         <span class="slider"></span>
                                     </label>
                                 </div>
-                                <div class="flex items-center justify-between">
+                                <div class="flex justify-between items-center">
                                     <div>
                                         <h3 class="text-sm font-medium text-gray-800">维护模式</h3>
                                         <p class="text-sm text-gray-600">开启后用户无法访问系统</p>
@@ -265,12 +253,12 @@
                         </div>
 
                         <!-- Security Settings -->
-                        <div class="bg-white rounded-lg shadow p-6">
-                            <h2 class="text-lg font-semibold text-gray-800 mb-6">安全设置</h2>
+                        <div class="p-6 bg-white rounded-lg shadow">
+                            <h2 class="mb-6 text-lg font-semibold text-gray-800">安全设置</h2>
                             <div class="space-y-6">
                                 <div>
-                                    <label class="block text-sm font-medium text-gray-700 mb-2">密码最小长度</label>
-                                    <select class="w-full md:w-48 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500">
+                                    <label class="block mb-2 text-sm font-medium text-gray-700">密码最小长度</label>
+                                    <select class="px-3 py-2 w-full rounded-lg border border-gray-300 md:w-48 focus:ring-2 focus:ring-indigo-500">
                                         <option>6位</option>
                                         <option selected>8位</option>
                                         <option>10位</option>
@@ -278,8 +266,8 @@
                                     </select>
                                 </div>
                                 <div>
-                                    <label class="block text-sm font-medium text-gray-700 mb-2">登录失败锁定次数</label>
-                                    <select class="w-full md:w-48 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500">
+                                    <label class="block mb-2 text-sm font-medium text-gray-700">登录失败锁定次数</label>
+                                    <select class="px-3 py-2 w-full rounded-lg border border-gray-300 md:w-48 focus:ring-2 focus:ring-indigo-500">
                                         <option>3次</option>
                                         <option selected>5次</option>
                                         <option>10次</option>
@@ -287,8 +275,8 @@
                                     </select>
                                 </div>
                                 <div>
-                                    <label class="block text-sm font-medium text-gray-700 mb-2">会话超时时间</label>
-                                    <select class="w-full md:w-48 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500">
+                                    <label class="block mb-2 text-sm font-medium text-gray-700">会话超时时间</label>
+                                    <select class="px-3 py-2 w-full rounded-lg border border-gray-300 md:w-48 focus:ring-2 focus:ring-indigo-500">
                                         <option>30分钟</option>
                                         <option>1小时</option>
                                         <option selected>2小时</option>
@@ -296,7 +284,7 @@
                                         <option>8小时</option>
                                     </select>
                                 </div>
-                                <div class="flex items-center justify-between">
+                                <div class="flex justify-between items-center">
                                     <div>
                                         <h3 class="text-sm font-medium text-gray-800">强制HTTPS</h3>
                                         <p class="text-sm text-gray-600">强制使用HTTPS协议访问</p>
@@ -306,7 +294,7 @@
                                         <span class="slider"></span>
                                     </label>
                                 </div>
-                                <div class="flex items-center justify-between">
+                                <div class="flex justify-between items-center">
                                     <div>
                                         <h3 class="text-sm font-medium text-gray-800">双因子认证</h3>
                                         <p class="text-sm text-gray-600">启用双因子身份验证</p>
@@ -320,38 +308,38 @@
                         </div>
 
                         <!-- Notification Settings -->
-                        <div class="bg-white rounded-lg shadow p-6">
-                            <h2 class="text-lg font-semibold text-gray-800 mb-6">通知设置</h2>
+                        <div class="p-6 bg-white rounded-lg shadow">
+                            <h2 class="mb-6 text-lg font-semibold text-gray-800">通知设置</h2>
                             <div class="space-y-6">
                                 <div>
-                                    <label class="block text-sm font-medium text-gray-700 mb-2">SMTP服务器</label>
-                                    <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500" placeholder="smtp.example.com" value="smtp.gmail.com">
+                                    <label class="block mb-2 text-sm font-medium text-gray-700">SMTP服务器</label>
+                                    <input type="text" class="px-3 py-2 w-full rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-500" placeholder="smtp.example.com" value="smtp.gmail.com">
                                 </div>
-                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
                                     <div>
-                                        <label class="block text-sm font-medium text-gray-700 mb-2">端口</label>
-                                        <input type="number" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500" value="587">
+                                        <label class="block mb-2 text-sm font-medium text-gray-700">端口</label>
+                                        <input type="number" class="px-3 py-2 w-full rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-500" value="587">
                                     </div>
                                     <div>
-                                        <label class="block text-sm font-medium text-gray-700 mb-2">加密方式</label>
-                                        <select class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500">
+                                        <label class="block mb-2 text-sm font-medium text-gray-700">加密方式</label>
+                                        <select class="px-3 py-2 w-full rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-500">
                                             <option>无</option>
                                             <option selected>TLS</option>
                                             <option>SSL</option>
                                         </select>
                                     </div>
                                 </div>
-                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
                                     <div>
-                                        <label class="block text-sm font-medium text-gray-700 mb-2">用户名</label>
-                                        <input type="email" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500" placeholder="admin@example.com">
+                                        <label class="block mb-2 text-sm font-medium text-gray-700">用户名</label>
+                                        <input type="email" class="px-3 py-2 w-full rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-500" placeholder="admin@example.com">
                                     </div>
                                     <div>
-                                        <label class="block text-sm font-medium text-gray-700 mb-2">密码</label>
-                                        <input type="password" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500" placeholder="••••••••">
+                                        <label class="block mb-2 text-sm font-medium text-gray-700">密码</label>
+                                        <input type="password" class="px-3 py-2 w-full rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-500" placeholder="••••••••">
                                     </div>
                                 </div>
-                                <div class="flex items-center justify-between">
+                                <div class="flex justify-between items-center">
                                     <div>
                                         <h3 class="text-sm font-medium text-gray-800">邮件通知</h3>
                                         <p class="text-sm text-gray-600">启用邮件通知功能</p>
@@ -361,7 +349,7 @@
                                         <span class="slider"></span>
                                     </label>
                                 </div>
-                                <div class="flex items-center justify-between">
+                                <div class="flex justify-between items-center">
                                     <div>
                                         <h3 class="text-sm font-medium text-gray-800">短信通知</h3>
                                         <p class="text-sm text-gray-600">启用短信通知功能</p>
@@ -375,12 +363,12 @@
                         </div>
 
                         <!-- Backup Settings -->
-                        <div class="bg-white rounded-lg shadow p-6">
-                            <h2 class="text-lg font-semibold text-gray-800 mb-6">备份设置</h2>
+                        <div class="p-6 bg-white rounded-lg shadow">
+                            <h2 class="mb-6 text-lg font-semibold text-gray-800">备份设置</h2>
                             <div class="space-y-6">
                                 <div>
-                                    <label class="block text-sm font-medium text-gray-700 mb-2">自动备份频率</label>
-                                    <select class="w-full md:w-48 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500">
+                                    <label class="block mb-2 text-sm font-medium text-gray-700">自动备份频率</label>
+                                    <select class="px-3 py-2 w-full rounded-lg border border-gray-300 md:w-48 focus:ring-2 focus:ring-indigo-500">
                                         <option>关闭</option>
                                         <option selected>每天</option>
                                         <option>每周</option>
@@ -388,8 +376,8 @@
                                     </select>
                                 </div>
                                 <div>
-                                    <label class="block text-sm font-medium text-gray-700 mb-2">备份保留天数</label>
-                                    <select class="w-full md:w-48 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500">
+                                    <label class="block mb-2 text-sm font-medium text-gray-700">备份保留天数</label>
+                                    <select class="px-3 py-2 w-full rounded-lg border border-gray-300 md:w-48 focus:ring-2 focus:ring-indigo-500">
                                         <option>7天</option>
                                         <option>15天</option>
                                         <option selected>30天</option>
@@ -398,25 +386,25 @@
                                     </select>
                                 </div>
                                 <div>
-                                    <label class="block text-sm font-medium text-gray-700 mb-2">备份存储路径</label>
-                                    <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500" value="/var/backups/familyLedger/" readonly>
+                                    <label class="block mb-2 text-sm font-medium text-gray-700">备份存储路径</label>
+                                    <input type="text" class="px-3 py-2 w-full rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-500" value="/var/backups/familyLedger/" readonly>
                                 </div>
                                 <div class="flex gap-3">
-                                    <button class="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors">
-                                        <i class="fas fa-download mr-2"></i>立即备份
+                                    <button class="px-4 py-2 text-white bg-indigo-600 rounded-lg transition-colors hover:bg-indigo-700">
+                                        <i class="mr-2 fas fa-download"></i>立即备份
                                     </button>
-                                    <button class="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors">
-                                        <i class="fas fa-upload mr-2"></i>恢复备份
+                                    <button class="px-4 py-2 text-gray-700 rounded-lg border border-gray-300 transition-colors hover:bg-gray-50">
+                                        <i class="mr-2 fas fa-upload"></i>恢复备份
                                     </button>
                                 </div>
                             </div>
                         </div>
 
                         <!-- API Settings -->
-                        <div class="bg-white rounded-lg shadow p-6">
-                            <h2 class="text-lg font-semibold text-gray-800 mb-6">API设置</h2>
+                        <div class="p-6 bg-white rounded-lg shadow">
+                            <h2 class="mb-6 text-lg font-semibold text-gray-800">API设置</h2>
                             <div class="space-y-6">
-                                <div class="flex items-center justify-between">
+                                <div class="flex justify-between items-center">
                                     <div>
                                         <h3 class="text-sm font-medium text-gray-800">API访问</h3>
                                         <p class="text-sm text-gray-600">允许第三方应用通过API访问</p>
@@ -427,8 +415,8 @@
                                     </label>
                                 </div>
                                 <div>
-                                    <label class="block text-sm font-medium text-gray-700 mb-2">API请求频率限制</label>
-                                    <select class="w-full md:w-48 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500">
+                                    <label class="block mb-2 text-sm font-medium text-gray-700">API请求频率限制</label>
+                                    <select class="px-3 py-2 w-full rounded-lg border border-gray-300 md:w-48 focus:ring-2 focus:ring-indigo-500">
                                         <option>100次/分钟</option>
                                         <option>500次/分钟</option>
                                         <option selected>1000次/分钟</option>
@@ -437,13 +425,13 @@
                                     </select>
                                 </div>
                                 <div>
-                                    <label class="block text-sm font-medium text-gray-700 mb-2">API密钥</label>
+                                    <label class="block mb-2 text-sm font-medium text-gray-700">API密钥</label>
                                     <div class="flex gap-2">
-                                        <input type="text" class="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500" value="sk-1234567890abcdef" readonly>
-                                        <button class="px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors">
+                                        <input type="text" class="flex-1 px-3 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-500" value="sk-1234567890abcdef" readonly>
+                                        <button class="px-4 py-2 text-white bg-gray-600 rounded-lg transition-colors hover:bg-gray-700">
                                             <i class="fas fa-copy"></i>
                                         </button>
-                                        <button class="px-4 py-2 bg-yellow-600 text-white rounded-lg hover:bg-yellow-700 transition-colors">
+                                        <button class="px-4 py-2 text-white bg-yellow-600 rounded-lg transition-colors hover:bg-yellow-700">
                                             <i class="fas fa-sync-alt"></i>
                                         </button>
                                     </div>
@@ -452,12 +440,12 @@
                         </div>
 
                         <!-- Save Button -->
-                        <div class="flex justify-end gap-3">
-                            <button class="px-6 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors">
+                        <div class="flex gap-3 justify-end">
+                            <button class="px-6 py-2 text-gray-700 rounded-lg border border-gray-300 transition-colors hover:bg-gray-50">
                                 取消
                             </button>
-                            <button class="px-6 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors">
-                                <i class="fas fa-save mr-2"></i>保存设置
+                            <button class="px-6 py-2 text-white bg-indigo-600 rounded-lg transition-colors hover:bg-indigo-700">
+                                <i class="mr-2 fas fa-save"></i>保存设置
                             </button>
                         </div>
                     </div>

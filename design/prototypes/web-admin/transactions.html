@@ -63,84 +63,72 @@
         }
     </style>
 </head>
-<body class="min-h-screen flex items-center justify-center p-8">
+<body class="flex justify-center items-center p-8 min-h-screen">
 
     <div class="browser-window">
-        <!-- Browser Header -->
-        <div class="browser-header">
-            <div class="flex">
-                <span style="background-color: #FECACA;"></span>
-                <span style="background-color: #FDE68A;"></span>
-                <span style="background-color: #A7F3D0;"></span>
-            </div>
-            <div class="browser-address-bar">
-                <i class="fas fa-lock mr-2"></i> https://admin.jiatingzhangben.com/transactions
-            </div>
-        </div>
-
         <!-- Main Content -->
-        <div class="bg-white h-full flex">
+        <div class="flex h-full bg-white">
             <!-- Sidebar -->
-            <aside class="sidebar w-64 flex-shrink-0 flex flex-col">
-                <div class="h-16 flex items-center justify-center text-2xl font-bold text-white border-b border-gray-700">
-                    <i class="fas fa-book-open mr-3"></i>
+            <aside class="flex flex-col flex-shrink-0 w-64 sidebar">
+                <div class="flex justify-center items-center h-16 text-2xl font-bold text-white border-b border-gray-700">
+                    <i class="mr-3 fas fa-book-open"></i>
                     <span>家庭账本</span>
                 </div>
                 <nav class="flex-grow p-4 space-y-2">
                     <a href="dashboard.html" class="sidebar-link">
-                        <i class="fas fa-tachometer-alt w-6 mr-3"></i>
+                        <i class="mr-3 w-6 fas fa-tachometer-alt"></i>
                         <span>数据看板</span>
                     </a>
                     <a href="users.html" class="sidebar-link">
-                        <i class="fas fa-users w-6 mr-3"></i>
+                        <i class="mr-3 w-6 fas fa-users"></i>
                         <span>用户管理</span>
                     </a>
                     <a href="ledgers.html" class="sidebar-link">
-                        <i class="fas fa-book w-6 mr-3"></i>
+                        <i class="mr-3 w-6 fas fa-book"></i>
                         <span>账本管理</span>
                     </a>
                     <a href="transactions.html" class="sidebar-link active">
-                        <i class="fas fa-exchange-alt w-6 mr-3"></i>
+                        <i class="mr-3 w-6 fas fa-exchange-alt"></i>
                         <span>流水查询</span>
                     </a>
                     <a href="settings.html" class="sidebar-link">
-                        <i class="fas fa-cogs w-6 mr-3"></i>
+                        <i class="mr-3 w-6 fas fa-cogs"></i>
                         <span>系统设置</span>
                     </a>
                 </nav>
                 <div class="p-4 border-t border-gray-700">
                     <a href="login.html" class="sidebar-link">
-                        <i class="fas fa-sign-out-alt w-6 mr-3"></i>
+                        <i class="mr-3 w-6 fas fa-sign-out-alt"></i>
                         <span>退出登录</span>
                     </a>
                 </div>
             </aside>
 
             <!-- Main Content -->
-            <div class="flex-grow flex flex-col">
+            <div class="flex flex-col flex-grow">
                 <!-- Header -->
-                <header class="h-16 bg-white border-b border-gray-200 flex items-center justify-between px-8">
+                <header class="flex justify-between items-center px-8 h-16 bg-white border-b border-gray-200">
                     <h1 class="text-xl font-semibold text-gray-800">流水查询</h1>
                     <div class="flex items-center">
                         <button class="mr-6 text-gray-500 hover:text-gray-700">
-                            <i class="fas fa-bell text-xl"></i>
+                            <i class="text-xl fas fa-bell"></i>
                         </button>
                         <div class="flex items-center">
-                            <img class="h-9 w-9 rounded-full object-cover" src="https://images.unsplash.com/photo-1528892952291-009c663ce843?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="Admin avatar">
+                            <img class="object-cover w-9 h-9 rounded-full" src="https://images.unsplash.com/photo-1528892952291-009c663ce843?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="Admin avatar">
                             <span class="ml-3 font-medium text-gray-700">Admin</span>
                         </div>
                     </div>
                 </header>
 
                 <!-- Content Area -->
-                <main class="flex-grow p-8 overflow-y-auto">
+                <main class="overflow-y-auto flex-grow p-8">
                     <!-- Filter Section -->
-                    <div class="bg-white rounded-lg shadow p-6 mb-6">
-                        <h2 class="text-lg font-semibold text-gray-800 mb-4">筛选条件</h2>
-                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <div class="p-6 mb-6 bg-white rounded-lg shadow">
+                        <h2 class="mb-4 text-lg font-semibold text-gray-800">筛选条件</h2>
+                        <div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
                             <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-2">账本</label>
-                                <select class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500">
+                                <label class="block mb-2 text-sm font-medium text-gray-700">账本</label>
+                                <select class="px-3 py-2 w-full rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-500">
                                     <option>全部账本</option>
                                     <option>张家账本</option>
                                     <option>李家理财</option>
@@ -148,8 +136,8 @@
                                 </select>
                             </div>
                             <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-2">交易类型</label>
-                                <select class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500">
+                                <label class="block mb-2 text-sm font-medium text-gray-700">交易类型</label>
+                                <select class="px-3 py-2 w-full rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-500">
                                     <option>全部类型</option>
                                     <option>收入</option>
                                     <option>支出</option>
@@ -157,33 +145,33 @@
                                 </select>
                             </div>
                             <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-2">开始日期</label>
-                                <input type="date" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500" value="2024-01-01">
+                                <label class="block mb-2 text-sm font-medium text-gray-700">开始日期</label>
+                                <input type="date" class="px-3 py-2 w-full rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-500" value="2024-01-01">
                             </div>
                             <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-2">结束日期</label>
-                                <input type="date" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500" value="2024-12-31">
+                                <label class="block mb-2 text-sm font-medium text-gray-700">结束日期</label>
+                                <input type="date" class="px-3 py-2 w-full rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-500" value="2024-12-31">
                             </div>
                         </div>
-                        <div class="mt-4 flex gap-3">
-                            <button class="px-6 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors">
-                                <i class="fas fa-search mr-2"></i>查询
+                        <div class="flex gap-3 mt-4">
+                            <button class="px-6 py-2 text-white bg-indigo-600 rounded-lg transition-colors hover:bg-indigo-700">
+                                <i class="mr-2 fas fa-search"></i>查询
                             </button>
-                            <button class="px-6 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors">
-                                <i class="fas fa-redo mr-2"></i>重置
+                            <button class="px-6 py-2 text-gray-700 rounded-lg border border-gray-300 transition-colors hover:bg-gray-50">
+                                <i class="mr-2 fas fa-redo"></i>重置
                             </button>
-                            <button class="px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors">
-                                <i class="fas fa-download mr-2"></i>导出
+                            <button class="px-6 py-2 text-white bg-green-600 rounded-lg transition-colors hover:bg-green-700">
+                                <i class="mr-2 fas fa-download"></i>导出
                             </button>
                         </div>
                     </div>
 
                     <!-- Summary Cards -->
-                    <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
-                        <div class="bg-white rounded-lg shadow p-6">
+                    <div class="grid grid-cols-1 gap-6 mb-6 md:grid-cols-4">
+                        <div class="p-6 bg-white rounded-lg shadow">
                             <div class="flex items-center">
-                                <div class="bg-blue-100 text-blue-600 p-3 rounded-full">
-                                    <i class="fas fa-list text-xl"></i>
+                                <div class="p-3 text-blue-600 bg-blue-100 rounded-full">
+                                    <i class="text-xl fas fa-list"></i>
                                 </div>
                                 <div class="ml-4">
                                     <p class="text-sm text-gray-500">总记录数</p>
@@ -191,10 +179,10 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="bg-white rounded-lg shadow p-6">
+                        <div class="p-6 bg-white rounded-lg shadow">
                             <div class="flex items-center">
-                                <div class="bg-green-100 text-green-600 p-3 rounded-full">
-                                    <i class="fas fa-arrow-up text-xl"></i>
+                                <div class="p-3 text-green-600 bg-green-100 rounded-full">
+                                    <i class="text-xl fas fa-arrow-up"></i>
                                 </div>
                                 <div class="ml-4">
                                     <p class="text-sm text-gray-500">总收入</p>
@@ -202,10 +190,10 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="bg-white rounded-lg shadow p-6">
+                        <div class="p-6 bg-white rounded-lg shadow">
                             <div class="flex items-center">
-                                <div class="bg-red-100 text-red-600 p-3 rounded-full">
-                                    <i class="fas fa-arrow-down text-xl"></i>
+                                <div class="p-3 text-red-600 bg-red-100 rounded-full">
+                                    <i class="text-xl fas fa-arrow-down"></i>
                                 </div>
                                 <div class="ml-4">
                                     <p class="text-sm text-gray-500">总支出</p>
@@ -213,10 +201,10 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="bg-white rounded-lg shadow p-6">
+                        <div class="p-6 bg-white rounded-lg shadow">
                             <div class="flex items-center">
-                                <div class="bg-purple-100 text-purple-600 p-3 rounded-full">
-                                    <i class="fas fa-balance-scale text-xl"></i>
+                                <div class="p-3 text-purple-600 bg-purple-100 rounded-full">
+                                    <i class="text-xl fas fa-balance-scale"></i>
                                 </div>
                                 <div class="ml-4">
                                     <p class="text-sm text-gray-500">净收入</p>
@@ -227,7 +215,7 @@
                     </div>
 
                     <!-- Transactions Table -->
-                    <div class="bg-white rounded-lg shadow overflow-hidden">
+                    <div class="overflow-hidden bg-white rounded-lg shadow">
                         <div class="px-6 py-4 border-b border-gray-200">
                             <h3 class="text-lg font-semibold text-gray-800">交易记录</h3>
                         </div>
@@ -235,190 +223,190 @@
                             <table class="min-w-full divide-y divide-gray-200">
                                 <thead class="bg-gray-50">
                                     <tr>
-                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">时间</th>
-                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">账本</th>
-                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">用户</th>
-                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">类型</th>
-                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">分类</th>
-                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">金额</th>
-                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">备注</th>
-                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">操作</th>
+                                        <th class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">时间</th>
+                                        <th class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">账本</th>
+                                        <th class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">用户</th>
+                                        <th class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">类型</th>
+                                        <th class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">分类</th>
+                                        <th class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">金额</th>
+                                        <th class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">备注</th>
+                                        <th class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">操作</th>
                                     </tr>
                                 </thead>
                                 <tbody class="bg-white divide-y divide-gray-200">
                                     <tr class="hover:bg-gray-50">
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">2024-12-15 14:30</td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">张家账本</td>
+                                        <td class="px-6 py-4 text-sm text-gray-900 whitespace-nowrap">2024-12-15 14:30</td>
+                                        <td class="px-6 py-4 text-sm text-gray-900 whitespace-nowrap">张家账本</td>
                                         <td class="px-6 py-4 whitespace-nowrap">
                                             <div class="flex items-center">
-                                                <img class="h-8 w-8 rounded-full" src="https://images.unsplash.com/photo-1494790108755-2616b612b786?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
+                                                <img class="w-8 h-8 rounded-full" src="https://images.unsplash.com/photo-1494790108755-2616b612b786?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
                                                 <div class="ml-3">
                                                     <div class="text-sm font-medium text-gray-900">张小美</div>
                                                 </div>
                                             </div>
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap">
-                                            <span class="inline-flex px-2 py-1 text-xs font-semibold rounded-full bg-red-100 text-red-800">支出</span>
+                                            <span class="inline-flex px-2 py-1 text-xs font-semibold text-red-800 bg-red-100 rounded-full">支出</span>
                                         </td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">餐饮美食</td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-red-600">-¥128.50</td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">午餐聚会</td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                                            <button class="text-indigo-600 hover:text-indigo-900 mr-3">查看</button>
+                                        <td class="px-6 py-4 text-sm text-gray-900 whitespace-nowrap">餐饮美食</td>
+                                        <td class="px-6 py-4 text-sm font-medium text-red-600 whitespace-nowrap">-¥128.50</td>
+                                        <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">午餐聚会</td>
+                                        <td class="px-6 py-4 text-sm font-medium whitespace-nowrap">
+                                            <button class="mr-3 text-indigo-600 hover:text-indigo-900">查看</button>
                                             <button class="text-gray-600 hover:text-gray-900">编辑</button>
                                         </td>
                                     </tr>
                                     <tr class="hover:bg-gray-50">
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">2024-12-15 10:15</td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">李家理财</td>
+                                        <td class="px-6 py-4 text-sm text-gray-900 whitespace-nowrap">2024-12-15 10:15</td>
+                                        <td class="px-6 py-4 text-sm text-gray-900 whitespace-nowrap">李家理财</td>
                                         <td class="px-6 py-4 whitespace-nowrap">
                                             <div class="flex items-center">
-                                                <img class="h-8 w-8 rounded-full" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
+                                                <img class="w-8 h-8 rounded-full" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
                                                 <div class="ml-3">
                                                     <div class="text-sm font-medium text-gray-900">李大强</div>
                                                 </div>
                                             </div>
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap">
-                                            <span class="inline-flex px-2 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-800">收入</span>
+                                            <span class="inline-flex px-2 py-1 text-xs font-semibold text-green-800 bg-green-100 rounded-full">收入</span>
                                         </td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">工资收入</td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-green-600">+¥8,500.00</td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">12月工资</td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                                            <button class="text-indigo-600 hover:text-indigo-900 mr-3">查看</button>
+                                        <td class="px-6 py-4 text-sm text-gray-900 whitespace-nowrap">工资收入</td>
+                                        <td class="px-6 py-4 text-sm font-medium text-green-600 whitespace-nowrap">+¥8,500.00</td>
+                                        <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">12月工资</td>
+                                        <td class="px-6 py-4 text-sm font-medium whitespace-nowrap">
+                                            <button class="mr-3 text-indigo-600 hover:text-indigo-900">查看</button>
                                             <button class="text-gray-600 hover:text-gray-900">编辑</button>
                                         </td>
                                     </tr>
                                     <tr class="hover:bg-gray-50">
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">2024-12-14 19:45</td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">陈家财务</td>
+                                        <td class="px-6 py-4 text-sm text-gray-900 whitespace-nowrap">2024-12-14 19:45</td>
+                                        <td class="px-6 py-4 text-sm text-gray-900 whitespace-nowrap">陈家财务</td>
                                         <td class="px-6 py-4 whitespace-nowrap">
                                             <div class="flex items-center">
-                                                <img class="h-8 w-8 rounded-full" src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
+                                                <img class="w-8 h-8 rounded-full" src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
                                                 <div class="ml-3">
                                                     <div class="text-sm font-medium text-gray-900">陈明华</div>
                                                 </div>
                                             </div>
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap">
-                                            <span class="inline-flex px-2 py-1 text-xs font-semibold rounded-full bg-red-100 text-red-800">支出</span>
+                                            <span class="inline-flex px-2 py-1 text-xs font-semibold text-red-800 bg-red-100 rounded-full">支出</span>
                                         </td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">购物消费</td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-red-600">-¥2,350.00</td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">家电购买</td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                                            <button class="text-indigo-600 hover:text-indigo-900 mr-3">查看</button>
+                                        <td class="px-6 py-4 text-sm text-gray-900 whitespace-nowrap">购物消费</td>
+                                        <td class="px-6 py-4 text-sm font-medium text-red-600 whitespace-nowrap">-¥2,350.00</td>
+                                        <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">家电购买</td>
+                                        <td class="px-6 py-4 text-sm font-medium whitespace-nowrap">
+                                            <button class="mr-3 text-indigo-600 hover:text-indigo-900">查看</button>
                                             <button class="text-gray-600 hover:text-gray-900">编辑</button>
                                         </td>
                                     </tr>
                                     <tr class="hover:bg-gray-50">
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">2024-12-14 16:20</td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">张家账本</td>
+                                        <td class="px-6 py-4 text-sm text-gray-900 whitespace-nowrap">2024-12-14 16:20</td>
+                                        <td class="px-6 py-4 text-sm text-gray-900 whitespace-nowrap">张家账本</td>
                                         <td class="px-6 py-4 whitespace-nowrap">
                                             <div class="flex items-center">
-                                                <img class="h-8 w-8 rounded-full" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
+                                                <img class="w-8 h-8 rounded-full" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
                                                 <div class="ml-3">
                                                     <div class="text-sm font-medium text-gray-900">张大明</div>
                                                 </div>
                                             </div>
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap">
-                                            <span class="inline-flex px-2 py-1 text-xs font-semibold rounded-full bg-blue-100 text-blue-800">转账</span>
+                                            <span class="inline-flex px-2 py-1 text-xs font-semibold text-blue-800 bg-blue-100 rounded-full">转账</span>
                                         </td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">内部转账</td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-blue-600">¥1,000.00</td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">储蓄转入</td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                                            <button class="text-indigo-600 hover:text-indigo-900 mr-3">查看</button>
+                                        <td class="px-6 py-4 text-sm text-gray-900 whitespace-nowrap">内部转账</td>
+                                        <td class="px-6 py-4 text-sm font-medium text-blue-600 whitespace-nowrap">¥1,000.00</td>
+                                        <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">储蓄转入</td>
+                                        <td class="px-6 py-4 text-sm font-medium whitespace-nowrap">
+                                            <button class="mr-3 text-indigo-600 hover:text-indigo-900">查看</button>
                                             <button class="text-gray-600 hover:text-gray-900">编辑</button>
                                         </td>
                                     </tr>
                                     <tr class="hover:bg-gray-50">
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">2024-12-14 12:30</td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">刘家记账</td>
+                                        <td class="px-6 py-4 text-sm text-gray-900 whitespace-nowrap">2024-12-14 12:30</td>
+                                        <td class="px-6 py-4 text-sm text-gray-900 whitespace-nowrap">刘家记账</td>
                                         <td class="px-6 py-4 whitespace-nowrap">
                                             <div class="flex items-center">
-                                                <img class="h-8 w-8 rounded-full" src="https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
+                                                <img class="w-8 h-8 rounded-full" src="https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
                                                 <div class="ml-3">
                                                     <div class="text-sm font-medium text-gray-900">刘建国</div>
                                                 </div>
                                             </div>
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap">
-                                            <span class="inline-flex px-2 py-1 text-xs font-semibold rounded-full bg-red-100 text-red-800">支出</span>
+                                            <span class="inline-flex px-2 py-1 text-xs font-semibold text-red-800 bg-red-100 rounded-full">支出</span>
                                         </td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">交通出行</td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-red-600">-¥45.00</td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">地铁费用</td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                                            <button class="text-indigo-600 hover:text-indigo-900 mr-3">查看</button>
+                                        <td class="px-6 py-4 text-sm text-gray-900 whitespace-nowrap">交通出行</td>
+                                        <td class="px-6 py-4 text-sm font-medium text-red-600 whitespace-nowrap">-¥45.00</td>
+                                        <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">地铁费用</td>
+                                        <td class="px-6 py-4 text-sm font-medium whitespace-nowrap">
+                                            <button class="mr-3 text-indigo-600 hover:text-indigo-900">查看</button>
                                             <button class="text-gray-600 hover:text-gray-900">编辑</button>
                                         </td>
                                     </tr>
                                     <tr class="hover:bg-gray-50">
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">2024-12-13 20:15</td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">赵家预算</td>
+                                        <td class="px-6 py-4 text-sm text-gray-900 whitespace-nowrap">2024-12-13 20:15</td>
+                                        <td class="px-6 py-4 text-sm text-gray-900 whitespace-nowrap">赵家预算</td>
                                         <td class="px-6 py-4 whitespace-nowrap">
                                             <div class="flex items-center">
-                                                <img class="h-8 w-8 rounded-full" src="https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
+                                                <img class="w-8 h-8 rounded-full" src="https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
                                                 <div class="ml-3">
                                                     <div class="text-sm font-medium text-gray-900">赵丽娜</div>
                                                 </div>
                                             </div>
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap">
-                                            <span class="inline-flex px-2 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-800">收入</span>
+                                            <span class="inline-flex px-2 py-1 text-xs font-semibold text-green-800 bg-green-100 rounded-full">收入</span>
                                         </td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">兼职收入</td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-green-600">+¥1,200.00</td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">设计费用</td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                                            <button class="text-indigo-600 hover:text-indigo-900 mr-3">查看</button>
+                                        <td class="px-6 py-4 text-sm text-gray-900 whitespace-nowrap">兼职收入</td>
+                                        <td class="px-6 py-4 text-sm font-medium text-green-600 whitespace-nowrap">+¥1,200.00</td>
+                                        <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">设计费用</td>
+                                        <td class="px-6 py-4 text-sm font-medium whitespace-nowrap">
+                                            <button class="mr-3 text-indigo-600 hover:text-indigo-900">查看</button>
                                             <button class="text-gray-600 hover:text-gray-900">编辑</button>
                                         </td>
                                     </tr>
                                     <tr class="hover:bg-gray-50">
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">2024-12-13 15:45</td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">李家理财</td>
+                                        <td class="px-6 py-4 text-sm text-gray-900 whitespace-nowrap">2024-12-13 15:45</td>
+                                        <td class="px-6 py-4 text-sm text-gray-900 whitespace-nowrap">李家理财</td>
                                         <td class="px-6 py-4 whitespace-nowrap">
                                             <div class="flex items-center">
-                                                <img class="h-8 w-8 rounded-full" src="https://images.unsplash.com/photo-1502685104226-ee32379fefbe?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
+                                                <img class="w-8 h-8 rounded-full" src="https://images.unsplash.com/photo-1502685104226-ee32379fefbe?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
                                                 <div class="ml-3">
                                                     <div class="text-sm font-medium text-gray-900">李小花</div>
                                                 </div>
                                             </div>
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap">
-                                            <span class="inline-flex px-2 py-1 text-xs font-semibold rounded-full bg-red-100 text-red-800">支出</span>
+                                            <span class="inline-flex px-2 py-1 text-xs font-semibold text-red-800 bg-red-100 rounded-full">支出</span>
                                         </td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">生活用品</td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-red-600">-¥89.90</td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">日用品采购</td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                                            <button class="text-indigo-600 hover:text-indigo-900 mr-3">查看</button>
+                                        <td class="px-6 py-4 text-sm text-gray-900 whitespace-nowrap">生活用品</td>
+                                        <td class="px-6 py-4 text-sm font-medium text-red-600 whitespace-nowrap">-¥89.90</td>
+                                        <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">日用品采购</td>
+                                        <td class="px-6 py-4 text-sm font-medium whitespace-nowrap">
+                                            <button class="mr-3 text-indigo-600 hover:text-indigo-900">查看</button>
                                             <button class="text-gray-600 hover:text-gray-900">编辑</button>
                                         </td>
                                     </tr>
                                     <tr class="hover:bg-gray-50">
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">2024-12-13 09:30</td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">陈家财务</td>
+                                        <td class="px-6 py-4 text-sm text-gray-900 whitespace-nowrap">2024-12-13 09:30</td>
+                                        <td class="px-6 py-4 text-sm text-gray-900 whitespace-nowrap">陈家财务</td>
                                         <td class="px-6 py-4 whitespace-nowrap">
                                             <div class="flex items-center">
-                                                <img class="h-8 w-8 rounded-full" src="https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
+                                                <img class="w-8 h-8 rounded-full" src="https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
                                                 <div class="ml-3">
                                                     <div class="text-sm font-medium text-gray-900">陈小军</div>
                                                 </div>
                                             </div>
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap">
-                                            <span class="inline-flex px-2 py-1 text-xs font-semibold rounded-full bg-red-100 text-red-800">支出</span>
+                                            <span class="inline-flex px-2 py-1 text-xs font-semibold text-red-800 bg-red-100 rounded-full">支出</span>
                                         </td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">医疗健康</td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-red-600">-¥450.00</td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">体检费用</td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                                            <button class="text-indigo-600 hover:text-indigo-900 mr-3">查看</button>
+                                        <td class="px-6 py-4 text-sm text-gray-900 whitespace-nowrap">医疗健康</td>
+                                        <td class="px-6 py-4 text-sm font-medium text-red-600 whitespace-nowrap">-¥450.00</td>
+                                        <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">体检费用</td>
+                                        <td class="px-6 py-4 text-sm font-medium whitespace-nowrap">
+                                            <button class="mr-3 text-indigo-600 hover:text-indigo-900">查看</button>
                                             <button class="text-gray-600 hover:text-gray-900">编辑</button>
                                         </td>
                                     </tr>
@@ -427,18 +415,18 @@
                         </div>
                         
                         <!-- Pagination -->
-                        <div class="bg-white px-6 py-4 border-t border-gray-200 flex items-center justify-between">
+                        <div class="flex justify-between items-center px-6 py-4 bg-white border-t border-gray-200">
                             <div class="text-sm text-gray-700">
                                 显示 <span class="font-medium">1</span> 到 <span class="font-medium">8</span> 条，共 <span class="font-medium">15,234</span> 条记录
                             </div>
                             <div class="flex gap-2">
-                                <button class="px-3 py-2 text-sm border border-gray-300 rounded-md hover:bg-gray-50">上一页</button>
-                                <button class="px-3 py-2 text-sm bg-indigo-600 text-white rounded-md">1</button>
-                                <button class="px-3 py-2 text-sm border border-gray-300 rounded-md hover:bg-gray-50">2</button>
-                                <button class="px-3 py-2 text-sm border border-gray-300 rounded-md hover:bg-gray-50">3</button>
-                                <button class="px-3 py-2 text-sm border border-gray-300 rounded-md hover:bg-gray-50">...</button>
-                                <button class="px-3 py-2 text-sm border border-gray-300 rounded-md hover:bg-gray-50">1904</button>
-                                <button class="px-3 py-2 text-sm border border-gray-300 rounded-md hover:bg-gray-50">下一页</button>
+                                <button class="px-3 py-2 text-sm rounded-md border border-gray-300 hover:bg-gray-50">上一页</button>
+                                <button class="px-3 py-2 text-sm text-white bg-indigo-600 rounded-md">1</button>
+                                <button class="px-3 py-2 text-sm rounded-md border border-gray-300 hover:bg-gray-50">2</button>
+                                <button class="px-3 py-2 text-sm rounded-md border border-gray-300 hover:bg-gray-50">3</button>
+                                <button class="px-3 py-2 text-sm rounded-md border border-gray-300 hover:bg-gray-50">...</button>
+                                <button class="px-3 py-2 text-sm rounded-md border border-gray-300 hover:bg-gray-50">1904</button>
+                                <button class="px-3 py-2 text-sm rounded-md border border-gray-300 hover:bg-gray-50">下一页</button>
                             </div>
                         </div>
                     </div>

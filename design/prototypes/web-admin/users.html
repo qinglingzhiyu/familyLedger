@@ -63,173 +63,161 @@
         }
     </style>
 </head>
-<body class="min-h-screen flex items-center justify-center p-8">
+<body class="flex justify-center items-center p-8 min-h-screen">
 
     <div class="browser-window">
-        <!-- Browser Header -->
-        <div class="browser-header">
-            <div class="flex">
-                <span style="background-color: #FECACA;"></span>
-                <span style="background-color: #FDE68A;"></span>
-                <span style="background-color: #A7F3D0;"></span>
-            </div>
-            <div class="browser-address-bar">
-                <i class="fas fa-lock mr-2"></i> https://admin.jiatingzhangben.com/users
-            </div>
-        </div>
-
         <!-- Main Content -->
-        <div class="bg-white h-full flex">
+        <div class="flex h-full bg-white">
             <!-- Sidebar -->
-            <aside class="sidebar w-64 flex-shrink-0 flex flex-col">
-                <div class="h-16 flex items-center justify-center text-2xl font-bold text-white border-b border-gray-700">
-                    <i class="fas fa-book-open mr-3"></i>
+            <aside class="flex flex-col flex-shrink-0 w-64 sidebar">
+                <div class="flex justify-center items-center h-16 text-2xl font-bold text-white border-b border-gray-700">
+                    <i class="mr-3 fas fa-book-open"></i>
                     <span>家庭账本</span>
                 </div>
                 <nav class="flex-grow p-4 space-y-2">
                     <a href="dashboard.html" class="sidebar-link">
-                        <i class="fas fa-tachometer-alt w-6 mr-3"></i>
+                        <i class="mr-3 w-6 fas fa-tachometer-alt"></i>
                         <span>数据看板</span>
                     </a>
                     <a href="users.html" class="sidebar-link active">
-                        <i class="fas fa-users w-6 mr-3"></i>
+                        <i class="mr-3 w-6 fas fa-users"></i>
                         <span>用户管理</span>
                     </a>
                     <a href="ledgers.html" class="sidebar-link">
-                        <i class="fas fa-book w-6 mr-3"></i>
+                        <i class="mr-3 w-6 fas fa-book"></i>
                         <span>账本管理</span>
                     </a>
                     <a href="transactions.html" class="sidebar-link">
-                        <i class="fas fa-exchange-alt w-6 mr-3"></i>
+                        <i class="mr-3 w-6 fas fa-exchange-alt"></i>
                         <span>流水查询</span>
                     </a>
                     <a href="settings.html" class="sidebar-link">
-                        <i class="fas fa-cogs w-6 mr-3"></i>
+                        <i class="mr-3 w-6 fas fa-cogs"></i>
                         <span>系统设置</span>
                     </a>
                 </nav>
                 <div class="p-4 border-t border-gray-700">
                     <a href="login.html" class="sidebar-link">
-                        <i class="fas fa-sign-out-alt w-6 mr-3"></i>
+                        <i class="mr-3 w-6 fas fa-sign-out-alt"></i>
                         <span>退出登录</span>
                     </a>
                 </div>
             </aside>
 
             <!-- Main Content -->
-            <div class="flex-grow flex flex-col">
+            <div class="flex flex-col flex-grow">
                 <!-- Header -->
-                <header class="h-16 bg-white border-b border-gray-200 flex items-center justify-between px-8">
+                <header class="flex justify-between items-center px-8 h-16 bg-white border-b border-gray-200">
                     <h1 class="text-xl font-semibold text-gray-800">用户管理</h1>
                     <div class="flex items-center">
                         <button class="mr-6 text-gray-500 hover:text-gray-700">
-                            <i class="fas fa-bell text-xl"></i>
+                            <i class="text-xl fas fa-bell"></i>
                         </button>
                         <div class="flex items-center">
-                            <img class="h-9 w-9 rounded-full object-cover" src="https://images.unsplash.com/photo-1528892952291-009c663ce843?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="Admin avatar">
+                            <img class="object-cover w-9 h-9 rounded-full" src="https://images.unsplash.com/photo-1528892952291-009c663ce843?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="Admin avatar">
                             <span class="ml-3 font-medium text-gray-700">Admin</span>
                         </div>
                     </div>
                 </header>
 
                 <!-- Content Area -->
-                <main class="flex-grow p-8 overflow-y-auto">
+                <main class="overflow-y-auto flex-grow p-8">
                     <!-- Search and Filter Bar -->
-                    <div class="bg-white rounded-lg shadow p-6 mb-6">
-                        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                    <div class="p-6 mb-6 bg-white rounded-lg shadow">
+                        <div class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
                             <div class="flex-1">
                                 <div class="relative">
-                                    <input type="text" placeholder="搜索用户名、邮箱或手机号" class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
-                                    <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
+                                    <input type="text" placeholder="搜索用户名、邮箱或手机号" class="py-2 pr-4 pl-10 w-full rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+                                    <i class="absolute top-3 left-3 text-gray-400 fas fa-search"></i>
                                 </div>
                             </div>
                             <div class="flex gap-3">
-                                <select class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500">
+                                <select class="px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-500">
                                     <option>全部状态</option>
                                     <option>正常</option>
                                     <option>禁用</option>
                                 </select>
-                                <button class="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition">
-                                    <i class="fas fa-plus mr-2"></i>新增用户
+                                <button class="px-4 py-2 text-white bg-indigo-600 rounded-lg transition hover:bg-indigo-700">
+                                    <i class="mr-2 fas fa-plus"></i>新增用户
                                 </button>
                             </div>
                         </div>
                     </div>
 
                     <!-- Users Table -->
-                    <div class="bg-white rounded-lg shadow overflow-hidden">
+                    <div class="overflow-hidden bg-white rounded-lg shadow">
                         <table class="min-w-full divide-y divide-gray-200">
                             <thead class="bg-gray-50">
                                 <tr>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">用户信息</th>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">注册时间</th>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">最后登录</th>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">账本数量</th>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">状态</th>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">操作</th>
+                                    <th class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">用户信息</th>
+                                    <th class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">注册时间</th>
+                                    <th class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">最后登录</th>
+                                    <th class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">账本数量</th>
+                                    <th class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">状态</th>
+                                    <th class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">操作</th>
                                 </tr>
                             </thead>
                             <tbody class="bg-white divide-y divide-gray-200">
                                 <tr>
                                     <td class="px-6 py-4 whitespace-nowrap">
                                         <div class="flex items-center">
-                                            <img class="h-10 w-10 rounded-full" src="https://images.unsplash.com/photo-1494790108755-2616b612b786?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
+                                            <img class="w-10 h-10 rounded-full" src="https://images.unsplash.com/photo-1494790108755-2616b612b786?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
                                             <div class="ml-4">
                                                 <div class="text-sm font-medium text-gray-900">张小美</div>
                                                 <div class="text-sm text-gray-500">zhang.xiaomei@example.com</div>
                                             </div>
                                         </div>
                                     </td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">2024-01-15</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">2024-07-20 14:30</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">3</td>
+                                    <td class="px-6 py-4 text-sm text-gray-900 whitespace-nowrap">2024-01-15</td>
+                                    <td class="px-6 py-4 text-sm text-gray-900 whitespace-nowrap">2024-07-20 14:30</td>
+                                    <td class="px-6 py-4 text-sm text-gray-900 whitespace-nowrap">3</td>
                                     <td class="px-6 py-4 whitespace-nowrap">
-                                        <span class="inline-flex px-2 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-800">正常</span>
+                                        <span class="inline-flex px-2 py-1 text-xs font-semibold text-green-800 bg-green-100 rounded-full">正常</span>
                                     </td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                                        <button class="text-indigo-600 hover:text-indigo-900 mr-3">编辑</button>
+                                    <td class="px-6 py-4 text-sm font-medium whitespace-nowrap">
+                                        <button class="mr-3 text-indigo-600 hover:text-indigo-900">编辑</button>
                                         <button class="text-red-600 hover:text-red-900">禁用</button>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td class="px-6 py-4 whitespace-nowrap">
                                         <div class="flex items-center">
-                                            <img class="h-10 w-10 rounded-full" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
+                                            <img class="w-10 h-10 rounded-full" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
                                             <div class="ml-4">
                                                 <div class="text-sm font-medium text-gray-900">李大强</div>
                                                 <div class="text-sm text-gray-500">li.daqiang@example.com</div>
                                             </div>
                                         </div>
                                     </td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">2024-02-03</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">2024-07-19 09:15</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">2</td>
+                                    <td class="px-6 py-4 text-sm text-gray-900 whitespace-nowrap">2024-02-03</td>
+                                    <td class="px-6 py-4 text-sm text-gray-900 whitespace-nowrap">2024-07-19 09:15</td>
+                                    <td class="px-6 py-4 text-sm text-gray-900 whitespace-nowrap">2</td>
                                     <td class="px-6 py-4 whitespace-nowrap">
-                                        <span class="inline-flex px-2 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-800">正常</span>
+                                        <span class="inline-flex px-2 py-1 text-xs font-semibold text-green-800 bg-green-100 rounded-full">正常</span>
                                     </td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                                        <button class="text-indigo-600 hover:text-indigo-900 mr-3">编辑</button>
+                                    <td class="px-6 py-4 text-sm font-medium whitespace-nowrap">
+                                        <button class="mr-3 text-indigo-600 hover:text-indigo-900">编辑</button>
                                         <button class="text-red-600 hover:text-red-900">禁用</button>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td class="px-6 py-4 whitespace-nowrap">
                                         <div class="flex items-center">
-                                            <img class="h-10 w-10 rounded-full" src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
+                                            <img class="w-10 h-10 rounded-full" src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
                                             <div class="ml-4">
                                                 <div class="text-sm font-medium text-gray-900">王小花</div>
                                                 <div class="text-sm text-gray-500">wang.xiaohua@example.com</div>
                                             </div>
                                         </div>
                                     </td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">2024-03-12</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">2024-07-18 16:45</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">1</td>
+                                    <td class="px-6 py-4 text-sm text-gray-900 whitespace-nowrap">2024-03-12</td>
+                                    <td class="px-6 py-4 text-sm text-gray-900 whitespace-nowrap">2024-07-18 16:45</td>
+                                    <td class="px-6 py-4 text-sm text-gray-900 whitespace-nowrap">1</td>
                                     <td class="px-6 py-4 whitespace-nowrap">
-                                        <span class="inline-flex px-2 py-1 text-xs font-semibold rounded-full bg-red-100 text-red-800">禁用</span>
+                                        <span class="inline-flex px-2 py-1 text-xs font-semibold text-red-800 bg-red-100 rounded-full">禁用</span>
                                     </td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                                        <button class="text-indigo-600 hover:text-indigo-900 mr-3">编辑</button>
+                                    <td class="px-6 py-4 text-sm font-medium whitespace-nowrap">
+                                        <button class="mr-3 text-indigo-600 hover:text-indigo-900">编辑</button>
                                         <button class="text-green-600 hover:text-green-900">启用</button>
                                     </td>
                                 </tr>
@@ -237,24 +225,24 @@
                         </table>
                         
                         <!-- Pagination -->
-                        <div class="bg-white px-4 py-3 flex items-center justify-between border-t border-gray-200">
-                            <div class="flex-1 flex justify-between sm:hidden">
-                                <button class="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">上一页</button>
-                                <button class="ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">下一页</button>
+                        <div class="flex justify-between items-center px-4 py-3 bg-white border-t border-gray-200">
+                            <div class="flex flex-1 justify-between sm:hidden">
+                                <button class="inline-flex relative items-center px-4 py-2 text-sm font-medium text-gray-700 bg-white rounded-md border border-gray-300 hover:bg-gray-50">上一页</button>
+                                <button class="inline-flex relative items-center px-4 py-2 ml-3 text-sm font-medium text-gray-700 bg-white rounded-md border border-gray-300 hover:bg-gray-50">下一页</button>
                             </div>
                             <div class="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
                                 <div>
                                     <p class="text-sm text-gray-700">显示 <span class="font-medium">1</span> 到 <span class="font-medium">10</span> 条，共 <span class="font-medium">97</span> 条记录</p>
                                 </div>
                                 <div>
-                                    <nav class="relative z-0 inline-flex rounded-md shadow-sm -space-x-px">
-                                        <button class="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
+                                    <nav class="inline-flex relative z-0 -space-x-px rounded-md shadow-sm">
+                                        <button class="inline-flex relative items-center px-2 py-2 text-sm font-medium text-gray-500 bg-white rounded-l-md border border-gray-300 hover:bg-gray-50">
                                             <i class="fas fa-chevron-left"></i>
                                         </button>
-                                        <button class="bg-indigo-50 border-indigo-500 text-indigo-600 relative inline-flex items-center px-4 py-2 border text-sm font-medium">1</button>
-                                        <button class="bg-white border-gray-300 text-gray-500 hover:bg-gray-50 relative inline-flex items-center px-4 py-2 border text-sm font-medium">2</button>
-                                        <button class="bg-white border-gray-300 text-gray-500 hover:bg-gray-50 relative inline-flex items-center px-4 py-2 border text-sm font-medium">3</button>
-                                        <button class="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
+                                        <button class="inline-flex relative items-center px-4 py-2 text-sm font-medium text-indigo-600 bg-indigo-50 border border-indigo-500">1</button>
+                                        <button class="inline-flex relative items-center px-4 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 hover:bg-gray-50">2</button>
+                                        <button class="inline-flex relative items-center px-4 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 hover:bg-gray-50">3</button>
+                                        <button class="inline-flex relative items-center px-2 py-2 text-sm font-medium text-gray-500 bg-white rounded-r-md border border-gray-300 hover:bg-gray-50">
                                             <i class="fas fa-chevron-right"></i>
                                         </button>
                                     </nav>
