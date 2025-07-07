@@ -1127,6 +1127,18 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 ```
 
+## 认证说明
+
+### JWT Token 使用方式
+在需要认证的接口请求头中添加：
+```
+Authorization: Bearer <your_jwt_token>
+```
+
+### Token 有效期
+- 访问令牌有效期：7天
+- Token 过期后需要重新登录获取新的 Token
+
 ## 通用响应格式
 
 ### 成功响应
@@ -1134,7 +1146,10 @@ paths:
 {
   "success": true,
   "message": "操作成功",
-  "data": {}
+  "data": {
+    // 具体数据内容
+  },
+  "timestamp": "2024-01-01T00:00:00.000Z"
 }
 ```
 
@@ -1142,342 +1157,135 @@ paths:
 ```json
 {
   "success": false,
-  "message": "错误信息",
-  "error": "详细错误描述",
-  "statusCode": 400
+  "message": "错误描述",
+  "error": {
+    "code": "ERROR_CODE",
+    "details": "详细错误信息"
+  },
+  "timestamp": "2024-01-01T00:00:00.000Z",
+  "path": "/api/v1/users"
 }
 ```
 
-## API 接口列表
+## 常见错误代码
 
-### 1. 认证模块 (Authentication)
+| 错误代码 | HTTP状态码 | 描述 |
+|---------|-----------|------|
+| VALIDATION_ERROR | 400 | 请求参数验证失败 |
+| UNAUTHORIZED | 401 | 未授权访问 |
+| FORBIDDEN | 403 | 权限不足 |
+| NOT_FOUND | 404 | 资源不存在 |
+| CONFLICT | 409 | 资源冲突（如邮箱已存在） |
+| INTERNAL_ERROR | 500 | 服务器内部错误 |
+| EMAIL_EXISTS | 409 | 邮箱已存在 |
+| PHONE_EXISTS | 409 | 手机号已存在 |
+| INVALID_CREDENTIALS | 401 | 邮箱或密码错误 |
+| TOKEN_EXPIRED | 401 | Token已过期 |
+| INVALID_TOKEN | 401 | 无效的Token |
+| LEDGER_NOT_FOUND | 404 | 账本不存在 |
+| ACCOUNT_NOT_FOUND | 404 | 账户不存在 |
+| CATEGORY_NOT_FOUND | 404 | 分类不存在 |
+| TRANSACTION_NOT_FOUND | 404 | 交易记录不存在 |
+| INSUFFICIENT_BALANCE | 400 | 余额不足 |
+| DUPLICATE_NAME | 409 | 名称重复 |
 
-#### 1.1 用户注册
+## 分页参数
 
-**接口**: `POST /auth/register`  
-**描述**: 注册新用户账户  
-**认证**: 无需认证
+对于支持分页的接口，使用以下查询参数：
 
-**请求参数**:
-```json
-{
-  "email": "user@example.com",
-  "password": "password123",
-  "nickname": "用户昵称",
-  "phone": "13800138000",
-  "avatar": "https://example.com/avatar.jpg"
-}
-```
+| 参数 | 类型 | 默认值 | 描述 |
+|------|------|--------|---------|
+| page | integer | 1 | 页码，从1开始 |
+| limit | integer | 20 | 每页数量，最大100 |
+| sortBy | string | createdAt | 排序字段 |
+| sortOrder | string | desc | 排序方向（asc/desc） |
 
-**参数说明**:
-- `email` (string, 必需): 用户邮箱，必须是有效的邮箱格式
-- `password` (string, 必需): 用户密码，最少6位字符
-- `nickname` (string, 必需): 用户昵称
-- `phone` (string, 可选): 用户手机号
-- `avatar` (string, 可选): 用户头像URL
+## 筛选和搜索
 
-**成功响应** (201):
-```json
-{
-  "success": true,
-  "message": "注册成功",
-  "data": {
-    "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
-    "user": {
-      "id": "clxxxxx",
-      "email": "user@example.com",
-      "nickname": "用户昵称",
-      "phone": "13800138000",
-      "avatar": "https://example.com/avatar.jpg",
-      "status": "ACTIVE",
-      "createdAt": "2024-01-01T00:00:00.000Z",
-      "updatedAt": "2024-01-01T00:00:00.000Z"
-    }
-  }
-}
-```
+### 日期筛选
+- `startDate`: 开始日期（YYYY-MM-DD格式）
+- `endDate`: 结束日期（YYYY-MM-DD格式）
 
-**错误响应**:
-- `409 Conflict`: 邮箱或手机号已被注册
-- `400 Bad Request`: 请求参数验证失败
+### 关键词搜索
+- `keyword`: 关键词搜索，支持模糊匹配
 
-#### 1.2 用户登录
+### 类型筛选
+- `type`: 根据类型筛选（如交易类型、账户类型等）
 
-**接口**: `POST /auth/login`  
-**描述**: 用户登录获取访问令牌  
-**认证**: 无需认证
+## 数据验证规则
 
-**请求参数**:
-```json
-{
-  "email": "user@example.com",
-  "password": "password123"
-}
-```
+### 用户相关
+- **邮箱**: 必须是有效的邮箱格式
+- **密码**: 最少6位字符
+- **昵称**: 1-50个字符
+- **手机号**: 有效的手机号格式
 
-**参数说明**:
-- `email` (string, 必需): 用户邮箱
-- `password` (string, 必需): 用户密码
+### 金额相关
+- **金额**: 必须大于0，最多2位小数
+- **货币**: 支持的货币代码（CNY, USD, EUR等）
 
-**成功响应** (200):
-```json
-{
-  "success": true,
-  "message": "登录成功",
-  "data": {
-    "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
-    "user": {
-      "id": "clxxxxx",
-      "email": "user@example.com",
-      "nickname": "用户昵称",
-      "phone": "13800138000",
-      "avatar": "https://example.com/avatar.jpg",
-      "status": "ACTIVE",
-      "createdAt": "2024-01-01T00:00:00.000Z",
-      "updatedAt": "2024-01-01T00:00:00.000Z"
-    }
-  }
-}
-```
+### 名称相关
+- **账本名称**: 1-100个字符
+- **账户名称**: 1-50个字符
+- **分类名称**: 1-30个字符
 
-**错误响应**:
-- `401 Unauthorized`: 邮箱或密码错误
-- `400 Bad Request`: 请求参数验证失败
+## 国际化支持
 
-### 2. 用户管理模块 (Users)
+### 支持的语言
+- `zh-CN`: 简体中文
+- `en-US`: 英语
+- `ja-JP`: 日语
+- `ko-KR`: 韩语
 
-#### 2.1 获取用户列表
+### 支持的货币
+- `CNY`: 人民币
+- `USD`: 美元
+- `EUR`: 欧元
+- `JPY`: 日元
+- `KRW`: 韩元
+- `GBP`: 英镑
+- `HKD`: 港币
 
-**接口**: `GET /users`  
-**描述**: 获取所有用户列表  
-**认证**: 需要 JWT Token
+## 安全考虑
 
-**请求参数**: 无
+### 密码安全
+- 密码使用bcrypt加密存储
+- 最少6位字符要求
+- 支持密码强度验证
 
-**成功响应** (200):
-```json
-{
-  "success": true,
-  "message": "获取用户列表成功",
-  "data": [
-    {
-      "id": "clxxxxx",
-      "email": "user1@example.com",
-      "nickname": "用户1",
-      "phone": "13800138000",
-      "avatar": "https://example.com/avatar1.jpg",
-      "status": "ACTIVE",
-      "createdAt": "2024-01-01T00:00:00.000Z",
-      "updatedAt": "2024-01-01T00:00:00.000Z"
-    },
-    {
-      "id": "clyyyyy",
-      "email": "user2@example.com",
-      "nickname": "用户2",
-      "phone": "13800138001",
-      "avatar": "https://example.com/avatar2.jpg",
-      "status": "ACTIVE",
-      "createdAt": "2024-01-01T00:00:00.000Z",
-      "updatedAt": "2024-01-01T00:00:00.000Z"
-    }
-  ]
-}
-```
+### Token安全
+- JWT Token包含用户ID和权限信息
+- Token有效期为7天
+- 支持Token刷新机制
 
-#### 2.2 获取单个用户信息
+### 数据保护
+- 所有敏感数据传输使用HTTPS
+- 用户密码不会在API响应中返回
+- 支持软删除，保护数据完整性
 
-**接口**: `GET /users/{id}`  
-**描述**: 根据用户ID获取用户详细信息  
-**认证**: 需要 JWT Token
+## 性能优化
 
-**路径参数**:
-- `id` (string, 必需): 用户ID
+### 缓存策略
+- 用户信息缓存
+- 账本权限缓存
+- 分类数据缓存
 
-**成功响应** (200):
-```json
-{
-  "success": true,
-  "message": "获取用户信息成功",
-  "data": {
-    "id": "clxxxxx",
-    "email": "user@example.com",
-    "nickname": "用户昵称",
-    "phone": "13800138000",
-    "avatar": "https://example.com/avatar.jpg",
-    "status": "ACTIVE",
-    "createdAt": "2024-01-01T00:00:00.000Z",
-    "updatedAt": "2024-01-01T00:00:00.000Z"
-  }
-}
-```
+### 数据库优化
+- 关键字段建立索引
+- 分页查询优化
+- 关联查询优化
 
-**错误响应**:
-- `404 Not Found`: 用户不存在
-- `401 Unauthorized`: 未提供有效的认证令牌
-
-#### 2.3 创建用户
-
-**接口**: `POST /users`  
-**描述**: 创建新用户（管理员功能）  
-**认证**: 需要 JWT Token
-
-**请求参数**:
-```json
-{
-  "email": "newuser@example.com",
-  "password": "password123",
-  "nickname": "新用户",
-  "phone": "13800138002",
-  "avatar": "https://example.com/avatar.jpg",
-  "status": "ACTIVE"
-}
-```
-
-**参数说明**:
-- `email` (string, 必需): 用户邮箱
-- `password` (string, 必需): 用户密码，最少6位
-- `nickname` (string, 必需): 用户昵称
-- `phone` (string, 可选): 用户手机号
-- `avatar` (string, 可选): 用户头像URL
-- `status` (string, 可选): 用户状态，可选值：ACTIVE, INACTIVE, SUSPENDED
-
-**成功响应** (201):
-```json
-{
-  "success": true,
-  "message": "用户创建成功",
-  "data": {
-    "id": "clxxxxx",
-    "email": "newuser@example.com",
-    "nickname": "新用户",
-    "phone": "13800138002",
-    "avatar": "https://example.com/avatar.jpg",
-    "status": "ACTIVE",
-    "createdAt": "2024-01-01T00:00:00.000Z",
-    "updatedAt": "2024-01-01T00:00:00.000Z"
-  }
-}
-```
-
-#### 2.4 更新用户信息
-
-**接口**: `PATCH /users/{id}`  
-**描述**: 更新用户信息  
-**认证**: 需要 JWT Token
-
-**路径参数**:
-- `id` (string, 必需): 用户ID
-
-**请求参数**:
-```json
-{
-  "nickname": "更新后的昵称",
-  "phone": "13800138003",
-  "avatar": "https://example.com/new-avatar.jpg",
-  "status": "INACTIVE"
-}
-```
-
-**参数说明**: 所有参数都是可选的，只需要传入需要更新的字段
-
-**成功响应** (200):
-```json
-{
-  "success": true,
-  "message": "用户信息更新成功",
-  "data": {
-    "id": "clxxxxx",
-    "email": "user@example.com",
-    "nickname": "更新后的昵称",
-    "phone": "13800138003",
-    "avatar": "https://example.com/new-avatar.jpg",
-    "status": "INACTIVE",
-    "createdAt": "2024-01-01T00:00:00.000Z",
-    "updatedAt": "2024-01-01T01:00:00.000Z"
-  }
-}
-```
-
-**错误响应**:
-- `404 Not Found`: 用户不存在
-- `409 Conflict`: 邮箱或手机号已被其他用户使用
-
-#### 2.5 删除用户
-
-**接口**: `POST /users/{id}/delete`  
-**描述**: 软删除用户账户（标记为已删除，不会真正删除数据）  
-**认证**: 需要 JWT Token
-
-**路径参数**:
-- `id` (string, 必需): 用户ID
-
-**成功响应** (200):
-```json
-{
-  "success": true,
-  "message": "用户删除成功",
-  "data": {
-    "id": "clxxxxx",
-    "email": "user@example.com",
-    "nickname": "用户昵称",
-    "phone": "13800138000",
-    "avatar": "https://example.com/avatar.jpg",
-    "status": "ACTIVE",
-    "deletedAt": "2024-01-01T01:00:00.000Z",
-    "createdAt": "2024-01-01T00:00:00.000Z",
-    "updatedAt": "2024-01-01T01:00:00.000Z"
-  }
-}
-```
-
-**错误响应**:
-- `404 Not Found`: 用户不存在或已被删除
-
-**注意**: 软删除的用户不会出现在用户列表中，但数据仍保留在数据库中。
-
-## 数据模型定义
-
-### User (用户)
-```json
-{
-  "id": "string",
-  "email": "string",
-  "phone": "string | null",
-  "nickname": "string",
-  "avatar": "string | null",
-  "status": "ACTIVE | INACTIVE | SUSPENDED",
-  "deletedAt": "string (ISO 8601) | null",
-  "createdAt": "string (ISO 8601)",
-  "updatedAt": "string (ISO 8601)"
-}
-```
-
-### AuthResponse (认证响应)
-```json
-{
-  "access_token": "string",
-  "user": "User"
-}
-```
-
-## 错误码说明
-
-| HTTP 状态码 | 错误类型 | 描述 |
-|-------------|----------|------|
-| 400 | Bad Request | 请求参数验证失败 |
-| 401 | Unauthorized | 未提供认证令牌或令牌无效 |
-| 403 | Forbidden | 权限不足 |
-| 404 | Not Found | 请求的资源不存在 |
-| 409 | Conflict | 资源冲突（如邮箱已存在） |
-| 500 | Internal Server Error | 服务器内部错误 |
+### API限流
+- 每个用户每分钟最多100次请求
+- 登录接口每分钟最多5次尝试
 
 ## 使用示例
 
-### 1. 用户注册和登录流程
+### JavaScript示例
 
+#### 用户注册
 ```javascript
-// 1. 注册用户
-const registerResponse = await fetch('http://localhost:3001/auth/register', {
+const response = await fetch('http://localhost:3001/api/v1/auth/register', {
   method: 'POST',
   headers: {
     'Content-Type': 'application/json',
@@ -1485,31 +1293,48 @@ const registerResponse = await fetch('http://localhost:3001/auth/register', {
   body: JSON.stringify({
     email: 'user@example.com',
     password: 'password123',
-    nickname: '测试用户'
+    nickname: '用户昵称',
+    phone: '13800138000'
   })
 });
 
-const registerData = await registerResponse.json();
-const token = registerData.data.access_token;
-
-// 2. 使用 Token 访问受保护的接口
-const usersResponse = await fetch('http://localhost:3001/users', {
-  method: 'GET',
-  headers: {
-    'Authorization': `Bearer ${token}`,
-    'Content-Type': 'application/json',
-  }
-});
-
-const usersData = await usersResponse.json();
-console.log(usersData.data); // 用户列表
+const data = await response.json();
+if (data.success) {
+  // 保存Token
+  localStorage.setItem('accessToken', data.data.accessToken);
+  console.log('注册成功:', data.data.user);
+} else {
+  console.error('注册失败:', data.message);
+}
 ```
 
-### 2. 用户信息管理
-
+#### 用户登录
 ```javascript
-// 获取用户信息
-const userResponse = await fetch('http://localhost:3001/users/clxxxxx', {
+const response = await fetch('http://localhost:3001/api/v1/auth/login', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({
+    email: 'user@example.com',
+    password: 'password123'
+  })
+});
+
+const data = await response.json();
+if (data.success) {
+  // 保存Token
+  localStorage.setItem('accessToken', data.data.accessToken);
+  console.log('登录成功:', data.data.user);
+} else {
+  console.error('登录失败:', data.message);
+}
+```
+
+#### 获取用户信息
+```javascript
+const token = localStorage.getItem('accessToken');
+const response = await fetch('http://localhost:3001/api/v1/users/profile', {
   method: 'GET',
   headers: {
     'Authorization': `Bearer ${token}`,
@@ -1517,24 +1342,90 @@ const userResponse = await fetch('http://localhost:3001/users/clxxxxx', {
   }
 });
 
-// 更新用户信息
-const updateResponse = await fetch('http://localhost:3001/users/clxxxxx', {
-  method: 'PATCH',
+const data = await response.json();
+if (data.success) {
+  console.log('用户信息:', data.data);
+} else {
+  console.error('获取失败:', data.message);
+}
+```
+
+#### 创建账本
+```javascript
+const token = localStorage.getItem('accessToken');
+const response = await fetch('http://localhost:3001/api/v1/ledgers', {
+  method: 'POST',
   headers: {
     'Authorization': `Bearer ${token}`,
     'Content-Type': 'application/json',
   },
   body: JSON.stringify({
-    nickname: '新昵称',
-    phone: '13800138000'
+    name: '家庭账本',
+    description: '我们的家庭记账本',
+    currency: 'CNY',
+    icon: 'home',
+    color: '#1890ff'
   })
 });
+
+const data = await response.json();
+if (data.success) {
+  console.log('账本创建成功:', data.data);
+} else {
+  console.error('创建失败:', data.message);
+}
 ```
 
-## 注意事项
+#### 创建交易记录
+```javascript
+const token = localStorage.getItem('accessToken');
+const ledgerId = 'your_ledger_id';
+const response = await fetch(`http://localhost:3001/api/v1/ledgers/${ledgerId}/transactions`, {
+  method: 'POST',
+  headers: {
+    'Authorization': `Bearer ${token}`,
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({
+    type: 'EXPENSE',
+    amount: 50.00,
+    description: '午餐费用',
+    date: new Date().toISOString(),
+    accountId: 'account_id',
+    categoryId: 'category_id',
+    notes: '和同事一起吃饭',
+    tags: ['餐饮', '工作']
+  })
+});
 
-1. **密码安全**: 密码在存储前会使用 bcrypt 进行加密，API 响应中不会返回密码字段
-2. **Token 管理**: JWT Token 有效期为7天，过期后需要重新登录
-3. **CORS 配置**: API 已配置 CORS，支持来自 `http://localhost:3000` 和 `http://localhost:3001` 的跨域请求
-4. **数据验证**: 所有输入数据都会进行严格的验证，确保数据的完整性和安全性
-5. **错误处理**: API 提供详细的错误信息，便于前端进行错误处理和用户提示
+const data = await response.json();
+if (data.success) {
+  console.log('交易记录创建成功:', data.data);
+} else {
+  console.error('创建失败:', data.message);
+}
+```
+
+## 重要说明
+
+1. **密码安全**: 密码在传输和存储时都会进行加密处理
+2. **Token 管理**: 请妥善保管访问令牌，避免泄露
+3. **CORS 配置**: 前端应用需要配置正确的 CORS 域名
+4. **数据验证**: 所有输入数据都会进行严格的验证
+5. **错误处理**: 请根据返回的错误代码进行相应的错误处理
+6. **API版本**: 当前API版本为v1，后续版本更新会保持向后兼容
+7. **环境配置**: 开发环境和生产环境使用不同的Base URL
+8. **文档更新**: API文档会随着功能更新而同步更新
+
+## 联系支持
+
+如果您在使用API过程中遇到问题，请通过以下方式联系我们：
+
+- **邮箱**: support@familyledger.com
+- **文档地址**: http://localhost:3001/api/docs
+- **GitHub**: https://github.com/familyledger/api
+
+---
+
+*最后更新时间: 2024-01-01*  
+*API版本: v1.0*
