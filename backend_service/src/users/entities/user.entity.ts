@@ -52,6 +52,12 @@ export class UserEntity implements User {
   })
   updatedAt: Date;
 
+  @ApiPropertyOptional({
+    description: '删除时间（软删除）',
+    example: '2024-01-01T00:00:00.000Z',
+  })
+  deletedAt: Date | null;
+
   @Exclude()
   password: string;
 

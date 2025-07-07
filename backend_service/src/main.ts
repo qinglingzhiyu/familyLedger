@@ -11,11 +11,22 @@ async function bootstrap() {
     whitelist: true,
     forbidNonWhitelisted: true,
     transform: true,
+    transformOptions: {
+      enableImplicitConversion: true,
+    },
   }));
   
+  // 设置全局前缀
+  app.setGlobalPrefix('api/v1');
+
   // 启用 CORS
   app.enableCors({
-    origin: ['http://localhost:3000', 'http://localhost:3001'],
+    origin: [
+      'http://localhost:3000',
+      'http://localhost:3001',
+      'http://localhost:8080',
+      'http://localhost:8081',
+    ],
     credentials: true,
   });
   
@@ -35,18 +46,28 @@ async function bootstrap() {
       },
       'JWT-auth',
     )
+    .addTag('认证管理', '用户认证相关接口')
+    .addTag('用户管理', '用户信息管理接口')
+    .addTag('账本管理', '账本创建和管理接口')
+    .addTag('账户管理', '账户创建和管理接口')
+    .addTag('分类管理', '收支分类管理接口')
+    .addTag('交易管理', '交易记录管理接口')
     .build();
   
   const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('api', app, document, {
+  SwaggerModule.setup('api/docs', app, document, {
     swaggerOptions: {
       persistAuthorization: true,
+      tagsSorter: 'alpha',
+      operationsSorter: 'alpha',
     },
   });
   
   const port = process.env.PORT || 3001;
   await app.listen(port);
-  console.log(`Application is running on: http://localhost:${port}`);
-  console.log(`Swagger documentation is available at: http://localhost:${port}/api`);
+  
+  console.log(`🚀 应用启动成功`);
+  console.log(`📖 API文档地址: http://localhost:${port}/api/docs`);
+  console.log(`🌐 服务地址: http://localhost:${port}/api/v1`);
 }
 bootstrap();
