@@ -180,8 +180,7 @@ export class CategoriesService {
       orderBy: { createdAt: 'desc' },
       take: 10,
       include: {
-        fromAccount: { select: { name: true } },
-        toAccount: { select: { name: true } },
+        account: { select: { name: true } },
       },
     });
 
@@ -304,12 +303,12 @@ export class CategoriesService {
     }
 
     // 检查是否有子分类
-    if (category.children.length > 0) {
+    if (category.children && category.children.length > 0) {
       throw new ConflictException('分类有子分类，无法删除');
     }
 
     // 检查是否有关联的交易记录
-    if (category._count.transactions > 0) {
+    if (category._count && category._count.transactions > 0) {
       throw new ConflictException('分类有关联交易记录，无法删除');
     }
 

@@ -48,6 +48,7 @@ model Ledger {
   cover       String?
   currency    String   @default("CNY")
   status      LedgerStatus @default(ACTIVE)
+  deletedAt   DateTime? // 软删除时间戳
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
@@ -74,6 +75,7 @@ model LedgerMember {
   userId   String
   ledgerId String
   role     MemberRole @default(MEMBER)
+  deletedAt DateTime? // 软删除时间戳
   joinedAt DateTime @default(now())
 
   // 关联关系
@@ -103,6 +105,7 @@ model Account {
   isDefault Boolean  @default(false)
   userId    String
   ledgerId  String
+  deletedAt DateTime? // 软删除时间戳
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
@@ -135,6 +138,7 @@ model Category {
   ledgerId  String
   isSystem  Boolean  @default(false)
   sortOrder Int      @default(0)
+  deletedAt DateTime? // 软删除时间戳
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
@@ -161,6 +165,7 @@ model Transaction {
   accountId   String
   categoryId  String
   status      TransactionStatus @default(CONFIRMED)
+  deletedAt   DateTime? // 软删除时间戳
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
@@ -197,6 +202,7 @@ model InviteCode {
   role      MemberRole @default(MEMBER)
   expiresAt DateTime
   usedAt    DateTime?
+  deletedAt DateTime? // 软删除时间戳
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 

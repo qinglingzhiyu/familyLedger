@@ -8,7 +8,7 @@ import {
 import { PrismaService } from '../prisma/prisma.service';
 import { CreateAccountDto } from './dto/create-account.dto';
 import { UpdateAccountDto } from './dto/update-account.dto';
-import { AccountType, LedgerRole } from '@prisma/client';
+import { AccountType, MemberRole } from '@prisma/client';
 
 @Injectable()
 export class AccountsService {
@@ -21,10 +21,9 @@ export class AccountsService {
     // 检查账户名称是否重复
     const existingAccount = await this.prisma.account.findFirst({
       where: {
-        ledgerId,
-        name: createAccountDto.name,
-        deletedAt: null,
-      },
+          ledgerId,
+          name: createAccountDto.name,
+        },
     });
 
     if (existingAccount) {
@@ -35,7 +34,7 @@ export class AccountsService {
       data: {
         ...createAccountDto,
         ledgerId,
-        createdBy: userId,
+        userId,
         balance: createAccountDto.initialBalance || 0,
       },
     });
@@ -58,7 +57,6 @@ export class AccountsService {
 
     const where: any = {
       ledgerId,
-      deletedAt: null,
     };
 
     if (type) {
@@ -69,14 +67,14 @@ export class AccountsService {
       where,
       orderBy: [
         { type: 'asc' },
-        { sortOrder: 'asc' },
         { createdAt: 'asc' },
       ],
       include: {
         _count: includeBalance
           ? {
-              incomingTransactions: true,
-              outgoingTransactions: true,
+              select: {
+                transactions: true,
+              },
             }
           : undefined,
       },
@@ -106,13 +104,6 @@ export class AccountsService {
       where: {
         id,
         ledgerId,
-        deletedAt: null,
-      },
-      include: {
-        _count: {
-          incomingTransactions: true,
-          outgoingTransactions: true,
-        },
       },
     });
 
@@ -123,17 +114,12 @@ export class AccountsService {
     // 获取最近的交易记录
     const recentTransactions = await this.prisma.transaction.findMany({
       where: {
-        OR: [
-          { fromAccountId: id },
-          { toAccountId: id },
-        ],
-        deletedAt: null,
+        accountId: id,
       },
       orderBy: { createdAt: 'desc' },
       take: 10,
       include: {
-        fromAccount: { select: { name: true } },
-        toAccount: { select: { name: true } },
+        account: { select: { name: true } },
         category: { select: { name: true, icon: true } },
       },
     });
@@ -160,7 +146,6 @@ export class AccountsService {
       where: {
         id,
         ledgerId,
-        deletedAt: null,
       },
     });
 
@@ -175,7 +160,6 @@ export class AccountsService {
           ledgerId,
           name: updateAccountDto.name,
           id: { not: id },
-          deletedAt: null,
         },
       });
 
@@ -207,13 +191,6 @@ export class AccountsService {
       where: {
         id,
         ledgerId,
-        deletedAt: null,
-      },
-      include: {
-        _count: {
-          incomingTransactions: true,
-          outgoingTransactions: true,
-        },
       },
     });
 
@@ -222,21 +199,19 @@ export class AccountsService {
     }
 
     // 检查是否有关联的交易记录
-    const hasTransactions =
-      account._count.incomingTransactions > 0 ||
-      account._count.outgoingTransactions > 0;
+    const transactionCount = await this.prisma.transaction.count({
+      where: {
+        accountId: id,
+      },
+    });
 
-    if (hasTransactions) {
+    if (transactionCount > 0) {
       throw new ConflictException('账户有关联交易记录，无法删除');
     }
 
-    // 软删除
-    await this.prisma.account.update({
+    // 直接删除
+    await this.prisma.account.delete({
       where: { id },
-      data: {
-        deletedAt: new Date(),
-        updatedAt: new Date(),
-      },
     });
 
     return {
@@ -249,7 +224,6 @@ export class AccountsService {
     const accounts = await this.prisma.account.findMany({
       where: {
         ledgerId,
-        deletedAt: null,
       },
     });
 
@@ -268,12 +242,12 @@ export class AccountsService {
 
     // 总资产
     const totalAssets = accounts
-      .filter(account => ['CASH', 'BANK', 'INVESTMENT'].includes(account.type))
+      .filter(account => ['CASH', 'BANK_CARD', 'ALIPAY', 'WECHAT'].includes(account.type))
       .reduce((sum, account) => sum + account.balance, 0);
 
     // 总负债
     const totalLiabilities = accounts
-      .filter(account => account.type === 'CREDIT')
+      .filter(account => account.type === 'CREDIT_CARD')
       .reduce((sum, account) => sum + Math.abs(account.balance), 0);
 
     // 净资产
@@ -289,9 +263,10 @@ export class AccountsService {
         netWorth,
         accountsByType: {
           CASH: accounts.filter(a => a.type === 'CASH').length,
-          BANK: accounts.filter(a => a.type === 'BANK').length,
-          CREDIT: accounts.filter(a => a.type === 'CREDIT').length,
-          INVESTMENT: accounts.filter(a => a.type === 'INVESTMENT').length,
+          BANK_CARD: accounts.filter(a => a.type === 'BANK_CARD').length,
+          CREDIT_CARD: accounts.filter(a => a.type === 'CREDIT_CARD').length,
+          ALIPAY: accounts.filter(a => a.type === 'ALIPAY').length,
+          WECHAT: accounts.filter(a => a.type === 'WECHAT').length,
           OTHER: accounts.filter(a => a.type === 'OTHER').length,
         },
       },
@@ -303,9 +278,9 @@ export class AccountsService {
     fromAccountId: string,
     toAccountId: string,
     amount: number,
+    userId: string,
     description?: string,
     notes?: string,
-    userId?: string,
   ) {
     if (amount <= 0) {
       throw new BadRequestException('转账金额必须大于0');
@@ -318,10 +293,10 @@ export class AccountsService {
     // 验证账户存在
     const [fromAccount, toAccount] = await Promise.all([
       this.prisma.account.findFirst({
-        where: { id: fromAccountId, ledgerId, deletedAt: null },
+        where: { id: fromAccountId, ledgerId },
       }),
       this.prisma.account.findFirst({
-        where: { id: toAccountId, ledgerId, deletedAt: null },
+        where: { id: toAccountId, ledgerId },
       }),
     ]);
 
@@ -358,12 +333,12 @@ export class AccountsService {
           type: 'TRANSFER',
           amount,
           description: description || `从${fromAccount.name}转账到${toAccount.name}`,
-          notes,
+          note: notes,
           date: new Date(),
-          fromAccountId,
-          toAccountId,
+          accountId: fromAccountId,
           ledgerId,
-          createdBy: userId,
+          userId,
+          categoryId: 'default-category-id',
         },
       });
 
@@ -382,8 +357,8 @@ export class AccountsService {
     accountId: string,
     amount: number,
     reason: string,
+    userId: string,
     notes?: string,
-    userId?: string,
   ) {
     if (amount === 0) {
       throw new BadRequestException('调整金额不能为0');
@@ -393,7 +368,6 @@ export class AccountsService {
       where: {
         id: accountId,
         ledgerId,
-        deletedAt: null,
       },
     });
 
@@ -415,12 +389,12 @@ export class AccountsService {
           type: amount > 0 ? 'INCOME' : 'EXPENSE',
           amount: Math.abs(amount),
           description: `余额调整: ${reason}`,
-          notes,
+          note: notes,
           date: new Date(),
-          fromAccountId: amount < 0 ? accountId : undefined,
-          toAccountId: amount > 0 ? accountId : undefined,
+          accountId,
           ledgerId,
-          createdBy: userId,
+          userId,
+          categoryId: 'default-category-id',
         },
       });
 
@@ -438,13 +412,12 @@ export class AccountsService {
   private async checkPermission(
     ledgerId: string,
     userId: string,
-    allowedRoles: LedgerRole[],
+    allowedRoles: MemberRole[],
   ) {
     const member = await this.prisma.ledgerMember.findFirst({
       where: {
         ledgerId,
         userId,
-        deletedAt: null,
       },
     });
 

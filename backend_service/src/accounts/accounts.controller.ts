@@ -137,9 +137,9 @@ export class AccountsController {
       fromAccountId,
       transferDto.toAccountId,
       transferDto.amount,
+      user.id,
       transferDto.description,
       transferDto.notes,
-      user.id,
     );
   }
 
@@ -165,8 +165,8 @@ export class AccountsController {
       accountId,
       adjustDto.amount,
       adjustDto.reason,
-      adjustDto.notes,
       user.id,
+      adjustDto.notes,
     );
   }
 }

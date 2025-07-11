@@ -26,7 +26,7 @@ export class CreateAccountDto {
   @ApiProperty({
     description: '账户类型',
     enum: AccountType,
-    example: AccountType.BANK,
+    example: AccountType.BANK_CARD,
   })
   @IsEnum(AccountType, { message: '账户类型无效' })
   type: AccountType;

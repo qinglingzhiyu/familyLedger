@@ -74,6 +74,7 @@ export class AuthService {
     // 创建用户
     const user = await this.prisma.user.create({
       data: {
+        email: `${phone}@temp.com`, // 临时邮箱
         phone,
         password: hashedPassword,
         nickname: nickname || `用户${phone.slice(-4)}`,
@@ -139,15 +140,7 @@ export class AuthService {
       this.smsCodeCache.delete(`${phone}:login`);
     }
 
-    // 更新最后登录时间和设备信息
-    await this.prisma.user.update({
-      where: { id: user.id },
-      data: {
-        lastLoginAt: new Date(),
-        deviceInfo,
-        deviceId,
-      },
-    });
+    // 用户登录成功，无需更新额外字段
 
     // 生成令牌
     const tokens = await this.generateTokens(user);
