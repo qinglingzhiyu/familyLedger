@@ -161,9 +161,13 @@ export class LedgerMemberService {
       }
     }
 
-    await this.prisma.ledgerMember.delete({
+    // 软删除成员
+    await this.prisma.ledgerMember.update({
       where: {
         id: memberId,
+      },
+      data: {
+        deletedAt: new Date(),
       },
     });
 
@@ -186,9 +190,13 @@ export class LedgerMemberService {
 
     // 管理员可以直接退出账本
 
-    await this.prisma.ledgerMember.delete({
+    // 软删除成员
+    await this.prisma.ledgerMember.update({
       where: {
         id: member.id,
+      },
+      data: {
+        deletedAt: new Date(),
       },
     });
 

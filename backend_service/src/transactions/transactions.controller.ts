@@ -174,7 +174,7 @@ export class TransactionsController {
     return this.transactionsService.findOne(ledgerId, id);
   }
 
-  @Patch(':id')
+  @Post(':id/update')
   @ApiOperation({ summary: '更新交易记录' })
   @ApiResponse({ status: 200, description: '更新成功' })
   @ApiResponse({ status: 404, description: '交易记录不存在' })
@@ -193,8 +193,8 @@ export class TransactionsController {
     );
   }
 
-  @Delete(':id')
-  @ApiOperation({ summary: '删除交易记录' })
+  @Post(':id/delete')
+  @ApiOperation({ summary: '删除交易记录（软删除）' })
   @ApiResponse({ status: 200, description: '删除成功' })
   @ApiResponse({ status: 404, description: '交易记录不存在' })
   @ApiResponse({ status: 403, description: '无权限删除该交易记录' })
@@ -222,8 +222,8 @@ export class TransactionsController {
     );
   }
 
-  @Delete('batch')
-  @ApiOperation({ summary: '批量删除交易记录' })
+  @Post('batch/delete')
+  @ApiOperation({ summary: '批量删除交易记录（软删除）' })
   @ApiResponse({ status: 200, description: '批量删除成功' })
   async removeBatch(
     @Param('ledgerId') ledgerId: string,

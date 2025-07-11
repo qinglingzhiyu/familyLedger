@@ -88,7 +88,7 @@ export class UsersController {
     };
   }
 
-  @Patch(':id')
+  @Post(':id/update')
   @ApiOperation({ summary: '更新用户信息', description: '更新指定用户的信息' })
   @ApiParam({ name: 'id', description: '用户ID' })
   @ApiResponse({ status: 200, description: '更新成功', type: UserEntity })
@@ -171,7 +171,7 @@ export class UsersController {
     };
   }
 
-  @Patch('profile')
+  @Post('profile/update')
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
   @ApiOperation({ summary: '更新当前用户信息', description: '更新当前登录用户的信息' })
@@ -214,7 +214,7 @@ export class UsersController {
     };
   }
 
-  @Patch('settings')
+  @Post('settings/update')
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
   @ApiOperation({ summary: '更新用户设置', description: '更新当前用户的偏好设置' })

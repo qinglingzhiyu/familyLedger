@@ -74,7 +74,7 @@ export class LedgersController {
     description: '更新成功',
   })
   @UseGuards(LedgerAccessGuard)
-  @Patch(':ledgerId')
+  @Post(':ledgerId/update')
   async update(
     @Param('ledgerId') ledgerId: string,
     @CurrentUser() user: User,
@@ -133,7 +133,7 @@ export class LedgersController {
     description: '移除成功',
   })
   @UseGuards(LedgerAccessGuard)
-  @Delete(':ledgerId/members/:memberId')
+  @Post(':ledgerId/members/:memberId/remove')
   async removeMember(
     @Param('ledgerId') ledgerId: string,
     @Param('memberId') memberId: string,
@@ -148,7 +148,7 @@ export class LedgersController {
     description: '删除成功',
   })
   @UseGuards(LedgerAccessGuard)
-  @Delete(':ledgerId')
+  @Post(':ledgerId/delete')
   async remove(
     @Param('ledgerId') ledgerId: string,
     @CurrentUser() user: User,

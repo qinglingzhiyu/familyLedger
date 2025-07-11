@@ -111,7 +111,7 @@ export class CategoriesController {
     return this.categoriesService.findOne(ledgerId, id);
   }
 
-  @Patch(':id')
+  @Post(':id/update')
   @ApiOperation({ summary: '更新分类信息' })
   @ApiParam({ name: 'ledgerId', description: '账本ID' })
   @ApiParam({ name: 'id', description: '分类ID' })
@@ -128,14 +128,13 @@ export class CategoriesController {
     return this.categoriesService.update(ledgerId, id, updateCategoryDto, user.id);
   }
 
-  @Delete(':id')
-  @ApiOperation({ summary: '删除分类' })
+  @Post(':id/delete')
+  @ApiOperation({ summary: '删除分类（软删除）' })
   @ApiParam({ name: 'ledgerId', description: '账本ID' })
   @ApiParam({ name: 'id', description: '分类ID' })
   @ApiResponse({ status: 200, description: '删除成功' })
   @ApiResponse({ status: 403, description: '权限不足' })
   @ApiResponse({ status: 404, description: '分类不存在' })
-  @ApiResponse({ status: 409, description: '分类有关联交易或子分类，无法删除' })
   async remove(
     @Param('ledgerId') ledgerId: string,
     @Param('id') id: string,

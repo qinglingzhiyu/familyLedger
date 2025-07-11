@@ -397,6 +397,7 @@ export class TransactionsService {
       where: {
         id,
         ledgerId,
+        deletedAt: null,
       },
     });
 
@@ -407,28 +408,10 @@ export class TransactionsService {
     // 检查权限
     await this.checkTransactionPermission(ledgerId, userId, transaction.userId);
 
-    await this.prisma.$transaction(async (tx) => {
-      // 撤销账户余额变化
-      const balanceChange =
-        transaction.type === TransactionType.INCOME
-          ? -parseFloat(transaction.amount.toString())
-          : parseFloat(transaction.amount.toString());
-
-      await tx.account.update({
-        where: {
-          id: transaction.accountId,
-        },
-        data: {
-          balance: {
-            increment: balanceChange,
-          },
-        },
-      });
-
-      // 删除交易记录
-      await tx.transaction.delete({
-        where: { id },
-      });
+    // 软删除交易记录
+    await this.prisma.transaction.update({
+      where: { id },
+      data: { deletedAt: new Date() },
     });
 
     return {
@@ -702,6 +685,7 @@ export class TransactionsService {
       where: {
         id: { in: ids },
         ledgerId,
+        deletedAt: null,
       },
     });
 
@@ -714,28 +698,15 @@ export class TransactionsService {
       await this.checkTransactionPermission(ledgerId, userId, transaction.userId);
     }
 
-    await this.prisma.$transaction(async (tx) => {
-      for (const transaction of transactions) {
-        // 撤销账户余额变化
-        const balanceChange =
-          transaction.type === TransactionType.INCOME
-            ? -parseFloat(transaction.amount.toString())
-            : parseFloat(transaction.amount.toString());
-
-        await tx.account.update({
-          where: { id: transaction.accountId },
-          data: {
-            balance: {
-              increment: balanceChange,
-            },
-          },
-        });
-
-        // 删除交易记录
-        await tx.transaction.delete({
-          where: { id: transaction.id },
-        });
-      }
+    // 批量软删除交易记录
+    await this.prisma.transaction.updateMany({
+      where: {
+        id: { in: ids },
+        ledgerId,
+      },
+      data: {
+        deletedAt: new Date(),
+      },
     });
 
     return {

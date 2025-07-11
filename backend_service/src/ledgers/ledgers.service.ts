@@ -362,9 +362,13 @@ export class LedgersService {
     // 检查用户权限（只有所有者可以删除账本）
     await this.checkLedgerAccess(ledgerId, userId, [MemberRole.OWNER]);
 
-    await this.prisma.ledger.delete({
+    // 软删除账本
+    await this.prisma.ledger.update({
       where: {
         id: ledgerId,
+      },
+      data: {
+        deletedAt: new Date(),
       },
     });
 

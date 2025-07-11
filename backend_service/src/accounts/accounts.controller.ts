@@ -81,7 +81,7 @@ export class AccountsController {
     return this.accountsService.findOne(ledgerId, id);
   }
 
-  @Patch(':id')
+  @Post(':id/update')
   @ApiOperation({ summary: '更新账户信息' })
   @ApiParam({ name: 'ledgerId', description: '账本ID' })
   @ApiParam({ name: 'id', description: '账户ID' })
@@ -98,14 +98,13 @@ export class AccountsController {
     return this.accountsService.update(ledgerId, id, updateAccountDto, user.id);
   }
 
-  @Delete(':id')
-  @ApiOperation({ summary: '删除账户' })
+  @Post(':id/delete')
+  @ApiOperation({ summary: '删除账户（软删除）' })
   @ApiParam({ name: 'ledgerId', description: '账本ID' })
   @ApiParam({ name: 'id', description: '账户ID' })
   @ApiResponse({ status: 200, description: '删除成功' })
   @ApiResponse({ status: 403, description: '权限不足' })
   @ApiResponse({ status: 404, description: '账户不存在' })
-  @ApiResponse({ status: 409, description: '账户有关联交易，无法删除' })
   async remove(
     @Param('ledgerId') ledgerId: string,
     @Param('id') id: string,

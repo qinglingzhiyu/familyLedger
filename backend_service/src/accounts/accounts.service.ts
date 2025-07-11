@@ -191,6 +191,7 @@ export class AccountsService {
       where: {
         id,
         ledgerId,
+        deletedAt: null,
       },
     });
 
@@ -198,20 +199,10 @@ export class AccountsService {
       throw new NotFoundException('账户不存在');
     }
 
-    // 检查是否有关联的交易记录
-    const transactionCount = await this.prisma.transaction.count({
-      where: {
-        accountId: id,
-      },
-    });
-
-    if (transactionCount > 0) {
-      throw new ConflictException('账户有关联交易记录，无法删除');
-    }
-
-    // 直接删除
-    await this.prisma.account.delete({
+    // 软删除
+    await this.prisma.account.update({
       where: { id },
+      data: { deletedAt: new Date() },
     });
 
     return {

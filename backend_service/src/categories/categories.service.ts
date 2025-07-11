@@ -287,12 +287,21 @@ export class CategoriesService {
       where: {
         id,
         ledgerId,
+        deletedAt: null,
       },
       include: {
-        children: true,
+        children: {
+          where: {
+            deletedAt: null,
+          },
+        },
         _count: {
           select: {
-            transactions: true,
+            transactions: {
+              where: {
+                deletedAt: null,
+              },
+            },
           },
         },
       },
@@ -307,14 +316,10 @@ export class CategoriesService {
       throw new ConflictException('分类有子分类，无法删除');
     }
 
-    // 检查是否有关联的交易记录
-    if (category._count && category._count.transactions > 0) {
-      throw new ConflictException('分类有关联交易记录，无法删除');
-    }
-
-    // 删除分类
-    await this.prisma.category.delete({
+    // 软删除分类
+    await this.prisma.category.update({
       where: { id },
+      data: { deletedAt: new Date() },
     });
 
     return {
