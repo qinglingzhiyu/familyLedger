@@ -8,7 +8,7 @@ import {
 import { PrismaService } from '../prisma/prisma.service';
 import { CreateCategoryDto } from './dto/create-category.dto';
 import { UpdateCategoryDto } from './dto/update-category.dto';
-import { TransactionType, LedgerRole } from '@prisma/client';
+import { TransactionType, MemberRole } from '@prisma/client';
 
 @Injectable()
 export class CategoriesService {
@@ -24,7 +24,6 @@ export class CategoriesService {
         where: {
           id: createCategoryDto.parentId,
           ledgerId,
-          deletedAt: null,
         },
       });
 
@@ -44,7 +43,6 @@ export class CategoriesService {
         ledgerId,
         name: createCategoryDto.name,
         parentId: createCategoryDto.parentId || null,
-        deletedAt: null,
       },
     });
 
@@ -56,7 +54,6 @@ export class CategoriesService {
       data: {
         ...createCategoryDto,
         ledgerId,
-        createdBy: userId,
       },
     });
 
@@ -79,7 +76,6 @@ export class CategoriesService {
 
     const where: any = {
       ledgerId,
-      deletedAt: null,
     };
 
     if (type) {
@@ -98,13 +94,12 @@ export class CategoriesService {
       ],
       include: {
         children: {
-          where: { deletedAt: null },
           orderBy: [{ sortOrder: 'asc' }, { createdAt: 'asc' }],
         },
         _count: includeStats
           ? {
-              transactions: {
-                where: { deletedAt: null },
+              select: {
+                transactions: true,
               },
             }
           : undefined,
@@ -123,7 +118,6 @@ export class CategoriesService {
   async getTree(ledgerId: string, type?: string) {
     const where: any = {
       ledgerId,
-      deletedAt: null,
       parentId: null, // 只获取顶级分类
     };
 
@@ -139,11 +133,9 @@ export class CategoriesService {
       ],
       include: {
         children: {
-          where: { deletedAt: null },
           orderBy: [{ sortOrder: 'asc' }, { createdAt: 'asc' }],
           include: {
             children: {
-              where: { deletedAt: null },
               orderBy: [{ sortOrder: 'asc' }, { createdAt: 'asc' }],
             },
           },
@@ -162,17 +154,15 @@ export class CategoriesService {
       where: {
         id,
         ledgerId,
-        deletedAt: null,
       },
       include: {
         parent: true,
         children: {
-          where: { deletedAt: null },
           orderBy: [{ sortOrder: 'asc' }, { createdAt: 'asc' }],
         },
         _count: {
-          transactions: {
-            where: { deletedAt: null },
+          select: {
+            transactions: true,
           },
         },
       },
@@ -186,7 +176,6 @@ export class CategoriesService {
     const recentTransactions = await this.prisma.transaction.findMany({
       where: {
         categoryId: id,
-        deletedAt: null,
       },
       orderBy: { createdAt: 'desc' },
       take: 10,
@@ -218,7 +207,6 @@ export class CategoriesService {
       where: {
         id,
         ledgerId,
-        deletedAt: null,
       },
     });
 
@@ -237,7 +225,6 @@ export class CategoriesService {
           where: {
             id: updateCategoryDto.parentId,
             ledgerId,
-            deletedAt: null,
           },
         });
 
@@ -270,7 +257,6 @@ export class CategoriesService {
           name: updateCategoryDto.name,
           parentId: parentId || null,
           id: { not: id },
-          deletedAt: null,
         },
       });
 
@@ -302,15 +288,12 @@ export class CategoriesService {
       where: {
         id,
         ledgerId,
-        deletedAt: null,
       },
       include: {
-        children: {
-          where: { deletedAt: null },
-        },
+        children: true,
         _count: {
-          transactions: {
-            where: { deletedAt: null },
+          select: {
+            transactions: true,
           },
         },
       },
@@ -330,13 +313,9 @@ export class CategoriesService {
       throw new ConflictException('分类有关联交易记录，无法删除');
     }
 
-    // 软删除
-    await this.prisma.category.update({
+    // 删除分类
+    await this.prisma.category.delete({
       where: { id },
-      data: {
-        deletedAt: new Date(),
-        updatedAt: new Date(),
-      },
     });
 
     return {
@@ -361,7 +340,6 @@ export class CategoriesService {
       where: {
         id,
         ledgerId,
-        deletedAt: null,
       },
     });
 
@@ -379,7 +357,6 @@ export class CategoriesService {
         where: {
           id: parentId,
           ledgerId,
-          deletedAt: null,
         },
       });
 
@@ -423,17 +400,16 @@ export class CategoriesService {
     await this.checkPermission(ledgerId, userId, ['OWNER', 'ADMIN']);
 
     const createdCategories = await this.prisma.$transaction(async (tx) => {
-      const results = [];
+      const results: any[] = [];
       
       for (const categoryDto of categories) {
         // 检查分类名称是否重复
         const existingCategory = await tx.category.findFirst({
           where: {
-            ledgerId,
-            name: categoryDto.name,
-            parentId: categoryDto.parentId || null,
-            deletedAt: null,
-          },
+              ledgerId,
+              name: categoryDto.name,
+              parentId: categoryDto.parentId || null,
+            },
         });
 
         if (!existingCategory) {
@@ -441,7 +417,6 @@ export class CategoriesService {
             data: {
               ...categoryDto,
               ledgerId,
-              createdBy: userId,
             },
           });
           results.push(category);
@@ -479,7 +454,6 @@ export class CategoriesService {
 
     const where: any = {
       ledgerId,
-      deletedAt: null,
     };
 
     if (type) {
@@ -491,7 +465,6 @@ export class CategoriesService {
       include: {
         transactions: {
           where: {
-            deletedAt: null,
             ...(startDate && { date: { gte: startDate } }),
             ...(endDate && { date: { lte: endDate } }),
           },
@@ -536,13 +509,12 @@ export class CategoriesService {
   private async checkPermission(
     ledgerId: string,
     userId: string,
-    allowedRoles: LedgerRole[],
+    allowedRoles: MemberRole[],
   ) {
     const member = await this.prisma.ledgerMember.findFirst({
       where: {
         ledgerId,
         userId,
-        deletedAt: null,
       },
     });
 
@@ -554,7 +526,7 @@ export class CategoriesService {
   }
 
   private async wouldCreateCycle(categoryId: string, parentId: string): Promise<boolean> {
-    let currentParentId = parentId;
+    let currentParentId: string | null = parentId;
     
     while (currentParentId) {
       if (currentParentId === categoryId) {

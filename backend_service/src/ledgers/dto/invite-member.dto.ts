@@ -1,18 +1,18 @@
 import { IsEnum, IsOptional, IsNumber, Min, Max } from 'class-validator';
 import { ApiPropertyOptional } from '@nestjs/swagger';
-import { LedgerRole } from '@prisma/client';
+import { MemberRole } from '@prisma/client';
 import { Transform } from 'class-transformer';
 
 export class InviteMemberDto {
   @ApiPropertyOptional({
     description: '邀请角色',
-    enum: LedgerRole,
-    default: LedgerRole.MEMBER,
-    example: LedgerRole.MEMBER,
+    enum: MemberRole,
+    default: MemberRole.MEMBER,
+    example: MemberRole.MEMBER,
   })
   @IsOptional()
-  @IsEnum(LedgerRole, { message: '无效的角色类型' })
-  role?: LedgerRole;
+  @IsEnum(MemberRole, { message: '无效的角色类型' })
+  role?: MemberRole;
 
   @ApiPropertyOptional({
     description: '邀请码有效期（毫秒）',

@@ -7,7 +7,7 @@ import {
 import { PrismaService } from '../prisma/prisma.service';
 import { CreateTransactionDto } from './dto/create-transaction.dto';
 import { UpdateTransactionDto } from './dto/update-transaction.dto';
-import { TransactionType, LedgerRole } from '@prisma/client';
+import { TransactionType, TransactionStatus, MemberRole } from '@prisma/client';
 import { Decimal } from '@prisma/client/runtime/library';
 
 interface FindAllOptions {
@@ -58,11 +58,11 @@ export class TransactionsService {
       // 创建交易记录
       const newTransaction = await tx.transaction.create({
         data: {
-          ...createTransactionDto,
-          ledgerId,
-          createdBy: userId,
-          date: new Date(createTransactionDto.date),
-        },
+        ...createTransactionDto,
+        ledgerId,
+        userId,
+        date: new Date(createTransactionDto.date),
+      },
         include: {
           account: {
             select: {
@@ -82,7 +82,7 @@ export class TransactionsService {
               color: true,
             },
           },
-          creator: {
+          user: {
             select: {
               id: true,
               nickname: true,
@@ -120,7 +120,7 @@ export class TransactionsService {
       date: transaction.date,
       account: transaction.account,
       category: transaction.category,
-      creator: transaction.creator,
+      creator: transaction.user,
       createdAt: transaction.createdAt,
       updatedAt: transaction.updatedAt,
     };
@@ -133,7 +133,6 @@ export class TransactionsService {
     // 构建查询条件
     const where: any = {
       ledgerId,
-      deletedAt: null,
     };
 
     if (type) where.type = type;
@@ -149,7 +148,6 @@ export class TransactionsService {
     if (keyword) {
       where.description = {
         contains: keyword,
-        mode: 'insensitive',
       };
     }
 
@@ -175,7 +173,7 @@ export class TransactionsService {
               color: true,
             },
           },
-          creator: {
+          user: {
             select: {
               id: true,
               nickname: true,
@@ -200,7 +198,7 @@ export class TransactionsService {
       date: transaction.date,
       account: transaction.account,
       category: transaction.category,
-      creator: transaction.creator,
+      creator: transaction.user,
       createdAt: transaction.createdAt,
       updatedAt: transaction.updatedAt,
     }));
@@ -223,7 +221,6 @@ export class TransactionsService {
       where: {
         id,
         ledgerId,
-        deletedAt: null,
       },
       include: {
         account: {
@@ -244,7 +241,7 @@ export class TransactionsService {
             color: true,
           },
         },
-        creator: {
+        user: {
           select: {
             id: true,
             nickname: true,
@@ -266,7 +263,7 @@ export class TransactionsService {
       date: transaction.date,
       account: transaction.account,
       category: transaction.category,
-      creator: transaction.creator,
+      creator: transaction.user,
       createdAt: transaction.createdAt,
       updatedAt: transaction.updatedAt,
     };
@@ -282,7 +279,6 @@ export class TransactionsService {
       where: {
         id,
         ledgerId,
-        deletedAt: null,
       },
     });
 
@@ -291,7 +287,7 @@ export class TransactionsService {
     }
 
     // 检查权限：只有创建者或管理员可以修改
-    await this.checkTransactionPermission(ledgerId, userId, existingTransaction.createdBy);
+    await this.checkTransactionPermission(ledgerId, userId, existingTransaction.userId);
 
     // 如果更新了账户或分类，需要验证
     if (updateTransactionDto.accountId || updateTransactionDto.categoryId) {
@@ -369,7 +365,7 @@ export class TransactionsService {
               color: true,
             },
           },
-          creator: {
+          user: {
             select: {
               id: true,
               nickname: true,
@@ -390,7 +386,7 @@ export class TransactionsService {
       date: transaction.date,
       account: transaction.account,
       category: transaction.category,
-      creator: transaction.creator,
+      creator: transaction.user,
       createdAt: transaction.createdAt,
       updatedAt: transaction.updatedAt,
     };
@@ -401,7 +397,6 @@ export class TransactionsService {
       where: {
         id,
         ledgerId,
-        deletedAt: null,
       },
     });
 
@@ -410,7 +405,7 @@ export class TransactionsService {
     }
 
     // 检查权限
-    await this.checkTransactionPermission(ledgerId, userId, transaction.createdBy);
+    await this.checkTransactionPermission(ledgerId, userId, transaction.userId);
 
     await this.prisma.$transaction(async (tx) => {
       // 撤销账户余额变化
@@ -430,12 +425,9 @@ export class TransactionsService {
         },
       });
 
-      // 软删除交易记录
-      await tx.transaction.update({
+      // 删除交易记录
+      await tx.transaction.delete({
         where: { id },
-        data: {
-          deletedAt: new Date(),
-        },
       });
     });
 
@@ -449,7 +441,6 @@ export class TransactionsService {
 
     const where: any = {
       ledgerId,
-      deletedAt: null,
     };
 
     if (startDate || endDate) {
@@ -473,7 +464,7 @@ export class TransactionsService {
     const totalIncome = parseFloat(incomeSum._sum.amount?.toString() || '0');
     const totalExpense = parseFloat(expenseSum._sum.amount?.toString() || '0');
 
-    let groupedData = [];
+    let groupedData: any[] = [];
     if (groupBy) {
       groupedData = await this.getGroupedTransactions(ledgerId, groupBy, where);
     }
@@ -494,7 +485,6 @@ export class TransactionsService {
 
     const where: any = {
       ledgerId,
-      deletedAt: null,
     };
 
     if (type) where.type = type;
@@ -555,7 +545,6 @@ export class TransactionsService {
 
     const where: any = {
       ledgerId,
-      deletedAt: null,
     };
 
     if (startDate || endDate) {
@@ -625,7 +614,6 @@ export class TransactionsService {
 
     const where: any = {
       ledgerId,
-      deletedAt: null,
       date: {
         gte: startDate,
         lte: now,
@@ -663,7 +651,7 @@ export class TransactionsService {
     }
 
     const results = await this.prisma.$transaction(async (tx) => {
-      const createdTransactions = [];
+      const createdTransactions: any[] = [];
 
       for (const dto of createTransactionDtos) {
         // 创建交易记录
@@ -671,7 +659,7 @@ export class TransactionsService {
           data: {
             ...dto,
             ledgerId,
-            createdBy: userId,
+            userId,
             date: new Date(dto.date),
           },
         });
@@ -714,7 +702,6 @@ export class TransactionsService {
       where: {
         id: { in: ids },
         ledgerId,
-        deletedAt: null,
       },
     });
 
@@ -724,7 +711,7 @@ export class TransactionsService {
 
     // 检查权限
     for (const transaction of transactions) {
-      await this.checkTransactionPermission(ledgerId, userId, transaction.createdBy);
+      await this.checkTransactionPermission(ledgerId, userId, transaction.userId);
     }
 
     await this.prisma.$transaction(async (tx) => {
@@ -744,10 +731,9 @@ export class TransactionsService {
           },
         });
 
-        // 软删除交易记录
-        await tx.transaction.update({
+        // 删除交易记录
+        await tx.transaction.delete({
           where: { id: transaction.id },
-          data: { deletedAt: new Date() },
         });
       }
     });
@@ -763,7 +749,6 @@ export class TransactionsService {
       where: {
         id,
         ledgerId,
-        deletedAt: null,
       },
     });
 
@@ -793,14 +778,12 @@ export class TransactionsService {
         where: {
           id: accountId,
           ledgerId,
-          deletedAt: null,
         },
       }),
       this.prisma.category.findFirst({
         where: {
           id: categoryId,
           ledgerId,
-          deletedAt: null,
         },
       }),
     ]);
@@ -817,10 +800,10 @@ export class TransactionsService {
   private async checkTransactionPermission(
     ledgerId: string,
     userId: string,
-    createdBy: string,
+    transactionUserId: string,
   ) {
     // 如果是创建者，直接允许
-    if (userId === createdBy) {
+    if (userId === transactionUserId) {
       return;
     }
 
@@ -830,7 +813,7 @@ export class TransactionsService {
         ledgerId,
         userId,
         role: {
-          in: [LedgerRole.OWNER, LedgerRole.ADMIN],
+          in: [MemberRole.OWNER, MemberRole.ADMIN],
         },
       },
     });

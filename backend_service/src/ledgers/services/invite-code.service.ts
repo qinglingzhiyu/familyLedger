@@ -4,7 +4,7 @@ import {
   BadRequestException,
 } from '@nestjs/common';
 import { PrismaService } from '../../prisma/prisma.service';
-import { LedgerRole } from '@prisma/client';
+import { MemberRole } from '@prisma/client';
 import { randomBytes } from 'crypto';
 
 @Injectable()
@@ -14,11 +14,11 @@ export class InviteCodeService {
   async generateInviteCode(
     ledgerId: string,
     createdBy: string,
-    role: LedgerRole = LedgerRole.MEMBER,
+    role: MemberRole = MemberRole.MEMBER,
     expiresIn: number = 7 * 24 * 60 * 60 * 1000, // 默认7天
   ) {
     // 生成唯一邀请码
-    let code: string;
+    let code: string = '';
     let isUnique = false;
     let attempts = 0;
     const maxAttempts = 10;
@@ -61,7 +61,6 @@ export class InviteCodeService {
           select: {
             id: true,
             name: true,
-            deletedAt: true,
           },
         },
       },
@@ -71,9 +70,7 @@ export class InviteCodeService {
       throw new NotFoundException('邀请码不存在');
     }
 
-    if (inviteCode.ledger.deletedAt) {
-      throw new BadRequestException('账本已被删除');
-    }
+
 
     if (inviteCode.usedAt) {
       throw new BadRequestException('邀请码已被使用');
@@ -148,7 +145,7 @@ export class InviteCodeService {
           ledgerId: inviteCode.ledgerId,
           userId,
           role: {
-            in: [LedgerRole.OWNER, LedgerRole.ADMIN],
+            in: [MemberRole.OWNER, MemberRole.ADMIN],
           },
         },
       });
@@ -255,7 +252,7 @@ export class InviteCodeService {
           ledgerId: inviteCode.ledgerId,
           userId,
           role: {
-            in: [LedgerRole.OWNER, LedgerRole.ADMIN],
+            in: [MemberRole.OWNER, MemberRole.ADMIN],
           },
         },
       });

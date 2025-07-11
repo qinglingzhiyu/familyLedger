@@ -63,6 +63,7 @@ export class TransactionsController {
   @ApiResponse({ status: 200, description: '获取成功' })
   async findAll(
     @Param('ledgerId') ledgerId: string,
+    @CurrentUser() user: User,
     @Query('page') page?: string,
     @Query('limit') limit?: string,
     @Query('type') type?: 'INCOME' | 'EXPENSE',
@@ -71,10 +72,9 @@ export class TransactionsController {
     @Query('startDate') startDate?: string,
     @Query('endDate') endDate?: string,
     @Query('keyword') keyword?: string,
-    @CurrentUser() user: User,
   ) {
-    const pageNum = parseInt(page) || 1;
-    const limitNum = parseInt(limit) || 20;
+    const pageNum = parseInt(page || '1') || 1;
+    const limitNum = parseInt(limit || '20') || 20;
 
     return this.transactionsService.findAll(ledgerId, {
       page: pageNum,
@@ -96,10 +96,10 @@ export class TransactionsController {
   @ApiResponse({ status: 200, description: '获取成功' })
   async getSummary(
     @Param('ledgerId') ledgerId: string,
+    @CurrentUser() user: User,
     @Query('startDate') startDate?: string,
     @Query('endDate') endDate?: string,
     @Query('groupBy') groupBy?: 'day' | 'week' | 'month' | 'year',
-    @CurrentUser() user: User,
   ) {
     return this.transactionsService.getSummary(ledgerId, {
       startDate,
@@ -116,10 +116,10 @@ export class TransactionsController {
   @ApiResponse({ status: 200, description: '获取成功' })
   async getCategoryStatistics(
     @Param('ledgerId') ledgerId: string,
+    @CurrentUser() user: User,
     @Query('type') type?: 'INCOME' | 'EXPENSE',
     @Query('startDate') startDate?: string,
     @Query('endDate') endDate?: string,
-    @CurrentUser() user: User,
   ) {
     return this.transactionsService.getCategoryStatistics(ledgerId, {
       type,
@@ -135,9 +135,9 @@ export class TransactionsController {
   @ApiResponse({ status: 200, description: '获取成功' })
   async getAccountStatistics(
     @Param('ledgerId') ledgerId: string,
+    @CurrentUser() user: User,
     @Query('startDate') startDate?: string,
     @Query('endDate') endDate?: string,
-    @CurrentUser() user: User,
   ) {
     return this.transactionsService.getAccountStatistics(ledgerId, {
       startDate,
@@ -152,9 +152,9 @@ export class TransactionsController {
   @ApiResponse({ status: 200, description: '获取成功' })
   async getTrends(
     @Param('ledgerId') ledgerId: string,
+    @CurrentUser() user: User,
     @Query('period') period?: 'week' | 'month' | 'quarter' | 'year',
     @Query('type') type?: 'INCOME' | 'EXPENSE',
-    @CurrentUser() user: User,
   ) {
     return this.transactionsService.getTrends(ledgerId, {
       period: period || 'month',

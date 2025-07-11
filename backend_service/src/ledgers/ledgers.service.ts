@@ -12,7 +12,7 @@ import { InviteMemberDto } from './dto/invite-member.dto';
 import { LedgerMemberService } from './services/ledger-member.service';
 import { InviteCodeService } from './services/invite-code.service';
 import { NotificationsService } from '../notifications/notifications.service';
-import { LedgerRole } from '@prisma/client';
+import { MemberRole } from '@prisma/client';
 
 @Injectable()
 export class LedgersService {
@@ -31,7 +31,7 @@ export class LedgersService {
             userId,
           },
         },
-        deletedAt: null,
+
       },
       include: {
         members: {
@@ -47,11 +47,7 @@ export class LedgersService {
         _count: {
           select: {
             members: true,
-            transactions: {
-              where: {
-                deletedAt: null,
-              },
-            },
+            transactions: true,
           },
         },
       },
@@ -65,8 +61,6 @@ export class LedgersService {
       name: ledger.name,
       description: ledger.description,
       currency: ledger.currency,
-      icon: ledger.icon,
-      color: ledger.color,
       role: ledger.members[0]?.role,
       memberCount: ledger._count.members,
       transactionCount: ledger._count.transactions,
@@ -84,8 +78,6 @@ export class LedgersService {
           name: createLedgerDto.name,
           description: createLedgerDto.description,
           currency: createLedgerDto.currency || 'CNY',
-          icon: createLedgerDto.icon,
-          color: createLedgerDto.color,
         },
       });
 
@@ -94,12 +86,12 @@ export class LedgersService {
         data: {
           ledgerId: newLedger.id,
           userId,
-          role: LedgerRole.OWNER,
+          role: MemberRole.OWNER,
         },
       });
 
       // 创建默认账户
-      await this.createDefaultAccounts(tx, newLedger.id);
+      await this.createDefaultAccounts(tx, newLedger.id, userId);
 
       // 创建默认分类
       await this.createDefaultCategories(tx, newLedger.id);
@@ -117,7 +109,6 @@ export class LedgersService {
     const ledger = await this.prisma.ledger.findFirst({
       where: {
         id: ledgerId,
-        deletedAt: null,
       },
       include: {
         members: {
@@ -136,9 +127,6 @@ export class LedgersService {
           },
         },
         accounts: {
-          where: {
-            deletedAt: null,
-          },
           select: {
             id: true,
             name: true,
@@ -149,9 +137,6 @@ export class LedgersService {
           },
         },
         categories: {
-          where: {
-            deletedAt: null,
-          },
           select: {
             id: true,
             name: true,
@@ -173,8 +158,6 @@ export class LedgersService {
       name: ledger.name,
       description: ledger.description,
       currency: ledger.currency,
-      icon: ledger.icon,
-      color: ledger.color,
       members: ledger.members.map((member) => ({
         id: member.id,
         role: member.role,
@@ -190,12 +173,11 @@ export class LedgersService {
 
   async update(ledgerId: string, userId: string, updateLedgerDto: UpdateLedgerDto) {
     // 检查用户权限（需要管理员权限）
-    await this.checkLedgerAccess(ledgerId, userId, [LedgerRole.OWNER, LedgerRole.ADMIN]);
+    await this.checkLedgerAccess(ledgerId, userId, [MemberRole.OWNER, MemberRole.ADMIN]);
 
     const ledger = await this.prisma.ledger.update({
       where: {
         id: ledgerId,
-        deletedAt: null,
       },
       data: updateLedgerDto,
     });
@@ -205,12 +187,12 @@ export class LedgersService {
 
   async generateInvite(ledgerId: string, userId: string, inviteMemberDto: InviteMemberDto) {
     // 检查用户权限
-    await this.checkLedgerAccess(ledgerId, userId, [LedgerRole.OWNER, LedgerRole.ADMIN]);
+    await this.checkLedgerAccess(ledgerId, userId, [MemberRole.OWNER, MemberRole.ADMIN]);
 
     const inviteCode = await this.inviteCodeService.generateInviteCode(
       ledgerId,
       userId,
-      inviteMemberDto.role || LedgerRole.MEMBER,
+      inviteMemberDto.role || MemberRole.MEMBER,
       inviteMemberDto.expiresIn,
     );
 
@@ -279,7 +261,6 @@ export class LedgersService {
     await this.notificationsService.notifyMemberJoined(
       inviteCode.ledgerId,
       member.user,
-      userId,
     );
 
     return {
@@ -323,8 +304,8 @@ export class LedgersService {
   async removeMember(ledgerId: string, memberId: string, userId: string) {
     // 检查用户权限
     const currentMember = await this.checkLedgerAccess(ledgerId, userId, [
-      LedgerRole.OWNER,
-      LedgerRole.ADMIN,
+      MemberRole.OWNER,
+      MemberRole.ADMIN,
     ]);
 
     const targetMember = await this.prisma.ledgerMember.findFirst({
@@ -347,14 +328,14 @@ export class LedgersService {
     }
 
     // 不能移除所有者
-    if (targetMember.role === LedgerRole.OWNER) {
+    if (targetMember.role === MemberRole.OWNER) {
       throw new ForbiddenException('不能移除账本所有者');
     }
 
     // 管理员不能移除其他管理员（只有所有者可以）
     if (
-      currentMember.role === LedgerRole.ADMIN &&
-      targetMember.role === LedgerRole.ADMIN
+      currentMember.role === MemberRole.ADMIN &&
+      targetMember.role === MemberRole.ADMIN
     ) {
       throw new ForbiddenException('管理员不能移除其他管理员');
     }
@@ -379,14 +360,11 @@ export class LedgersService {
 
   async remove(ledgerId: string, userId: string) {
     // 检查用户权限（只有所有者可以删除账本）
-    await this.checkLedgerAccess(ledgerId, userId, [LedgerRole.OWNER]);
+    await this.checkLedgerAccess(ledgerId, userId, [MemberRole.OWNER]);
 
-    await this.prisma.ledger.update({
+    await this.prisma.ledger.delete({
       where: {
         id: ledgerId,
-      },
-      data: {
-        deletedAt: new Date(),
       },
     });
 
@@ -411,7 +389,6 @@ export class LedgersService {
 
     const where = {
       ledgerId,
-      deletedAt: null,
       ...(Object.keys(dateFilter).length > 0 && { date: dateFilter }),
     };
 
@@ -445,15 +422,13 @@ export class LedgersService {
   private async checkLedgerAccess(
     ledgerId: string,
     userId: string,
-    requiredRoles?: LedgerRole[],
+    requiredRoles?: MemberRole[],
   ) {
     const member = await this.prisma.ledgerMember.findFirst({
       where: {
         ledgerId,
         userId,
-        ledger: {
-          deletedAt: null,
-        },
+
       },
     });
 
@@ -468,7 +443,7 @@ export class LedgersService {
     return member;
   }
 
-  private async createDefaultAccounts(tx: any, ledgerId: string) {
+  private async createDefaultAccounts(tx: any, ledgerId: string, userId: string) {
     const defaultAccounts = [
       {
         name: '现金',
@@ -505,6 +480,7 @@ export class LedgersService {
         data: {
           ...account,
           ledgerId,
+          userId,
         },
       });
     }

@@ -2,6 +2,9 @@ import { User, UserStatus } from '@prisma/client';
 import { Exclude } from 'class-transformer';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 
+// 重新导出 User 类型
+export { User } from '@prisma/client';
+
 export class UserEntity implements User {
   @ApiProperty({
     description: '用户唯一标识符',

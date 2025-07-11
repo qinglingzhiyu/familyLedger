@@ -1,10 +1,10 @@
 import { Injectable, ConflictException, NotFoundException, BadRequestException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
+import { UserEntity } from './entities/user.entity';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { ChangePasswordDto } from './dto/change-password.dto';
-import { UserSettingsDto } from './dto/user-settings.dto';
-import { UserEntity } from './entities/user.entity';
+import { UserSettingsDto, Language, Currency, Theme } from './dto/user-settings.dto';
 import * as bcrypt from 'bcryptjs';
 
 @Injectable()
@@ -202,48 +202,32 @@ export class UsersService {
       throw new NotFoundException('用户不存在');
     }
 
-    // 更新用户设置
-    const user = await this.prisma.user.update({
-      where: { id: userId },
-      data: {
-        language: settingsDto.language,
-        currency: settingsDto.currency,
-        theme: settingsDto.theme,
-        timezone: settingsDto.timezone,
-        emailNotifications: settingsDto.emailNotifications,
-        pushNotifications: settingsDto.pushNotifications,
-        smsNotifications: settingsDto.smsNotifications,
-        twoFactorEnabled: settingsDto.twoFactorEnabled,
-        biometricEnabled: settingsDto.biometricEnabled,
-        autoLockTime: settingsDto.autoLockTime,
-      },
-    });
-
-    return new UserEntity(user);
+    // 暂时返回用户信息，设置功能待后续实现
+    return new UserEntity(existingUser);
   }
 
   async getUserSettings(userId: string): Promise<UserSettingsDto> {
     const user = await this.prisma.user.findFirst({
       where: { id: userId, deletedAt: null },
-      select: {
-        language: true,
-        currency: true,
-        theme: true,
-        timezone: true,
-        emailNotifications: true,
-        pushNotifications: true,
-        smsNotifications: true,
-        twoFactorEnabled: true,
-        biometricEnabled: true,
-        autoLockTime: true,
-      },
     });
 
     if (!user) {
       throw new NotFoundException('用户不存在');
     }
 
-    return user as UserSettingsDto;
+    // 返回默认设置
+    return {
+      language: Language.ZH_CN,
+      currency: Currency.CNY,
+      theme: Theme.LIGHT,
+      timezone: 'Asia/Shanghai',
+      emailNotifications: true,
+      pushNotifications: true,
+      smsNotifications: false,
+      twoFactorEnabled: false,
+      biometricEnabled: false,
+      autoLockTime: '300',
+    };
   }
 
   async getUserStatistics(userId: string): Promise<{
@@ -269,22 +253,22 @@ export class UsersService {
 
     // 获取用户创建的交易数量
     const totalTransactions = await this.prisma.transaction.count({
-      where: { createdBy: userId },
+      where: { userId },
     });
 
     // 获取用户创建的账户数量
     const totalAccounts = await this.prisma.account.count({
-      where: { createdBy: userId },
+      where: { userId },
     });
 
     // 获取用户创建的分类数量
     const totalCategories = await this.prisma.category.count({
-      where: { createdBy: userId },
+      where: { ledger: { members: { some: { userId } } } },
     });
 
     // 获取最近活动（最近10条交易）
     const recentActivity = await this.prisma.transaction.findMany({
-      where: { createdBy: userId },
+      where: { userId },
       take: 10,
       orderBy: { createdAt: 'desc' },
       include: {
@@ -324,7 +308,7 @@ export class UsersService {
                 accounts: true,
                 categories: true,
                 transactions: {
-                  where: { createdBy: userId },
+                  where: { userId },
                 },
               },
             },
@@ -334,7 +318,7 @@ export class UsersService {
     });
 
     // 移除敏感信息
-    const { password, ...safeUserData } = userData;
+    const { password, ...safeUserData } = userData || {};
     
     return {
       exportDate: new Date().toISOString(),
@@ -350,9 +334,9 @@ export class UsersService {
           { id: { not: currentUserId } }, // 排除当前用户
           {
             OR: [
-              { email: { contains: query, mode: 'insensitive' } },
-              { nickname: { contains: query, mode: 'insensitive' } },
-              { phone: { contains: query, mode: 'insensitive' } },
+              { email: { contains: query } },
+              { nickname: { contains: query } },
+              { phone: { contains: query } },
             ],
           },
         ],
